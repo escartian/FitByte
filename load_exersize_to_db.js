@@ -58,8 +58,8 @@ export const connectAndLoadData = async () => {
       loadJSONFiles(subfolderPath, collection);
     });
 
-    // Return the client
-    return client;
+    // Return the collection
+    return collection;
   } catch (err) {
     console.error(err);
   }

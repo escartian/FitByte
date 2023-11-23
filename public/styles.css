@@ -1,0 +1,37 @@
+
+body {
+    background-color: LightYellow;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+  }
+  h1 {
+    /* The font-family property sets the font family of the element */
+    font-family: Arial, sans-serif;
+    /* The font-size property sets the font size of the element */
+    font-size: 32px;
+    /* The font-weight property sets the font weight of the element */
+    font-weight: bold;
+    /* The color property sets the text color of the element */
+    color: blue;
+    /* The text-align property sets the horizontal alignment of the text */
+    text-align: center;
+}
+  h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  ol {
+    background-color: PaleGoldenRod;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  ol li {
+    margin: 10px 0;
+  }
+
+/* This ruleset selects all links that are visited and sets their color to purple and their text decoration to none */
+a:visited {
+    color: purple;
+    text-decoration: none;
+  }
