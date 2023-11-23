@@ -36,7 +36,9 @@ const loadJSONFiles = async (subfolderPath, collection) => {
       console.log(`A document with the name ${jsonData.name} already exists`);
     }
   }
-};export const connectAndLoadData = async () => {
+};
+
+export const connectAndLoadData = async () => {
   try {
     const url = 'mongodb://localhost:27017'; // replace with your MongoDB connection string
     const dbName = 'FitByte'; // replace with your database name
@@ -56,10 +58,9 @@ const loadJSONFiles = async (subfolderPath, collection) => {
       loadJSONFiles(subfolderPath, collection);
     });
 
-    // client.close();
+    // Return the client
+    return client;
   } catch (err) {
     console.error(err);
   }
 };
-
-connectAndLoadData();
