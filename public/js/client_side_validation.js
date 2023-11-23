@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         errorElements.forEach((element) => {
             element.textContent = '';
         });
-    
+
         // Display new error messages
         for (const field in errors) {
             const errorElement = document.getElementById(`${field}Error`);
@@ -113,13 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
 
             const inputs = getFormInputs(this);
-            console.log('inputs:', inputs); 
-        
+            console.log('inputs:', inputs);
+
             const errors = validateFormInputs(inputs, 'registration');
-            console.log('errors:', errors);  
-        
+            console.log('errors:', errors);
+
             displayErrors(errors);
-        
+
             if (Object.keys(errors).length === 0) {
                 this.submit();
             }

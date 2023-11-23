@@ -1,0 +1,8 @@
+
+
+<h1>Welcome {{firstName}} {{lastName}}, the time is now: {{currentTime}}. Your role in the system is: {{role}}.</h1>
+
+{{#if (eq role 'admin')}}
+  <a href="/admin">Go to admin page</a>
+{{/if}}
+<a href="/logout">Logout</a>

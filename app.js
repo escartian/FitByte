@@ -1,6 +1,7 @@
 import { engine } from 'express-handlebars';
 import express from 'express';
 import { connectAndLoadData } from './load_exersize_to_db.js';
+import { requireAuth, requireAdmin} from './middleware.js';
 import session from 'express-session';
 import fs from 'fs';
 
@@ -133,4 +134,109 @@ app.get('/exercises/:exercise/images/:image', (req, res) => {
       res.end(data);
     }
   });
+});
+
+// Login page route
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+app.post('/login', async (req, res) => {
+  const { emailAddressInput, passwordInput } = req.body;
+
+  // Validate the input fields
+  if (!emailAddressInput || !passwordInput) {
+      return res.status(400).send('Missing required fields');
+  }
+
+  // Retrieve the user from the database
+  const userCollection = await posts();
+  const user = await userCollection.findOne({ emailAddress: emailAddressInput });
+
+  // If the user does not exist, render the login form again with an error message
+  if (!user) {
+      return res.render('login', { error: 'Invalid email or password' });
+  }
+
+  // Compare the provided password with the stored password
+  const isPasswordCorrect = await bcrypt.compare(passwordInput, user.password);
+
+  // If the password is incorrect, render the login form again with an error message
+  if (!isPasswordCorrect) {
+      return res.render('login', { error: 'Invalid email or password' });
+  }
+
+  // If the email and password are correct, create a session for the user
+  req.session.user = {
+      _id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role
+  };
+
+  // Redirect to the appropriate page based on the user's role
+  console.log("User role is" , user.role);
+  if (user.role === 'admin') {
+      return res.redirect('/admin');
+  } else {
+      return res.redirect('/protected');
+  }
+});
+app.post('/register', async (req, res) => {
+  const { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, roleInput } = req.body;
+
+  // Validate the input fields
+  if (!firstNameInput || !lastNameInput || !emailAddressInput || !passwordInput || !confirmPasswordInput || !roleInput) {
+      return res.status(400).send('Missing required fields');
+  }
+
+  // Call the registerUser db function
+  const result = await registerUser(firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, roleInput);
+  
+  console.log('registerUser result:', result);
+
+  // Handle the response from the db function
+  if (result.insertedUser) {
+      console.log('Redirecting to /login');
+      return res.redirect('/login');
+  } else {
+      return res.status(500).render('error', { error: 'Error registering user' });
+  }
+});
+app.get('/admin', requireAuth, requireAdmin, (req, res) => {
+  res.render('admin');
+});
+
+app.get('/error', (req, res) => {
+  res.render('error');
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/login');
+});
+
+app.get('/protected', async (req, res) => {
+  if (req.session.user) {
+      // Get the user's email from the session
+      const userEmail = req.session.user.emailAddress;
+
+      // Query the database for the user
+      const userCollection = await posts();
+      const user = await userCollection.findOne({ emailAddress: userEmail });
+      console.log("User is ,", user);
+
+      // Render the view with the user's details
+      res.render('protected', {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          currentTime: new Date().toLocaleTimeString(),
+          role: user.role
+      });
+  } else {
+      res.redirect('/login');
+  }
+});
+
+app.get('/register', (req, res) => {
+  res.render('register');
 });
