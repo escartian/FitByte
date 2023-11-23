@@ -1,0 +1,37 @@
+{{!--
+
+registration handelbars
+
+--}}
+<h1>Register</h1>
+<form id="registration-form" class="registration-form" method="post">
+    <label for="firstNameInput">First Name</label>
+    <input type="text" id="firstNameInput" name="firstNameInput">
+    <div id="firstNameError" class="error-message"></div>
+
+    <label for="lastNameInput">Last Name</label>
+    <input type="text" id="lastNameInput" name="lastNameInput">
+    <div id="lastNameError" class="error-message"></div>
+
+    <label for="emailAddressInput">Email Address</label>
+    <input type="email" id="emailAddressInput" name="emailAddressInput">
+    <div id="emailAddressError" class="error-message"></div>
+
+    <label for="passwordInput">Password</label>
+    <input type="password" id="passwordInput" name="passwordInput">
+    <div id="passwordError" class="error-message"></div>
+
+    <label for="confirmPasswordInput">Confirm Password</label>
+    <input type="password" id="confirmPasswordInput" name="confirmPasswordInput">
+    <div id="confirmPasswordError" class="error-message"></div>
+
+    <label for="roleInput">Role</label>
+    <select id="roleInput" name="roleInput">
+        <option value="admin">admin</option>
+        <option value="user">user</option>
+    </select>
+    <div id="roleError" class="error-message"></div>
+
+    <input type="submit" value="Register">
+</form>
+<p><a href="/login">Already have an account? Click here to log-in</a></p>

@@ -12,7 +12,8 @@ const loadJSONFiles = async (subfolderPath, collection) => {
   const jsonFiles = fs.readdirSync(subfolderPath)
     .filter(file => file.endsWith('.json'));
 
-  for (const jsonFile of jsonFiles) {
+  for (let i = 0; i < jsonFiles.length; i++) {
+    const jsonFile = jsonFiles[i];
     const filePath = `${subfolderPath}/${jsonFile}`;
     const rawData = fs.readFileSync(filePath);
     const jsonData = JSON.parse(rawData);
@@ -23,21 +24,23 @@ const loadJSONFiles = async (subfolderPath, collection) => {
     // Check if a document with the same name already exists
     const existingDocument = await collection.findOne({ name: jsonData.name });
 
-    if (!existingDocument) {
-      // If the document does not exist, insert it
-      collection.insertOne(jsonData)
-        .then(result => {
-          console.log(`Inserted document with _id: ${result.insertedId}`);
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    } else {
-      console.log(`A document with the name ${jsonData.name} already exists`);
+    if (existingDocument) {
+      console.log("Existing database object found. Skipping insertions.");
+      //console.log(`A document with the name ${jsonData.name} already exists`);
+      return true;
+    }
+
+    // If the document does not exist, insert it
+    try {
+      const result = await collection.insertOne(jsonData);
+      console.log(`Inserted document with _id: ${result.insertedId}`);
+    } catch (err) {
+      console.error(err);
     }
   }
-};
 
+  return false;
+};
 export const connectAndLoadData = async () => {
   try {
     const url = 'mongodb://localhost:27017'; // replace with your MongoDB connection string
@@ -53,10 +56,13 @@ export const connectAndLoadData = async () => {
 
     const subfolders = getSubfolders(parentDirectory);
 
-    subfolders.forEach(subfolder => {
+    for (const subfolder of subfolders) {
       const subfolderPath = `${parentDirectory}/${subfolder}`;
-      loadJSONFiles(subfolderPath, collection);
-    });
+      const duplicateFound = await loadJSONFiles(subfolderPath, collection);
+      if (duplicateFound) {
+        break;
+      }
+    }
 
     // Return the collection
     return collection;

@@ -1,8 +1,7 @@
 import { engine } from 'express-handlebars';
 import express from 'express';
-import { MongoClient } from 'mongodb';
 import { connectAndLoadData } from './load_exersize_to_db.js';
-import { ObjectId } from 'mongodb';
+import session from 'express-session';
 import fs from 'fs';
 
 import { fileURLToPath } from 'url';
@@ -23,6 +22,21 @@ app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 // Serve static files from the exercises directory
 app.use('/exercises', express.static(path.join(__dirname, 'exercises')));
+app.use((req, res, next) => {
+    // Get the current timestamp in milliseconds
+    const timestamp = Date.now();
+    // Convert the timestamp to a date and time string
+    const datetime = new Date(timestamp).toLocaleString();
+    // Print the request method, URL, and timestamp
+    console.log(`Received ${req.method} request to ${req.originalUrl} at ${datetime}`);
+    next();
+  });
+  app.use(session({
+    name: 'AuthState',
+    secret: 'some secret string!',
+    resave: false,
+    saveUninitialized: false
+ }));
 // Wait for the database connection to be established before starting the server
 connectAndLoadData().then((col) => {
     collection = col;
@@ -32,9 +46,10 @@ connectAndLoadData().then((col) => {
     });
   });
 
-app.get('/', (req, res) => {
-    res.send('Hello, world!');
+  app.get('/', (req, res) => {
+    res.render('layouts/main');
 });
+
 app.get('/exercises', async (req, res) => {
     // Get query parameters from the URL
     const search = req.query.search || '';
