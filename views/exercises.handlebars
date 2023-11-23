@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Exercises</title>
+    <title>Exercises</title>
 </head>
+
 <body>
-  <h1>Exercises</h1>
-  <ul>
-    {{#each exercises}}
-      <li>
-        <h2>{{this.name}}</h2>
-        <img src="{{this.imagePaths.[0]}}" alt="{{this.name}} image 1">
-        <img src="{{this.imagePaths.[1]}}" alt="{{this.name}} image 2">
-      </li>
-    {{/each}}
-  </ul>
+    <h1>Exercises</h1>
+    <ul>
+        {{#each exercises}}
+        <li>
+            <h2>{{this.name}}</h2>
+
+            <p>Force: {{force}}</p>
+            <p>Level: {{level}}</p>
+            <p>Mechanic: {{mechanic}}</p>
+            <p>Equipment: {{equipment}}</p>
+            <p>Primary Muscles: {{primaryMuscles}}</p>
+            <p>Secondary Muscles: {{secondaryMuscles}}</p>
+            <p>Instructions: {{instructions}}</p>
+            <p>Category: {{category}}</p>
+        </li>
+        {{/each}}
+    </ul>
 </body>
+
 </html>

@@ -3,6 +3,7 @@ import express from 'express';
 import { MongoClient } from 'mongodb';
 import { connectAndLoadData } from './load_exersize_to_db.js';
 import { ObjectId } from 'mongodb';
+import fs from 'fs';
 
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -39,17 +40,25 @@ app.get('/exercises', async (req, res) => {
     const exercises = await collection.find().toArray();
     res.render('exercises', { exercises: exercises });
 });
-/*
-  app.get('/exercises/:name', async (req, res) => {
-    const exerciseName = req.params.name;
-    console.log(`Fetching exercise with name: ${exerciseName}`);
-    const exercise = await collection.findOne({ name: { $regex: new RegExp(`^${exerciseName}$`, 'i') } });
-    console.log(`Found exercise: ${JSON.stringify(exercise)}`);
-    res.json(exercise);
-  });
-*/
+
   app.get('/exercises/:name', async (req, res) => {
     const exerciseName = req.params.name;
     const exercise = await collection.findOne({ name: { $regex: new RegExp(`^${exerciseName}$`, 'i') } });
     res.render('exercise', exercise);
   });
+
+//the following generally does not need to be used, but can be useful
+app.get('/exercises/:exercise/images/:image', (req, res) => {
+  const exercise = req.params.exercise;
+  const image = req.params.image;
+  const imagePath = path.join(__dirname, 'exercises', exercise, 'images', `${image}.jpg`);
+  
+  fs.readFile(imagePath, (err, data) => {
+    if (err) {
+      res.status(404).send('Not found');
+    } else {
+      res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+      res.end(data);
+    }
+  });
+});
