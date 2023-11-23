@@ -1,9 +1,4 @@
-
-body {
-    background-color: LightYellow;
-    font-family: "Comic Sans MS", cursive, sans-serif;
-  }
-  h1 {
+h1 {
     /* The font-family property sets the font family of the element */
     font-family: Arial, sans-serif;
     /* The font-size property sets the font size of the element */
@@ -15,23 +10,60 @@ body {
     /* The text-align property sets the horizontal alignment of the text */
     text-align: center;
 }
-  h2 {
+
+h2 {
     font-size: 1.5em;
     font-weight: bold;
-  }
+}
 
-  ol {
+ol {
     background-color: PaleGoldenRod;
     padding: 10px;
     border-radius: 10px;
-  }
-  
-  ol li {
+}
+
+ol li {
     margin: 10px 0;
-  }
+}
 
 /* This ruleset selects all links that are visited and sets their color to purple and their text decoration to none */
 a:visited {
     color: purple;
     text-decoration: none;
-  }
+}
+
+body {
+    background-color: LightYellow;
+
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+input[type="submit"] {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}

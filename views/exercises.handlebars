@@ -8,6 +8,81 @@
 <body>
     <h1>Exercises</h1>
     <ul>
+        <form action="/exercises" method="get">
+            <label for="search">Search:</label>
+            <input type="text" id="search" name="search">
+
+            <label for="sort">Sort by:</label>
+            <select id="sort" name="sort">
+                <option value="name">Name</option>
+                <option value="level">Level</option>
+                <!-- Add more options as needed -->
+            </select>
+            <label for="sortOrder">Sort order:</label>
+                <select id="sortOrder" name="sortOrder">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+            <h3>Filter by:</h3>
+            <label for="level">Level:</label>
+            <select id="level" name="level">
+                <option value="">All</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="expert">Expert</option>
+            </select>
+            <label for="force">Force:</label>
+            <select id="force" name="force">
+                <option value="">All</option>
+                <option value="pull">Pull</option>
+                <option value="push">Push</option>
+                <option value="static">Static</option>
+            </select>
+
+            <label for="mechanic">Mechanic:</label>
+            <select id="mechanic" name="mechanic">
+                <option value="">All</option>
+                <option value="compound">Compound</option>
+                <option value="isolation">Isolation</option>
+            </select>
+            <label for="equipment">Equipment:</label>
+            <select id="equipment" name="equipment">
+                <option value="">All</option>
+                <option value="body">Body only</option>
+                <option value="machine">Machine</option>
+                <option value="kettlebells">Kettlebells</option>
+                <option value="dumbbell">Dumbbell</option>
+                <option value="cable">Cable</option>
+                <option value="barbell">Barbell</option>
+                <option value="bands">Bands</option>
+                <option value="medicine_ball">Medicine ball</option>
+                <option value="exercise_ball">Exercise ball</option>
+                <option value="e_z_curl_bar">E-Z curl bar</option>
+                <option value="foam_roll">Foam roll</option>
+            </select>
+
+            <label for="category">Category:</label>
+            <select id="category" name="category">
+                <option value="">All</option>
+                <option value="strength">Strength</option>
+                <option value="stretching">Stretching</option>
+                <option value="plyometrics">Plyometrics</option>
+                <option value="strongman">Strongman</option>
+                <option value="powerlifting">Powerlifting</option>
+                <option value="cardio">Cardio</option>
+                <option value="olympic_weightlifting">Olympic weightlifting</option>
+                <option value="crossfit">Crossfit</option>
+                <option value="weighted_bodyweight">Weighted bodyweight</option>
+                <option value="assisted_bodyweight">Assisted bodyweight</option>
+            </select>
+            <!--
+                Text filtering is too complex, so created forms to filter. 
+                TODO: change to buttons and allow multiple of one type of filter?
+            <label for="filter">Filter:</label>
+            <input type="text" id="filter" name="filter">
+            -->
+            <input type="submit" value="Submit">
+        </form>
         {{#each exercises}}
         <li>
             <h2>{{this.name}}</h2>

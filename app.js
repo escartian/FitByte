@@ -35,11 +35,68 @@ connectAndLoadData().then((col) => {
 app.get('/', (req, res) => {
     res.send('Hello, world!');
 });
-
 app.get('/exercises', async (req, res) => {
-    const exercises = await collection.find().toArray();
-    res.render('exercises', { exercises: exercises });
-});
+    // Get query parameters from the URL
+    const search = req.query.search || '';
+    const sort = req.query.sort || 'name';
+    const sortOrder = req.query.sortOrder || 'asc';
+    const level = req.query.level;
+    const force = req.query.force;
+    const mechanic = req.query.mechanic;
+    const equipment = req.query.equipment;
+    const category = req.query.category;
+  
+    // Create filter object
+    const filter = {};
+    if (level) {
+      filter.level = level;
+    }
+    if (force) {
+      filter.force = force;
+    }
+    if (mechanic) {
+      filter.mechanic = mechanic;
+    }
+    if (equipment) {
+      filter.equipment = equipment;
+    }
+    if (category) {
+      filter.category = category;
+    }
+  
+    // Find exercises that match the search query
+    const exercises = await collection.find({
+      name: { $regex: new RegExp(search, 'i') }
+    }).toArray();
+  
+    // Sort exercises
+    exercises.sort((a, b) => {
+      if (sort === 'level') {
+        const levelOrder = { beginner: 1, intermediate: 2, expert: 3 };
+        return sortOrder === 'asc' ? levelOrder[a.level] - levelOrder[b.level] : levelOrder[b.level] - levelOrder[a.level];
+      } else {
+        if (a[sort] > b[sort]) {
+          return sortOrder === 'asc' ? 1 : -1;
+        } else if (a[sort] < b[sort]) {
+          return sortOrder === 'asc' ? -1 : 1;
+        } else {
+          return 0;
+        }
+      }
+    });
+  
+    // Filter exercises
+    const filteredExercises = exercises.filter(exercise => {
+      for (let key in filter) {
+        if (exercise[key] !== filter[key]) {
+          return false;
+        }
+      }
+      return true;
+    });
+  
+    res.render('exercises', { exercises: filteredExercises });
+  });
 
   app.get('/exercises/:name', async (req, res) => {
     const exerciseName = req.params.name;
