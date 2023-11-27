@@ -7,8 +7,8 @@ let _db = undefined;
 const dbConnection = async () => {
   if (!_connection) {
     _connection = await MongoClient.connect(mongoConfig.serverUrl,{
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+      //useNewUrlParser: true,
+      //useUnifiedTopology: true,
     });
     _db = _connection.db(mongoConfig.database);
   }

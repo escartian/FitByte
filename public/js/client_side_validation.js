@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 emailAddress: form.elements.emailAddressInput.value,
                 password: form.elements.passwordInput.value,
                 confirmPassword: form.elements.confirmPasswordInput.value,
-                role: form.elements.roleInput.value,
+                //role: form.elements.roleInput.value,
             };
         }
     }
@@ -63,10 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (inputs.confirmPassword !== inputs.password) {
                 errors.confirmPassword = errorMessages.registration.confirmPassword;
             }
-
+            /*
             if (typeof inputs.role !== 'string' || (inputs.role !== 'admin' && inputs.role !== 'user')) {
                 errors.role = errorMessages.registration.role;
             }
+            */
         }
 
         return errors;
