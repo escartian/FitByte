@@ -1,4 +1,4 @@
-import { engine } from 'express-handlebars';
+import { engine , create} from 'express-handlebars';
 import express from 'express';
 import { connectAndLoadData } from './load_exersize_to_db.js';
 import { requireAuth, requireAdmin} from './middleware.js';
@@ -18,7 +18,18 @@ const port = 3000;
 app.use(express.json());
 let collection;
 
-app.engine('handlebars', engine());
+const hbs = create({
+  helpers: {
+    encodeURI: function(str) {
+      console.log("Encoding URI from exersize name");
+      const encodedStr = encodeURI(str);
+      const replacedStr = encodedStr.split('/').join('%2F');
+      return replacedStr;
+    }
+  }
+});
+
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 // Serve static files from the exercises directory

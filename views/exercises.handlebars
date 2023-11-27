@@ -85,8 +85,7 @@
         </form>
         {{#each exercises}}
         <li>
-            <h2>{{this.name}}</h2>
-
+            <h2><a href="/exercises/{{encodeURI this.name}}">{{this.name}}</a></h2>
             <p>Force: {{force}}</p>
             <p>Level: {{level}}</p>
             <p>Mechanic: {{mechanic}}</p>
