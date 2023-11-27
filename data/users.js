@@ -7,7 +7,7 @@ export const registerUser = async (
   lastName,
   emailAddress,
   password,
-  role
+ // role -dont need role. 
 ) => {
 
 if(!firstName || typeof firstName !== 'string' || firstName.trim().length === 0 || firstName.length < 2 || firstName.length > 25){
@@ -26,9 +26,9 @@ if (!password || typeof password !== 'string' || password.length < 8) {
   throw new Error('Invalid password');
 }
 validatePassword(password);
-if(!role || typeof role !=='string'|| (role !== 'admin' && role !== 'user')){
-  throw new Error('Invalid role');
-}
+//if(!role || typeof role !=='string'|| (role !== 'admin' && role !== 'user')){
+//  throw new Error('Invalid role');
+//}
 
 firstName = firstName.trim();
 lastName = lastName.trim();
@@ -42,7 +42,7 @@ const newUser = {
   lastName: lastName,
   emailAddress: emailAddress,
   password: newPass,
-  role: role
+ // role: role
 };
 const userCollection = await users();
 const insertInfo = await userCollection.insertOne(newUser);
