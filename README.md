@@ -6,7 +6,7 @@ FitByte is a fitness application built with Node.js, Express.js, MongoDB, and Ha
 CORE FEATURES
 1. Application has a list of default exercises, with the photos included. - DONE
 2. Users have the ability to custom create workouts for an individual day, and then update the workout as they are completed (i.e. enter the sets and reps done for each exercise) - NOT STARTED
-3. Users can also create workout templates, which they should be able to re-use and apply to multiple days - NOT STARTED
+3. Users can also create workout templates, which they should be able to re-use and apply to multiple days - IN PROGRESS
 4. Default exercises can be filtered by muscle group, category, etc. - DONE
 5. User profiles, and a user profile page where users can view their workout history and track their progress - IN PROGRESS
 ## EXTRA FEATURES
