@@ -16,7 +16,7 @@ CORE FEATURES
 ## Installation
 Via command line interface using git bash:
 1. Clone the repository:
-bash git clone https://github.com/yourusername/fitbyte.git
+bash git clone [https://github.com/escartian/fitbyte.git](https://github.com/escartian/FitByte)
 
 2. Change to the repository directory 
 bash cd fitbyte 
