@@ -10,6 +10,8 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import * as enums from './data/enums.js';
 import { excersizes as exercizesCollection } from './config/mongoCollections.js';
+import { workouts as workoutsCollection } from './config/mongoCollections.js';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,7 +31,11 @@ const hbs = create({
       const encodedStr = encodeURI(str);
       const replacedStr = encodedStr.split('/').join('%2F');
       return replacedStr;
+    },
+    json: function (context) {
+      return JSON.stringify(context);
     }
+
   }
 });
 
@@ -288,4 +294,43 @@ app.post('/create_exercise', async (req, res) => {
 
   // Send a response
   res.send('Exercise created successfully');
+});
+
+app.post('/create_workout', async (req, res) => {
+  // Access the data from the form submission
+  const { exerciseName, category, muscleGroups, sets, reps, weight, weightUnit } = req.body;
+
+  // Get the 'workouts' collection
+  const workouts = await workoutsCollection();
+
+  // Create a new workout document
+  const newWorkout = {
+    exerciseName,
+    category,
+    muscleGroups: Array.isArray(muscleGroups) ? muscleGroups.map(group => group.trim()) : [muscleGroups], // Ensure muscleGroups is an array
+    sets: parseInt(sets),
+    reps: parseInt(reps),
+    weight,
+    weightUnit,
+    date: new Date() // Set the current date and time
+  };
+
+  // If a user is in the session, set the user ID from the session
+  if (req.session.user) {
+    newWorkout.userId = req.session.user._id;
+  }
+
+  // Insert the new workout into the 'workouts' collection
+  const insertInfo = await workouts.insertOne(newWorkout);
+  if (insertInfo.insertedCount === 0) throw 'Could not add workout';
+
+  // Send a response
+  res.send('Workout created successfully');
+});
+
+app.get('/create_workout', async (req, res) => {
+  const exercizes = await exercizesCollection();
+  const allExercizes = await exercizes.find({}).toArray();
+  const enumsCopy = JSON.parse(JSON.stringify(enums));
+  res.render('create_workout', { allExercizes, ...enumsCopy });
 });

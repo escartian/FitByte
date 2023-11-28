@@ -1,0 +1,92 @@
+<h1>Create Workout</h1>
+
+<form action="/create_workout" method="POST">
+  <label for="exerciseName">Exercise Name:</label>
+  <select id="exerciseName" name="exerciseName" required>
+    {{#each allExercizes}}
+    <option value="{{this.name}}">{{this.name}}</option>
+    {{/each}}
+  </select>
+
+  <label for="category">Category:</label>
+  <select id="category" name="category" required>
+    {{#each Category}}
+    <option value="{{this}}">{{this}}</option>
+    {{/each}}
+  </select>
+
+  <label for="muscleGroups">Muscle Groups:</label>
+  <select id="muscleGroups" name="muscleGroups" required multiple>
+    {{#each Muscle}}
+    <option value="{{this}}">{{this}}</option>
+    {{/each}}
+  </select>
+
+  <label for="sets">Sets:</label>
+  <input type="number" id="sets" name="sets" required>
+
+  <label for="reps">Reps:</label>
+  <input type="number" id="reps" name="reps" required>
+
+<label>Weight:</label>
+<input type="number" id="weight" name="weight" required>
+
+<label for="weightUnitLbs">LB</label>
+<input type="radio" id="weightUnitLbs" name="weightUnit" value="LB" checked>
+
+<label for="weightUnitKg">KG</label>
+<input type="radio" id="weightUnitKg" name="weightUnit" value="KG">
+
+  <button type="button" id="addExercise">Add Exercise</button>
+
+  <button type="submit" class="btn btn-primary">Create Workout</button>
+</form>
+<!-- Display the current workout -->
+<h2>Current Workout:</h2>
+<ul id="currentWorkout"></ul>
+<script>
+  // Get the 'Add Exercise' button, the exercise name dropdown, and the current workout list
+  const addExerciseButton = document.getElementById('addExercise');
+  const exerciseNameDropdown = document.getElementById('exerciseName');
+  const currentWorkoutList = document.getElementById('currentWorkout');
+
+  // Initialize an array to store the exercises in the current workout
+  let currentWorkout = [];
+
+  // Function to update the display of the current workout
+  function updateCurrentWorkoutDisplay() {
+    // Clear the current workout list
+    currentWorkoutList.innerHTML = '';
+
+    // Add a list item for each exercise in the current workout
+    for (let i = 0; i < currentWorkout.length; i++) {
+      const listItem = document.createElement('li');
+      listItem.textContent = currentWorkout[i] + ' ';
+
+      // Add a 'Remove' button to the list item
+      const removeButton = document.createElement('button');
+      removeButton.textContent = 'Remove';
+      removeButton.className = 'btn btn-danger'; // Bootstrap class for a red button
+      removeButton.addEventListener('click', function() {
+        // Remove the corresponding exercise from the current workout
+        currentWorkout.splice(i, 1);
+
+        // Update the display of the current workout
+        updateCurrentWorkoutDisplay();
+      });
+      listItem.appendChild(removeButton);
+
+      currentWorkoutList.appendChild(listItem);
+    }
+  }
+
+  // Listen for the 'click' event on the 'Add Exercise' button
+  addExerciseButton.addEventListener('click', function() {
+    // Add the currently selected exercise to the current workout
+    const selectedExercise = exerciseNameDropdown.value;
+    currentWorkout.push(selectedExercise);
+
+    // Update the display of the current workout
+    updateCurrentWorkoutDisplay();
+  });
+</script>
