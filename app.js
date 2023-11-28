@@ -8,6 +8,8 @@ import fs from 'fs';
 import bcrypt from 'bcrypt';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import * as enums from './data/enums.js';
+import { excersizes as exercizesCollection } from './config/mongoCollections.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -256,4 +258,34 @@ app.get('/protected', async (req, res) => {
 
 app.get('/register', (req, res) => {
   res.render('register');
+});
+
+app.get('/create_exercise', (req, res) => {
+  const enumsCopy = JSON.parse(JSON.stringify(enums));
+  res.render('create_exercise', enumsCopy);
+});
+
+app.post('/create_exercise', async (req, res) => {
+  // Access the data from the form submission
+  const { name, force, level, mechanic, equipment } = req.body;
+
+  // Get the 'exercizes' collection
+  const exercizes = await exercizesCollection();
+
+  // Create a new exercise document
+  const newExercise = {
+    name,
+    force,
+    level,
+    mechanic,
+    equipment
+  };
+
+  // Insert the new exercise into the 'exercizes' collection
+  const insertInfo = await exercizes.insertOne(newExercise);
+  if (insertInfo.insertedCount === 0) throw 'Could not add exercise';
+
+
+  // Send a response
+  res.send('Exercise created successfully');
 });

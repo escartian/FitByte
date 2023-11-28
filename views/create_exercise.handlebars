@@ -1,0 +1,38 @@
+<!-- views/create_exersize.handlebars -->
+
+<h1>Create Exersize</h1>
+
+<form action="/create_exercise" method="POST">
+  <label for="name">Exersize Name:</label>
+  <input type="text" id="name" name="name" required>
+
+  <label for="force">Force:</label>
+  <select id="force" name="force" required>
+    {{#each Force}}
+    <option value="{{this}}">{{this}}</option>
+    {{/each}}
+  </select>
+
+  <label for="level">Level:</label>
+  <select id="level" name="level" required>
+    {{#each Level}}
+    <option value="{{this}}">{{this}}</option>
+    {{/each}}
+  </select>
+
+  <label for="mechanic">Mechanic:</label>
+  <select id="mechanic" name="mechanic" required>
+    {{#each Mechanic}}
+    <option value="{{this}}">{{this}}</option>
+    {{/each}}
+  </select>
+
+  <label for="equipment">Equipment:</label>
+  <select id="equipment" name="equipment" required>
+    {{#each Equipment}}
+    <option value="{{this}}">{{this}}</option>
+    {{/each}}
+  </select>
+
+  <button type="submit" class="btn btn-primary">Create Exersize</button>
+</form>
