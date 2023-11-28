@@ -21,14 +21,13 @@
     <option value="{{this}}">{{this}}</option>
     {{/each}}
   </select>
+<label for="sets">Sets:</label>
+<input type="number" id="sets" name="sets" required>
 
-  <label for="sets">Sets:</label>
-  <input type="number" id="sets" name="sets" required>
+<label for="reps">Reps per Set:</label>
+<input type="number" id="reps" name="reps" required>
 
-  <label for="reps">Reps:</label>
-  <input type="number" id="reps" name="reps" required>
-
-<label>Weight:</label>
+<label>Weight per Set:</label>
 <input type="number" id="weight" name="weight" required>
 
 <label for="weightUnitLbs">LB</label>
@@ -45,9 +44,12 @@
 <h2>Current Workout:</h2>
 <ul id="currentWorkout"></ul>
 <script>
-  // Get the 'Add Exercise' button, the exercise name dropdown, and the current workout list
+  // Get the 'Add Exercise' button, the exercise name dropdown, the sets, reps, and weight fields, and the current workout list
   const addExerciseButton = document.getElementById('addExercise');
   const exerciseNameDropdown = document.getElementById('exerciseName');
+  const setsField = document.getElementById('sets');
+  const repsField = document.getElementById('reps');
+  const weightField = document.getElementById('weight');
   const currentWorkoutList = document.getElementById('currentWorkout');
 
   // Initialize an array to store the exercises in the current workout
@@ -61,7 +63,7 @@
     // Add a list item for each exercise in the current workout
     for (let i = 0; i < currentWorkout.length; i++) {
       const listItem = document.createElement('li');
-      listItem.textContent = currentWorkout[i] + ' ';
+      listItem.textContent = `${currentWorkout[i].name}: ${currentWorkout[i].sets} sets of ${currentWorkout[i].reps} reps at ${currentWorkout[i].weight} lbs`;
 
       // Add a 'Remove' button to the list item
       const removeButton = document.createElement('button');
@@ -83,7 +85,12 @@
   // Listen for the 'click' event on the 'Add Exercise' button
   addExerciseButton.addEventListener('click', function() {
     // Add the currently selected exercise to the current workout
-    const selectedExercise = exerciseNameDropdown.value;
+    const selectedExercise = {
+      name: exerciseNameDropdown.value,
+      sets: setsField.value,
+      reps: repsField.value,
+      weight: weightField.value
+    };
     currentWorkout.push(selectedExercise);
 
     // Update the display of the current workout

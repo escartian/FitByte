@@ -1,0 +1,22 @@
+<h1>Workout Templates</h1>
+
+<ul>
+  {{#each workouts}}
+  <li>
+    <h2>Workout</h2>
+    <p>Type: {{this.type}}</p>
+    <p>Weight Unit: {{this.weightUnit}}</p>
+    <h3>Exercises:</h3>
+    <ul>
+      {{#each this.exerciseName}}
+      <li>
+        <h4>{{this.name}}</h4>
+        <p>Sets: {{this.sets}}</p>
+        <p>Reps: {{this.reps}}</p>
+        <p>Weight: {{this.weight}}</p>
+      </li>
+      {{/each}}
+    </ul>
+  </li>
+  {{/each}}
+</ul>

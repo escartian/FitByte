@@ -55,7 +55,7 @@ input[type="submit"]:hover {
 }
 
 a:visited {
-    color: purple;
+    color: rgb(51, 255, 238);
     text-decoration: none;
 }
 

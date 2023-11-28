@@ -334,3 +334,9 @@ app.get('/create_workout', async (req, res) => {
   const enumsCopy = JSON.parse(JSON.stringify(enums));
   res.render('create_workout', { allExercizes, ...enumsCopy });
 });
+
+app.get('/view_workout_templates', async (req, res) => {
+  const workouts = await workoutsCollection();
+  const allWorkouts = await workouts.find({}).toArray();
+  res.render('view_workout_templates', { workouts: allWorkouts });
+});
