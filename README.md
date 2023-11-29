@@ -21,9 +21,11 @@ CORE FEATURES
 ## Installation
 Via command line interface using git bash:
 1. Clone the repository:
+
 git clone [https://github.com/escartian/fitbyte.git](https://github.com/escartian/FitByte)
 
-2. Change to the repository directory 
+2. Change to the repository directory:
+
 cd fitbyte 
 
 3. Install the dependencies:
@@ -32,6 +34,7 @@ Note: you need to have node.js installed to use npm. Node.js version used for th
 npm install
 
 4. Start the server:
+
 npm start
 
 The application will be running at `http://localhost:3000`.
