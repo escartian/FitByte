@@ -1,25 +1,4 @@
-body {
-    background-color: LightYellow;
-    font-family: Arial, sans-serif;
-}
 
-h1 {
-    font-family: Arial, sans-serif;
-    font-size: 32px;
-    font-weight: bold;
-    color: blue;
-    text-align: center;
-}
-
-h2 {
-    font-size: 1.5em;
-    font-weight: bold;
-}
-ol {
-    background-color: PaleGoldenRod;
-    padding: 10px;
-    border-radius: 10px;
-}
 form {
     background-color: rgb(176, 238, 231);
     padding: 2px;
@@ -52,11 +31,6 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #0056b3;
-}
-
-a:visited {
-    color: rgb(51, 255, 238);
-    text-decoration: none;
 }
 
 ol {
