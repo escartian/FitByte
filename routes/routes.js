@@ -11,7 +11,6 @@ const router = express.Router();
 router.get('/', (req, res) => {
     res.render('home');
 });
-
 router.get('/exercises', async (req, res) => {
     // Get query parameters from the URL
     const search = req.query.search || '';
@@ -24,54 +23,19 @@ router.get('/exercises', async (req, res) => {
     const category = req.query.category;
 
     // Create filter object
-    const filter = {};
-    if (level) {
-        filter.level = level;
-    }
-    if (force) {
-        filter.force = force;
-    }
-    if (mechanic) {
-        filter.mechanic = mechanic;
-    }
-    if (equipment) {
-        filter.equipment = equipment;
-    }
-    if (category) {
-        filter.category = category;
-    }
+    const filter = createFilter(level, force, mechanic, equipment, category);
 
     // Find exercises that match the search query
     const collection = await exercizesCollection();
-    const exercises = await collection.find({
+    let exercises = await collection.find({
         name: { $regex: new RegExp(search, 'i') }
     }).toArray();
 
     // Sort exercises
-    exercises.sort((a, b) => {
-        if (sort === 'level') {
-            const levelOrder = { beginner: 1, intermediate: 2, expert: 3 };
-            return sortOrder === 'asc' ? levelOrder[a.level] - levelOrder[b.level] : levelOrder[b.level] - levelOrder[a.level];
-        } else {
-            if (a[sort] > b[sort]) {
-                return sortOrder === 'asc' ? 1 : -1;
-            } else if (a[sort] < b[sort]) {
-                return sortOrder === 'asc' ? -1 : 1;
-            } else {
-                return 0;
-            }
-        }
-    });
+    exercises = sortExercises(exercises, sort, sortOrder);
 
     // Filter exercises
-    const filteredExercises = exercises.filter(exercise => {
-        for (let key in filter) {
-            if (exercise[key] !== filter[key]) {
-                return false;
-            }
-        }
-        return true;
-    });
+    const filteredExercises = filterExercises(exercises, filter);
 
     res.render('exercises', { exercises: filteredExercises });
 });
@@ -98,6 +62,14 @@ router.get('/exercises/:exercise/images/:image', (req, res) => {
             res.end(data);
         }
     });
+});
+
+router.get('/api/exercises/:name', async (req, res) => {
+    const exerciseName = req.params.name;
+
+    const collection = await exercizesCollection();
+    const exercise = await collection.findOne({ name: { $regex: new RegExp(`^${exerciseName}$`, 'i') } });
+    res.json(exercise);
 });
 
 // Login page route
@@ -286,5 +258,90 @@ router.get('/view_workout_templates', async (req, res) => {
     const allWorkouts = await workouts.find({}).toArray();
     res.render('view_workout_templates', { workouts: allWorkouts });
 });
+
+router.get('/workout', async (req, res) => {
+    const exercizes = await exercizesCollection();
+    const allExercizes = await exercizes.find({}).toArray();
+    const enumsCopy = JSON.parse(JSON.stringify(enums));
+    res.render('workout', { allExercizes, ...enumsCopy });
+});
+
+//helper functions
+
+/**
+ * Creates a filter object based on the provided parameters.
+ *
+ * @param {number} level - The level value for filtering. Optional.
+ * @param {boolean} force - The force value for filtering. Optional.
+ * @param {string} mechanic - The mechanic value for filtering. Optional.
+ * @param {string} equipment - The equipment value for filtering. Optional.
+ * @param {string} category - The category value for filtering. Optional.
+ * @return {object} - The filter object with the specified properties.
+ */
+const createFilter = (level, force, mechanic, equipment, category) => {
+    const filter = {};
+    if (level) {
+        filter.level = level;
+    }
+    if (force) {
+        filter.force = force;
+    }
+    if (mechanic) {
+        filter.mechanic = mechanic;
+    }
+    if (equipment) {
+        filter.equipment = equipment;
+    }
+    if (category) {
+        filter.category = category;
+    }
+    return filter;
+};
+
+/**
+ * Sorts the given exercises array based on the specified sort and sortOrder parameters.
+ *
+ * @param {Array} exercises - The array of exercises to be sorted.
+ * @param {string} sort - The property to sort the exercises by. Can be 'level'. Defaults to property name.
+ * @param {string} sortOrder - The order in which to sort the exercises. Can be 'asc' for ascending or 'desc' for descending.
+ * @return {Array} - The sorted array of exercises.
+ */
+const sortExercises = (exercises, sort, sortOrder) => {
+    exercises.sort((a, b) => {
+        if (sort === 'level') {
+            const levelOrder = { beginner: 1, intermediate: 2, expert: 3 };
+            return sortOrder === 'asc' ? levelOrder[a.level] - levelOrder[b.level] : levelOrder[b.level] - levelOrder[a.level];
+        } else {
+            if (a[sort] > b[sort]) {
+                return sortOrder === 'asc' ? 1 : -1;
+            } else if (a[sort] < b[sort]) {
+                return sortOrder === 'asc' ? -1 : 1;
+            } else {
+                return 0;
+            }
+        }
+    });
+    return exercises;
+};
+
+/**
+ * Filters an array of exercises based on a given filter object.
+ *
+ * @param {Array} exercises - The array of exercises to filter.
+ * @param {Object} filter - The filter object containing key-value pairs to match against exercises.
+ * @return {Array} - The filtered array of exercises.
+ */
+const filterExercises = (exercises, filter) => {
+    return exercises.filter(exercise => {
+        for (let key in filter) {
+            if (exercise[key] !== filter[key]) {
+                return false;
+            }
+        }
+        return true;
+    });
+};
+
+
 
 export default router;

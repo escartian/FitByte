@@ -1,0 +1,32 @@
+<h1>Workout</h1>
+
+<form id="workout-form" method="post">
+  <label for="exerciseName">Exercise Name:</label>
+  <select id="exerciseName" name="exerciseName" required>
+    {{#each allExercizes}}
+    <option value="{{this.name}}">{{this.name}}</option>
+    {{/each}}
+  </select>
+
+  <label for="sets">Sets:</label>
+  <input type="number" id="sets" name="sets" required>
+
+  <label for="reps">Reps per Set:</label>
+  <input type="number" id="reps" name="reps" required>
+
+  <label>Weight per Set:</label>
+  <input type="number" id="weight" name="weight" required>
+
+  <label for="weightUnitLbs">LB</label>
+  <input type="radio" id="weightUnitLbs" name="weightUnit" value="LB" checked>
+
+  <label for="weightUnitKg">KG</label>
+  <input type="radio" id="weightUnitKg" name="weightUnit" value="KG">
+
+  <button type="button" id="addExercise">Add Exercise</button>
+  <button type="submit" class="btn btn-primary">Save Workout</button>
+</form>
+
+<!-- Display the current workout -->
+<h2>Current Workout:</h2>
+<ul id="currentWorkout"></ul>

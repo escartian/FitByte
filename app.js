@@ -30,12 +30,24 @@ app.use(userSessionMiddleware);
 let collection;
 
 const hbs = create({
-  helpers: {
+  helpers: {    
+  /**
+  * Encodes a given string using the encodeURI function.
+  *
+  * @param {string} str - The string to be encoded.
+  * @return {string} The encoded string with '/' replaced by '%2F'.
+  */
     encodeURI: function (str) {
       const encodedStr = encodeURI(str);
       const replacedStr = encodedStr.split('/').join('%2F');
       return replacedStr;
     },
+    /**
+     * Converts the given context object to a JSON string.
+     *
+     * @param {Object} context - The context object to be converted.
+     * @return {string} The JSON string representation of the context object.
+     */
     json: function (context) {
       return JSON.stringify(context);
     }
@@ -48,9 +60,7 @@ app.set('view engine', 'handlebars');
 app.use('/', routes);
 
 // Wait for the database connection to be established before starting the server
-connectAndLoadData().then((col) => {
-  collection = col;
-
+connectAndLoadData().then(() => {
   app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
   });

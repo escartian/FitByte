@@ -22,22 +22,10 @@
           <a href="/workout/template" class="btn btn-primary">Start Workout from Template</a>
         </li>
         <li class="nav-item">
-          <a href="/workout/empty" class="btn btn-primary">Start Empty Workout</a>
+          <a href="/workout" class="btn btn-primary">Start Empty Workout</a>
         </li>
         <li class="nav-item">
           <a href="/previous-workouts" class="btn btn-primary">Previous Workouts</a>
-        </li>
-        <li class="nav-item">
-          <a href="/exercises" class="btn btn-primary">Create Workout Template</a>
-        </li>
-        <li class="nav-item">
-          <a href="/exercises" class="btn btn-primary">View Workout Templates</a>
-        </li>
-        <li class="nav-item">
-          <a href="/create_exercise" class="btn btn-primary">Create Exercise</a>
-        </li>
-        <li class="nav-item">
-          <a href="/exercises" class="btn btn-primary">Go to Exercises</a>
         </li>
         {{else}}
         <li class="nav-item">
@@ -46,6 +34,7 @@
         <li class="nav-item">
           <a class="btn btn-info" href="/register">Register</a>
         </li>
+        {{/if}}
         <li class="nav-item">
           <a href="/create_workout" class="btn btn-primary">Create Workout Template</a>
         </li>
@@ -58,7 +47,7 @@
         <li class="nav-item">
           <a href="/exercises" class="btn btn-primary">Go to Exercises</a>
         </li>
-        {{/if}}
+
       </ul>
     </div>
   </nav>

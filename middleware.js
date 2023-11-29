@@ -21,6 +21,13 @@ export const sessionMiddleware = session({
   saveUninitialized: false
 });
 
+/**
+ * Logs information about an incoming request and passes control to the next middleware.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ */
 export const requestLoggerMiddleware = (req, res, next) => {
   const timestamp = Date.now();
   const datetime = new Date(timestamp).toLocaleString();
@@ -28,6 +35,13 @@ export const requestLoggerMiddleware = (req, res, next) => {
   next();
 };
 
+/**
+ * Middleware function for user session handling.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ */
 export const userSessionMiddleware = (req, res, next) => {
   res.locals.user = req.session.user;
   next();
