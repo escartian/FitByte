@@ -4,6 +4,9 @@ registration handelbars
 
 --}}
 <h1>Register</h1>
+{{#if error}}
+  <div style="color: red;">{{error}}</div>
+{{/if}}
 <form id="registration-form" class="registration-form" method="post">
     <div class="form-group">
     <label for="firstNameInput">First Name</label>
@@ -39,4 +42,5 @@ registration handelbars
 
     <input type="submit" value="Register" class="btn btn-primary">
 </form>
+
 <p><a href="/login">Already have an account? Click here to log-in</a></p>
