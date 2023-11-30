@@ -51,9 +51,9 @@ const hbs = create({
     json: function (context) {
       return JSON.stringify(context);
     }
-  }
+  },
+  partialsDir: path.join(__dirname, 'views/partials'),
 });
-
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 

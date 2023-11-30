@@ -1,45 +1,12 @@
 <h1>Create Workout</h1>
+{{> workoutForm formAction="/create_workout"}}
 
-<form action="/create_workout" method="POST">
-  <label for="exerciseName">Exercise Name:</label>
-  <select id="exerciseName" name="exerciseName" required>
-    {{#each allExercizes}}
-    <option value="{{this.name}}">{{this.name}}</option>
-    {{/each}}
-  </select>
+{{#if message}}
+  <div class="alert alert-success">
+    {{message}}
+  </div>
+{{/if}}
 
-  <label for="category">Category:</label>
-  <select id="category" name="category" required>
-    {{#each Category}}
-    <option value="{{this}}">{{this}}</option>
-    {{/each}}
-  </select>
-
-  <label for="muscleGroups">Muscle Groups:</label>
-  <select id="muscleGroups" name="muscleGroups" required multiple>
-    {{#each Muscle}}
-    <option value="{{this}}">{{this}}</option>
-    {{/each}}
-  </select>
-<label for="sets">Sets:</label>
-<input type="number" id="sets" name="sets" required>
-
-<label for="reps">Reps per Set:</label>
-<input type="number" id="reps" name="reps" required>
-
-<label>Weight per Set:</label>
-<input type="number" id="weight" name="weight" required>
-
-<label for="weightUnitLbs">LB</label>
-<input type="radio" id="weightUnitLbs" name="weightUnit" value="LB" checked>
-
-<label for="weightUnitKg">KG</label>
-<input type="radio" id="weightUnitKg" name="weightUnit" value="KG">
-
-  <button type="button" id="addExercise">Add Exercise</button>
-
-  <button type="submit" class="btn btn-primary">Create Workout</button>
-</form>
 <!-- Display the current workout -->
 <h2>Current Workout:</h2>
 <ul id="currentWorkout"></ul>

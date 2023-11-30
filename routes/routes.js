@@ -242,16 +242,20 @@ router.post('/create_workout', async (req, res) => {
     const insertInfo = await workouts.insertOne(newWorkout);
     if (insertInfo.insertedCount === 0) throw 'Could not add workout';
 
-    // Send a response
-    res.send('Workout created successfully');
+// Store the success message in the session
+req.session.message = 'Workout created successfully';
+// Redirect
+res.redirect('/create_workout');
 });
 
 router.get('/create_workout', async (req, res) => {
+    const message = req.session.message;
+    req.session.message = null; // Clear the message so it's not displayed again
     const exercizes = await exercizesCollection();
     const allExercizes = await exercizes.find({}).toArray();
     const enumsCopy = JSON.parse(JSON.stringify(enums));
-    res.render('create_workout', { allExercizes, ...enumsCopy });
-});
+    res.render('create_workout', { allExercizes, ...enumsCopy, message });
+  });
 
 router.get('/view_workout_templates', async (req, res) => {
     const workouts = await workoutsCollection();

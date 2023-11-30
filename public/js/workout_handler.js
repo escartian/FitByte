@@ -26,26 +26,38 @@ function updateCurrentWorkoutDisplay() {
     // Clear the current workout list
     currentWorkoutList.innerHTML = '';
 
-    // Add a list item for each exercise in the current workout
-    for (let i = 0; i < currentWorkout.length; i++) {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${currentWorkout[i].name}: ${currentWorkout[i].sets} sets of ${currentWorkout[i].reps} reps at ${currentWorkout[i].weight} lbs`;
+    // Create a document fragment to hold the list items
+    const fragment = document.createDocumentFragment();
 
-        // Add a 'Remove' button to the list item
+    // Loop through the exercises in the current workout
+    currentWorkout.forEach((exercise, index) => {
+        // Create a list item for each exercise
+        const listItem = document.createElement('li');
+        listItem.textContent = `${exercise.name}: ${exercise.sets} sets of ${exercise.reps} reps at ${exercise.weight} lbs`;
+
+        // Create a 'Remove' button for each exercise
         const removeButton = document.createElement('button');
         removeButton.textContent = 'Remove';
         removeButton.className = 'btn btn-danger'; // Bootstrap class for a red button
-        removeButton.addEventListener('click', function () {
+
+        // Add a click event listener to the 'Remove' button
+        removeButton.addEventListener('click', () => {
             // Remove the corresponding exercise from the current workout
-            currentWorkout.splice(i, 1);
+            currentWorkout.splice(index, 1);
 
             // Update the display of the current workout
             updateCurrentWorkoutDisplay();
         });
+
+        // Append the 'Remove' button to the list item
         listItem.appendChild(removeButton);
 
-        currentWorkoutList.appendChild(listItem);
-    }
+        // Append the list item to the document fragment
+        fragment.appendChild(listItem);
+    });
+
+    // Append the document fragment to the current workout list
+    currentWorkoutList.appendChild(fragment);
 }
 
 // Listen for the 'click' event on the 'Add Exercise' button
@@ -80,7 +92,7 @@ exerciseNameDropdown.addEventListener('change', async function() {
     const exerciseData = await response.json();
   
     // Get the primary muscle group
-    const primaryMuscleGroup = exerciseData.primaryMuscles[0]; // adjust this line as needed based on your data structure
+    const primaryMuscleGroup = exerciseData.primaryMuscles[0];
   
     // Select the primary muscle group in the muscleGroups dropdown
     const muscleGroupsDropdown = document.getElementById('muscleGroups');
