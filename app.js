@@ -1,15 +1,8 @@
-import { engine, create } from 'express-handlebars';
-import { users } from './config/mongoCollections.js';
-import { registerUser } from './data/users.js';
+import { create } from 'express-handlebars';
 import express from 'express';
 import { connectAndLoadData } from './load_exersize_to_db.js';
-import fs from 'fs';
-import bcrypt from 'bcrypt';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import * as enums from './data/enums.js';
-import { excersizes as exercizesCollection } from './config/mongoCollections.js';
-import { workouts as workoutsCollection } from './config/mongoCollections.js';
 import routes from './routes/routes.js';
 import { jsonMiddleware, urlEncodedMiddleware, staticMiddleware, exercisesMiddleware, sessionMiddleware, requestLoggerMiddleware, userSessionMiddleware } from './middleware.js';
 
