@@ -1,4 +1,3 @@
-
 // Get the 'Add Exercise' button, the exercise name dropdown, the sets, reps, and weight fields, and the current workout list
 const addExerciseButton = document.getElementById('addExercise');
 const exerciseNameDropdown = document.getElementById('exerciseName');
@@ -6,10 +5,11 @@ const setsField = document.getElementById('sets');
 const repsField = document.getElementById('reps');
 const weightField = document.getElementById('weight');
 const currentWorkoutList = document.getElementById('currentWorkout');
+const exercisesField = document.getElementById('exercises');
+const workoutForm = document.getElementById('workout-form');
 
 // Initialize an array to store the exercises in the current workout
 let currentWorkout = [];
-
 /**
 * Updates the display of the current workout.
 *
@@ -121,7 +121,7 @@ nameContainer.appendChild(nameField);
 addExerciseButton.addEventListener('click', function () {
     // Add the currently selected exercise to the current workout
     const selectedExercise = {
-        name: exerciseNameDropdown.value,
+        name: exerciseNameDropdown.options[exerciseNameDropdown.selectedIndex].text,
         sets: setsField.value,
         reps: repsField.value,
         weight: weightField.value
@@ -135,14 +135,13 @@ addExerciseButton.addEventListener('click', function () {
 // Listen for the 'change' event on the exercise name dropdown
 exerciseNameDropdown.addEventListener('change', async function () {
     // Get the selected exercise
-    const selectedExercise = exerciseNameDropdown.value;
-
+    const selectedExercise = exerciseNameDropdown.options[exerciseNameDropdown.selectedIndex].text;
 
     // Encode the selected exercise
     const encodedExercise = encodeURIComponent(selectedExercise);
 
     // Fetch the exercise data from the server
-    const response = await fetch(`/api/exercises/${selectedExercise}`);
+    const response = await fetch(`/exercises/${encodedExercise}`);
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -159,4 +158,9 @@ exerciseNameDropdown.addEventListener('change', async function () {
             break;
         }
     }
+});
+// Listen for the 'submit' event on the workout form
+workoutForm.addEventListener('submit', function () {
+    // Update the exercises field with the current workout data
+    exercisesField.value = JSON.stringify(currentWorkout);
 });

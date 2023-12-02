@@ -216,20 +216,27 @@ router.post('/create_exercise', async (req, res) => {
 
 router.post('/create_workout', async (req, res) => {
     // Access the data from the form submission
-    const { exerciseName, category, muscleGroups, sets, reps, weight, weightUnit } = req.body;
+    const { workoutName, exercises } = req.body;
+
+    // Check if exercises is not empty or undefined
+    if (!exercises) {
+        throw new Error('No exercises provided');
+    }
+    // Parse the exercises field into an array
+    const exercisesArray = JSON.parse(exercises);
 
     // Get the 'workouts' collection
     const workouts = await workoutsCollection();
 
     // Create a new workout document
     const newWorkout = {
-        exerciseName,
-        category,
-        muscleGroups: Array.isArray(muscleGroups) ? muscleGroups.map(group => group.trim()) : [muscleGroups], // Ensure muscleGroups is an array
-        sets: parseInt(sets),
-        reps: parseInt(reps),
-        weight,
-        weightUnit,
+        name: workoutName,
+        exercises: exercisesArray.map(exercise => ({
+            exerciseName: exercise.name,
+            sets: parseInt(exercise.sets),
+            reps: parseInt(exercise.reps),
+            weight: exercise.weight
+        })),
         date: new Date() // Set the current date and time
     };
 
@@ -242,10 +249,10 @@ router.post('/create_workout', async (req, res) => {
     const insertInfo = await workouts.insertOne(newWorkout);
     if (insertInfo.insertedCount === 0) throw 'Could not add workout';
 
-// Store the success message in the session
-req.session.message = 'Workout created successfully';
-// Redirect
-res.redirect('/create_workout');
+    // Store the success message in the session
+    req.session.message = 'Workout created successfully';
+    // Redirect
+    res.redirect('/create_workout');
 });
 
 router.get('/create_workout', async (req, res) => {

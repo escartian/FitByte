@@ -1,8 +1,8 @@
-<form id="workout-form" action="{{formAction}}" method="post">
+<form id="add-exercise-form">
   <label for="exerciseName">Exercise Name:</label>
-  <select id="exerciseName" name="exerciseName" required>
+  <select id="exerciseName" name="exerciseName">
     {{#each allExercizes}}
-    <option value="{{this.name}}">{{this.name}}</option>
+    <option value="{{this._id}}">{{this.name}}</option>
     {{/each}}
   </select>
 
@@ -22,5 +22,15 @@
   <input type="radio" id="weightUnitKg" name="weightUnit" value="KG">
 
   <button type="button" class="btn btn-secondary" id="addExercise">Add Exercise</button>
+</form>
+
+
+</form>
+<form id="workout-form" action="{{formAction}}" method="post">
+  <label for="workoutName">Workout Name:</label>
+  <input type="text" id="workoutName" name="workoutName" required>
+
+  <input type="hidden" id="exercises" name="exercises">
+
   <button type="submit" class="btn btn-primary">Save Workout</button>
 </form>

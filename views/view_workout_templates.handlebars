@@ -3,14 +3,12 @@
 <ul>
   {{#each workouts}}
   <li>
-    <h2>Workout</h2>
-    <p>Type: {{this.type}}</p>
-    <p>Weight Unit: {{this.weightUnit}}</p>
+    <h2>{{this.name}}</h2>
     <h3>Exercises:</h3>
     <ul>
-      {{#each this.exerciseName}}
+      {{#each this.exercises}}
       <li>
-        <h4>{{this.name}}</h4>
+        <h4>{{this.exerciseName}}</h4>
         <p>Sets: {{this.sets}}</p>
         <p>Reps: {{this.reps}}</p>
         <p>Weight: {{this.weight}}</p>
