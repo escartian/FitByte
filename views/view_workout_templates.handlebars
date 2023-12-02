@@ -1,20 +1,22 @@
-<h1>Workout Templates</h1>
+<div class="container mt-4">
+  <h1 class="text-center">Workout Templates</h1>
 
-<ul>
   {{#each workouts}}
-  <li>
-    <h2>{{this.name}}</h2>
-    <h3>Exercises:</h3>
-    <ul>
+  <div class="card my-3">
+    <div class="card-body">
+      <h2 class="card-title">{{this.name}}</h2>
+      <h3 class="card-subtitle mb-2 text-muted">Exercises:</h3>
       {{#each this.exercises}}
-      <li>
-        <h4>{{this.exerciseName}}</h4>
-        <p>Sets: {{this.sets}}</p>
-        <p>Reps: {{this.reps}}</p>
-        <p>Weight: {{this.weight}}</p>
-      </li>
+      <div class="card my-2">
+        <div class="card-body">
+          <h4 class="card-title">{{this.exerciseName}}</h4>
+          <p class="card-text">Sets: {{this.sets}}</p>
+          <p class="card-text">Reps: {{this.reps}}</p>
+          <p class="card-text">Weight: {{this.weight}}</p>
+        </div>
+      </div>
       {{/each}}
-    </ul>
-  </li>
+    </div>
+  </div>
   {{/each}}
-</ul>
+</div>
