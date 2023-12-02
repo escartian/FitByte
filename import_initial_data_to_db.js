@@ -1,7 +1,8 @@
 import fs from 'fs';
 import { MongoClient } from 'mongodb';
 
-const parentDirectory = 'exercises';
+const parentDirectory = 'data/exercises';
+const workoutTemplatesFile = 'data/workout_templates.json';
 /**
  * Retrieves the subfolders within a given directory.
  *
@@ -53,18 +54,12 @@ const loadJSONFiles = async (subfolderPath, collection) => {
 
   return false;
 };
-/**
- * Connects to a MongoDB database, loads data from JSON files into a collection,
- * and returns the collection.
- *
- * @return {Collection} The MongoDB collection with loaded data.
- */
+
 export const connectAndLoadData = async () => {
   try {
-    const url = 'mongodb://localhost:27017'; // replace with your MongoDB connection string
-    const dbName = 'FitByte'; // replace with your database name
-    const collectionName = 'exercizes'; // replace with your collection name
-
+    const url = 'mongodb://localhost:27017';
+    const dbName = 'FitByte';
+    const collectionName = 'exercizes';
     const client = await MongoClient.connect(url);
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
@@ -80,6 +75,20 @@ export const connectAndLoadData = async () => {
       if (duplicateFound) {
         break;
       }
+    }
+
+    // Load workout templates
+    const workoutTemplatesData = fs.readFileSync(workoutTemplatesFile);
+    const workoutTemplates = JSON.parse(workoutTemplatesData);
+    const workoutsCollection = db.collection('workouts');
+    // Check if the collection already exists
+    const collections = await db.listCollections({ name: 'workouts' }).toArray();
+    if (collections.length === 0) {
+      // If the collection does not exist, insert the workout templates
+      console.log(workoutTemplates);
+      await workoutsCollection.insertMany(workoutTemplates);
+    } else {
+      console.log('Workouts collection already exists. Skipping insertions.');
     }
     client.close();
   } catch (err) {

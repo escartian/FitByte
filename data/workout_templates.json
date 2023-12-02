@@ -1,0 +1,112 @@
+[
+    {
+        "name": "Strongman Workout",
+        "exercises": [
+            {
+                "exerciseName": "Axle Deadlift",
+                "sets": 5,
+                "reps": 5,
+                "weight": 30
+            },
+            {
+                "exerciseName": "Log Clean and Press",
+                "sets": 5,
+                "reps": 5,
+                "weight": 20
+            },
+            {
+                "exerciseName": "Atlas Stone Lift",
+                "sets": 5,
+                "reps": 5,
+                "weight": 40
+            }
+        ]
+    },
+    {
+        "name": "PPL Push",
+        "exercises": [
+            {
+                "exerciseName": "Barbell Bench Press",
+                "sets": 5,
+                "reps": 5,
+                "weight": 20
+            },
+            {
+                "exerciseName": "Dumbbell Shoulder Press",
+                "sets": 3,
+                "reps": 10,
+                "weight": 15
+            },
+            {
+                "exerciseName": "Tricep Dips",
+                "sets": 3,
+                "reps": 10,
+                "weight": 15
+            },
+            {
+                "exerciseName": "Push Ups",
+                "sets": 3,
+                "reps": 15,
+                "weight": 0
+            }
+        ]
+    },
+    {
+        "name": "PPL Pull",
+        "exercises": [
+            {
+                "exerciseName": "Barbell Deadlift",
+                "sets": 5,
+                "reps": 5,
+                "weight": 30
+            },
+            {
+                "exerciseName": "Lat Pulldown",
+                "sets": 3,
+                "reps": 10,
+                "weight": 15
+            },
+            {
+                "exerciseName": "Seated Cable Rows",
+                "sets": 3,
+                "reps": 10,
+                "weight": 15
+            },
+            {
+                "exerciseName": "Pull Ups",
+                "sets": 3,
+                "reps": 10,
+                "weight": 0
+            }
+        ]
+    },
+    {
+        "name": "PPL Legs",
+        "exercises": [
+            {
+                "exerciseName": "Barbell Squat",
+                "sets": 5,
+                "reps": 5,
+                "weight": 30
+            },
+            {
+                "exerciseName": "Leg Press",
+                "sets": 3,
+                "reps": 10,
+                "weight": 20
+            },
+            {
+                "exerciseName": "Leg Curls",
+                "sets": 3,
+                "reps": 10,
+                "weight": 15
+            },
+            {
+                "exerciseName": "Calf Raises",
+                "sets": 3,
+                "reps": 15,
+                "weight": 10
+            }
+        ]
+    }
+]

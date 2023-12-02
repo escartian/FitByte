@@ -1,6 +1,6 @@
 import { create } from 'express-handlebars';
 import express from 'express';
-import { connectAndLoadData } from './load_exersize_to_db.js';
+import { connectAndLoadData } from './import_initial_data_to_db.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import routes from './routes/routes.js';
