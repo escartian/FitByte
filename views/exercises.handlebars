@@ -24,43 +24,7 @@
                     <option value="desc">Descending</option>
                 </select>
             <h3>Filter by:</h3>
-            <label for="level">Level:</label>
-            <select id="level" name="level">
-                <option value="">All</option>
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="expert">Expert</option>
-            </select>
-            <label for="force">Force:</label>
-            <select id="force" name="force">
-                <option value="">All</option>
-                <option value="pull">Pull</option>
-                <option value="push">Push</option>
-                <option value="static">Static</option>
-            </select>
-
-            <label for="mechanic">Mechanic:</label>
-            <select id="mechanic" name="mechanic">
-                <option value="">All</option>
-                <option value="compound">Compound</option>
-                <option value="isolation">Isolation</option>
-            </select>
-            <label for="equipment">Equipment:</label>
-            <select id="equipment" name="equipment">
-                <option value="">All</option>
-                <option value="body">Body only</option>
-                <option value="machine">Machine</option>
-                <option value="kettlebells">Kettlebells</option>
-                <option value="dumbbell">Dumbbell</option>
-                <option value="cable">Cable</option>
-                <option value="barbell">Barbell</option>
-                <option value="bands">Bands</option>
-                <option value="medicine_ball">Medicine ball</option>
-                <option value="exercise_ball">Exercise ball</option>
-                <option value="e_z_curl_bar">E-Z curl bar</option>
-                <option value="foam_roll">Foam roll</option>
-            </select>
-
+            <!--
             <label for="category">Category:</label>
             <select id="category" name="category">
                 <option value="">All</option>
@@ -75,12 +39,56 @@
                 <option value="weighted_bodyweight">Weighted bodyweight</option>
                 <option value="assisted_bodyweight">Assisted bodyweight</option>
             </select>
-            <!--
-                Text filtering is too complex, so created forms to filter. 
-                TODO: change to buttons and allow multiple of one type of filter?
-            <label for="filter">Filter:</label>
-            <input type="text" id="filter" name="filter">
             -->
+            <label for="Muscle">Muscle:</label>
+            <select id="Muscle" name="Muscle">
+            <option value="">All</option>
+            {{#each Muscle}}
+            <option value="{{this}}">{{this}}</option>
+            {{/each}}
+            </select>
+
+            <label for="Level">Level:</label>
+            <select id="Level" name="Level">
+            <option value="">All</option>
+            {{#each Level}}
+            <option value="{{this}}">{{this}}</option>
+            {{/each}}
+            </select>
+
+            <label for="Force">Force:</label>
+            <select id="Force" name="Force">
+            <option value="">All</option>
+            {{#each Force}}
+            <option value="{{this}}">{{this}}</option>
+            {{/each}}
+            </select>
+
+            <label for="Mechanic">Mechanic:</label>
+            <select id="Mechanic" name="Mechanic">
+            <option value="">All</option>
+            {{#each Mechanic}}
+            <option value="{{this}}">{{this}}</option>
+            {{/each}}
+            </select>
+
+            <label for="Equipment">Equipment:</label>
+            <select id="Equipment" name="Equipment">
+            <option value="">All</option>
+            {{#each Equipment}}
+            <option value="{{this}}">{{this}}</option>
+            {{/each}}
+            </select>
+
+
+            <label for="Category">Category:</label>
+            <select id="Category" name="Category">
+            <option value="">All</option>
+            {{#each Category}}
+            <option value="{{this}}">{{this}}</option>
+            {{/each}}
+            </select>
+
             <input type="submit" value="Submit">
         </form>
         {{#each exercises}}

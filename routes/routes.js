@@ -21,14 +21,15 @@ router.get('/exercises', async (req, res) => {
     const search = req.query.search || '';
     const sort = req.query.sort || 'name';
     const sortOrder = req.query.sortOrder || 'asc';
-    const level = req.query.level;
-    const force = req.query.force;
-    const mechanic = req.query.mechanic;
-    const equipment = req.query.equipment;
-    const category = req.query.category;
+    const level = req.query.Level;
+    const force = req.query.Force;
+    const mechanic = req.query.Mechanic;
+    const equipment = req.query.Equipment;
+    const category = req.query.Category;
+    const muscle = req.query.Muscle;
 
     // Create filter object
-    const filter = createFilter(level, force, mechanic, equipment, category);
+    const filter = createFilter(level, force, mechanic, equipment, category, muscle);
 
     // Find exercises that match the search query
     const collection = await exercizesCollection();
@@ -42,7 +43,14 @@ router.get('/exercises', async (req, res) => {
     // Filter exercises
     const filteredExercises = filterExercises(exercises, filter);
 
-    res.render('exercises', { exercises: filteredExercises });
+    res.render('exercises', { exercises: filteredExercises , 
+        Category: enums.Category,
+        Level: enums.Level,
+        Force: enums.Force,
+        Mechanic: enums.Mechanic,
+        Equipment: enums.Equipment,
+        Muscle: enums.Muscle,
+        });
 });
 
 router.get('/exercises/:name', async (req, res) => {
@@ -295,22 +303,25 @@ router.get('/workout', async (req, res) => {
  * @param {string} category - The category value for filtering. Optional.
  * @return {object} - The filter object with the specified properties.
  */
-const createFilter = (level, force, mechanic, equipment, category) => {
+const createFilter = (level, force, mechanic, equipment, category, muscle) => {
     const filter = {};
-    if (level) {
-        filter.level = level;
+    if (level && level !== 'all') {
+        filter.level = level.toLowerCase();
     }
-    if (force) {
-        filter.force = force;
+    if (force && force !== 'all') {
+        filter.force = force.toLowerCase();
     }
-    if (mechanic) {
-        filter.mechanic = mechanic;
+    if (mechanic && mechanic !== 'all') {
+        filter.mechanic = mechanic.toLowerCase();
     }
-    if (equipment) {
-        filter.equipment = equipment;
+    if (equipment && equipment !== 'all') {
+        filter.equipment = equipment.toLowerCase();
     }
-    if (category) {
-        filter.category = category;
+    if (category && category !== 'all') {
+        filter.category = category.toLowerCase();
+    }
+    if (muscle && muscle !== 'all') {
+        filter.muscle = muscle.toLowerCase();
     }
     return filter;
 };
@@ -351,8 +362,16 @@ const sortExercises = (exercises, sort, sortOrder) => {
 const filterExercises = (exercises, filter) => {
     return exercises.filter(exercise => {
         for (let key in filter) {
-            if (exercise[key] !== filter[key]) {
-                return false;
+            if (Array.isArray(exercise[key])) {
+                // If the exercise property is an array, check if it contains the filter value
+                if (!exercise[key].includes(filter[key])) {
+                    return false;
+                }
+            } else {
+                // If the exercise property is not an array, check if it's equal to the filter value
+                if (exercise[key] !== filter[key]) {
+                    return false;
+                }
             }
         }
         return true;

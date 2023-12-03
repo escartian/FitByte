@@ -9,7 +9,7 @@
       {{#each this.exercises}}
       <div class="card my-2">
         <div class="card-body">
-          <h4 class="card-title">{{this.exerciseName}}</h4>
+          <h4 class="card-title"><a href="/exercises/{{encodeURI this.exerciseName}}">{{this.exerciseName}}</a></h2>
           <p class="card-text">Sets: {{this.sets}}</p>
           <p class="card-text">Reps: {{this.reps}}</p>
           <p class="card-text">Weight: {{this.weight}}</p>

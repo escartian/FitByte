@@ -9,13 +9,13 @@
                 "weight": 30
             },
             {
-                "exerciseName": "Log Clean and Press",
+                "exerciseName": "Log Lift",
                 "sets": 5,
                 "reps": 5,
                 "weight": 20
             },
             {
-                "exerciseName": "Atlas Stone Lift",
+                "exerciseName": "Atlas Stones",
                 "sets": 5,
                 "reps": 5,
                 "weight": 40
@@ -26,7 +26,7 @@
         "name": "PPL Push",
         "exercises": [
             {
-                "exerciseName": "Barbell Bench Press",
+                "exerciseName": "Barbell Bench Press - Medium Grip",
                 "sets": 5,
                 "reps": 5,
                 "weight": 20
@@ -38,13 +38,13 @@
                 "weight": 15
             },
             {
-                "exerciseName": "Tricep Dips",
+                "exerciseName": "Dips - Triceps Version",
                 "sets": 3,
                 "reps": 10,
                 "weight": 15
             },
             {
-                "exerciseName": "Push Ups",
+                "exerciseName": "Clock Push-Up",
                 "sets": 3,
                 "reps": 15,
                 "weight": 0
@@ -61,7 +61,7 @@
                 "weight": 30
             },
             {
-                "exerciseName": "Lat Pulldown",
+                "exerciseName": "Full Range-Of-Motion Lat Pulldown",
                 "sets": 3,
                 "reps": 10,
                 "weight": 15
@@ -73,7 +73,7 @@
                 "weight": 15
             },
             {
-                "exerciseName": "Pull Ups",
+                "exerciseName": "Weighted Pull Ups",
                 "sets": 3,
                 "reps": 10,
                 "weight": 0
@@ -102,7 +102,7 @@
                 "weight": 15
             },
             {
-                "exerciseName": "Calf Raises",
+                "exerciseName": "Barbell Seated Calf Raise",
                 "sets": 3,
                 "reps": 15,
                 "weight": 10
