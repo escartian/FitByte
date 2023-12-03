@@ -5,8 +5,13 @@ import { users, excersizes as exercizesCollection, workouts as workoutsCollectio
 import { registerUser } from '../data/users.js';
 import bcrypt from 'bcrypt';
 import * as enums from '../data/enums.js';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 const router = express.Router();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 router.get('/', (req, res) => {
     res.render('home');
@@ -48,11 +53,12 @@ router.get('/exercises/:name', async (req, res) => {
     res.render('exercise', exercise);
 });
 
-//the following generally does not need to be used, but can be useful
 router.get('/exercises/:exercise/images/:image', (req, res) => {
-    const exercise = req.params.exercise;
+    const exercise = req.params.exercise.replace(/ /g, '_').replace(/\//g, '_');
     const image = req.params.image;
-    const imagePath = path.join(__dirname, 'exercises', exercise, 'images', `${image}.jpg`);
+    const imagePath = path.resolve(__dirname, '..', 'data', 'exercises', exercise, 'images', `${image}`);
+
+    console.log("imagePath: " + imagePath);
 
     fs.readFile(imagePath, (err, data) => {
         if (err) {

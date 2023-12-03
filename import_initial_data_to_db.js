@@ -32,8 +32,10 @@ const loadJSONFiles = async (subfolderPath, collection) => {
     const jsonData = JSON.parse(rawData);
 
     // Add image paths to JSON data
-    jsonData.imagePaths = [`${subfolderPath}/images/0`, `${subfolderPath}/images/1`];
-
+    const imageFiles = fs.readdirSync(`${subfolderPath}/images`)
+      .filter(file => file.endsWith('.jpg') || file.endsWith('.png'));
+    jsonData.imagePaths = imageFiles.map(file => `/exercises/${jsonData.name}/images/${file}`);
+    console.log(jsonData.imagePaths);
     // Check if a document with the same name already exists
     const existingDocument = await collection.findOne({ name: jsonData.name });
 

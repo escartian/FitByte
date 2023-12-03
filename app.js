@@ -43,10 +43,21 @@ const hbs = create({
      */
     json: function (context) {
       return JSON.stringify(context);
-    }
+    },    
+    /**
+    * Encodes a given string using the encodeURIComponent function.
+    *
+    * @param {string} str - The string to be encoded.
+    * @return {string} The encoded string.
+    */
+    encodeURIComponent: function (str) {
+      return encodeURIComponent(str);
+    },
+    
   },
   partialsDir: path.join(__dirname, 'views/partials'),
 });
+
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
