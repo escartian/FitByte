@@ -121,7 +121,7 @@ const createWorkout = async (userId, workoutName) =>{
         return customWorkout;
       };
       
-      export const removeAttendee = async (customWorkoutId) => {
+      export const removeWorkout = async (customWorkoutId) => {
         //Implement Code here
       
         if (!userWorkoutId) {
