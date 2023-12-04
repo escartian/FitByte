@@ -42,7 +42,19 @@ ol {
 ol li {
     margin: 10px 0;
 }
+body {
+    padding-bottom: 10px; /* Adjust this value based on the height of footer */
+}
+
 footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}footer {
     background-color: #333;
     color: white;
     text-align: center;

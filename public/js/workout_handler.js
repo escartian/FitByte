@@ -10,18 +10,19 @@ const workoutForm = document.getElementById('workout-form');
 
 // Initialize an array to store the exercises in the current workout
 let currentWorkout = [];
+
 /**
-* Updates the display of the current workout.
-*
-* This function clears the current workout list and then adds a list item for each exercise in the current workout.
-* Each list item displays the exercise name, number of sets, number of reps, and weight.
-* The function also adds a 'Remove' button to each list item, which allows the user to remove the exercise from the current workout.
-* When a 'Remove' button is clicked, the corresponding exercise is removed from the current workout and the display is updated.
-*
-* @param {HTMLElement} currentWorkoutList - The HTML element representing the current workout list.
-* @param {Array} currentWorkout - An array containing the exercises in the current workout.
-* @return {undefined} This function does not return a value.
-*/function updateCurrentWorkoutDisplay() {
+ * Updates the display of the current workout.
+ *
+ * This function clears the current workout list and then adds a card for each exercise in the current workout.
+ * Each card displays the exercise name, and a row for each set in the exercise.
+ * Each row displays the set number, an editable field for the number of reps, and an editable field for the weight.
+ * An 'Add Set' button is added to each exercise card, which allows the user to add a new set to the exercise.
+ * When a 'Remove Exercise', 'Remove Set', or 'Add Set' button is clicked, the corresponding action is performed and the display is updated.
+ *
+ * @return {undefined} This function does not return a value.
+ */
+function updateCurrentWorkoutDisplay() {
     // Clear the current workout list
     currentWorkoutList.innerHTML = '';
 
@@ -71,6 +72,10 @@ let currentWorkout = [];
             setContainer.appendChild(setNumberLabel);
 
             // Create editable fields for reps and weight
+            const repsLabel = document.createElement('label');
+            repsLabel.textContent = 'Repetitions:';
+            setContainer.appendChild(repsLabel);
+
             const repsInput = document.createElement('input');
             repsInput.className = 'form-control mx-1 reps-input';
             repsInput.type = 'number';
@@ -79,7 +84,9 @@ let currentWorkout = [];
                 set.reps = parseInt(repsInput.value);
             });
             setContainer.appendChild(repsInput);
-
+            const weightLabel = document.createElement('label');
+            weightLabel.textContent = 'Weight:';
+            setContainer.appendChild(weightLabel);
             const weightInput = document.createElement('input');
             weightInput.className = 'form-control mx-1 weight-input';
             weightInput.type = 'number';
