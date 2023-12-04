@@ -21,97 +21,106 @@ let currentWorkout = [];
 * @param {HTMLElement} currentWorkoutList - The HTML element representing the current workout list.
 * @param {Array} currentWorkout - An array containing the exercises in the current workout.
 * @return {undefined} This function does not return a value.
-*/
-function updateCurrentWorkoutDisplay() {
+*/function updateCurrentWorkoutDisplay() {
     // Clear the current workout list
     currentWorkoutList.innerHTML = '';
-
-// Create and append headers
-const headers = ['Exercise Name', 'Sets', 'Reps', 'Weight', 'Actions'];
-const headerRow = document.createElement('div');
-headerRow.style.display = 'flex';
-headerRow.style.justifyContent = 'space-between';
-headers.forEach((header, index) => {
-    const headerElement = document.createElement('div');
-    headerElement.textContent = header;
-    // Adjust the width of the 'Exercise Name' column
-    if (index === 0) {
-        headerElement.style.width = '50%';
-    } else {
-        headerElement.style.width = '10%';
-    }
-    headerRow.appendChild(headerElement);
-});
-currentWorkoutList.appendChild(headerRow);
 
     // Loop through the exercises in the current workout
     currentWorkout.forEach((exercise, index) => {
         // Create a container for the exercise
         const exerciseContainer = document.createElement('div');
-        exerciseContainer.style.display = 'flex';
-        exerciseContainer.style.justifyContent = 'space-between';
+        exerciseContainer.className = 'card my-3 exercise-container';
 
-// Create a container for each field
-const nameContainer = document.createElement('div');
-nameContainer.style.display = 'flex';
-nameContainer.style.flexDirection = 'column';
-nameContainer.style.width = '50%'; // Adjust the width of the 'Exercise Name' column
-const nameField = document.createElement('input');
-nameField.type = 'text';
-nameField.value = exercise.name;
-nameContainer.appendChild(nameField);
+        // Create a container for the exercise name and 'Remove Exercise' button
+        const nameContainer = document.createElement('div');
+        nameContainer.className = 'card-header d-flex justify-content-between align-items-center';
 
+        // Create a container for the exercise name
+        const exerciseNameContainer = document.createElement('div');
+        exerciseNameContainer.textContent = exercise.exerciseName;
+        nameContainer.appendChild(exerciseNameContainer);
 
-        // Create a container for the 'sets' field
-        const setsContainer = document.createElement('div');
-        setsContainer.style.display = 'flex';
-        setsContainer.style.flexDirection = 'column';
-        const setsField = document.createElement('input');
-        setsField.type = 'text';
-        setsField.value = exercise.sets;
-        setsContainer.appendChild(setsField);
-
-        // Create a container for the 'reps' field
-        const repsContainer = document.createElement('div');
-        repsContainer.style.display = 'flex';
-        repsContainer.style.flexDirection = 'column';
-        const repsField = document.createElement('input');
-        repsField.type = 'text';
-        repsField.value = exercise.reps;
-        repsContainer.appendChild(repsField);
-
-        // Create a container for the 'weight' field
-        const weightContainer = document.createElement('div');
-        weightContainer.style.display = 'flex';
-        weightContainer.style.flexDirection = 'column';
-        const weightField = document.createElement('input');
-        weightField.type = 'text';
-        weightField.value = exercise.weight;
-        weightContainer.appendChild(weightField);
-
-        // Append the fields to the exercise container
-        exerciseContainer.appendChild(nameContainer);
-        exerciseContainer.appendChild(setsContainer);
-        exerciseContainer.appendChild(repsContainer);
-        exerciseContainer.appendChild(weightContainer);
-        // Create a 'Remove' button for each exercise
-        const removeButton = document.createElement('button');
-        removeButton.textContent = 'Remove';
-        removeButton.className = 'btn btn-danger'; // Bootstrap class for a red button
-        removeButton.style.marginRight = '10px';
-
-        // Add a click event listener to the 'Remove' button
-        removeButton.addEventListener('click', () => {
+        // Create a 'Remove Exercise' button for each exercise
+        const removeExerciseButton = document.createElement('button');
+        removeExerciseButton.className = 'btn btn-danger remove-exercise-button';
+        removeExerciseButton.textContent = 'Remove Exercise';
+        removeExerciseButton.addEventListener('click', () => {
             // Remove the corresponding exercise from the current workout
             currentWorkout.splice(index, 1);
 
             // Update the display of the current workout
             updateCurrentWorkoutDisplay();
         });
+        nameContainer.appendChild(removeExerciseButton);
 
-        // Append the fields and button to the exercise container
-        //exerciseContainer.appendChild(nameContainer);
-        exerciseContainer.appendChild(removeButton);
+        exerciseContainer.appendChild(nameContainer);
+
+        // Loop through the sets of the exercise
+        exercise.sets.forEach((set, setIndex) => {
+            // Update the set number
+            set.setNumber = setIndex + 1;
+
+            // Create a container for the set
+            const setContainer = document.createElement('div');
+            setContainer.className = 'card-body d-flex justify-content-between align-items-center set-container';
+
+            // Create a label for the set number
+            const setNumberLabel = document.createElement('span');
+            setNumberLabel.className = 'set-number-label';
+            setNumberLabel.textContent = `Set ${set.setNumber}:`;
+            setContainer.appendChild(setNumberLabel);
+
+            // Create editable fields for reps and weight
+            const repsInput = document.createElement('input');
+            repsInput.className = 'form-control mx-1 reps-input';
+            repsInput.type = 'number';
+            repsInput.value = set.reps;
+            repsInput.addEventListener('change', () => {
+                set.reps = parseInt(repsInput.value);
+            });
+            setContainer.appendChild(repsInput);
+
+            const weightInput = document.createElement('input');
+            weightInput.className = 'form-control mx-1 weight-input';
+            weightInput.type = 'number';
+            weightInput.value = set.weight;
+            weightInput.addEventListener('change', () => {
+                set.weight = parseInt(weightInput.value);
+            });
+            setContainer.appendChild(weightInput);
+
+            // Create a 'Remove Set' button for each set
+            const removeSetButton = document.createElement('button');
+            removeSetButton.className = 'btn btn-danger remove-set-button';
+            removeSetButton.textContent = 'Remove Set';
+            removeSetButton.addEventListener('click', () => {
+                // Remove the corresponding set from the current exercise
+                exercise.sets.splice(setIndex, 1);
+
+                // Update the display of the current workout
+                updateCurrentWorkoutDisplay();
+            });
+            setContainer.appendChild(removeSetButton);
+
+            exerciseContainer.appendChild(setContainer);
+        });
+
+        // Create an 'Add Set' button for each exercise
+        const addSetButton = document.createElement('button');
+        addSetButton.className = 'btn btn-primary m-3 add-set-button';
+        addSetButton.textContent = 'Add Set';
+        addSetButton.addEventListener('click', () => {
+            // Add a new set with default values to the current exercise
+            exercise.sets.push({
+                setNumber: exercise.sets.length + 1,
+                reps: 0,
+                weight: 0
+            });
+
+            // Update the display of the current workout
+            updateCurrentWorkoutDisplay();
+        });
+        exerciseContainer.appendChild(addSetButton);
 
         // Append the exercise container to the current workout list
         currentWorkoutList.appendChild(exerciseContainer);
@@ -119,12 +128,22 @@ nameContainer.appendChild(nameField);
 }
 // Listen for the 'click' event on the 'Add Exercise' button
 addExerciseButton.addEventListener('click', function () {
+    // Get the number of sets
+    const numSets = parseInt(setsField.value);
+    // Get the reps and weight
+    const reps = parseInt(repsField.value);
+    const weight = parseInt(weightField.value);
+    // Create an array of sets with the specified number of sets
+    const sets = Array.from({ length: numSets }, (_, i) => ({
+        setNumber: i + 1,
+        reps: reps,
+        weight: weight
+    }));
+
     // Add the currently selected exercise to the current workout
     const selectedExercise = {
-        name: exerciseNameDropdown.options[exerciseNameDropdown.selectedIndex].text,
-        sets: setsField.value,
-        reps: repsField.value,
-        weight: weightField.value
+        exerciseName: exerciseNameDropdown.options[exerciseNameDropdown.selectedIndex].text,
+        sets: sets
     };
     currentWorkout.push(selectedExercise);
 

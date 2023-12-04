@@ -245,12 +245,7 @@ router.post('/create_workout', async (req, res) => {
     // Create a new workout document
     const newWorkout = {
         name: workoutName,
-        exercises: exercisesArray.map(exercise => ({
-            exerciseName: exercise.name,
-            sets: parseInt(exercise.sets),
-            reps: parseInt(exercise.reps),
-            weight: exercise.weight
-        })),
+        exercises: exercisesArray,
         date: new Date() // Set the current date and time
     };
 

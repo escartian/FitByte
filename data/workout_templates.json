@@ -4,21 +4,93 @@
         "exercises": [
             {
                 "exerciseName": "Axle Deadlift",
-                "sets": 5,
-                "reps": 5,
-                "weight": 30
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 5,
+                        "weight": 30
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 5,
+                        "weight": 30
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 5,
+                        "weight": 30
+                    },
+                    {
+                        "setNumber": 4,
+                        "reps": 5,
+                        "weight": 30
+                    },
+                    {
+                        "setNumber": 5,
+                        "reps": 5,
+                        "weight": 30
+                    }
+                ]
             },
             {
                 "exerciseName": "Log Lift",
-                "sets": 5,
-                "reps": 5,
-                "weight": 20
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 5,
+                        "weight": 20
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 5,
+                        "weight": 20
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 5,
+                        "weight": 20
+                    },
+                    {
+                        "setNumber": 4,
+                        "reps": 5,
+                        "weight": 20
+                    },
+                    {
+                        "setNumber": 5,
+                        "reps": 5,
+                        "weight": 20
+                    }
+                ]
             },
             {
                 "exerciseName": "Atlas Stones",
-                "sets": 5,
-                "reps": 5,
-                "weight": 40
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 5,
+                        "weight": 40
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 5,
+                        "weight": 40
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 5,
+                        "weight": 40
+                    },
+                    {
+                        "setNumber": 4,
+                        "reps": 5,
+                        "weight": 40
+                    },
+                    {
+                        "setNumber": 5,
+                        "reps": 5,
+                        "weight": 40
+                    }
+                ]
             }
         ]
     },
@@ -27,27 +99,93 @@
         "exercises": [
             {
                 "exerciseName": "Barbell Bench Press - Medium Grip",
-                "sets": 5,
-                "reps": 5,
-                "weight": 20
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 5,
+                        "weight": 20
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 5,
+                        "weight": 20
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 5,
+                        "weight": 20
+                    },
+                    {
+                        "setNumber": 4,
+                        "reps": 5,
+                        "weight": 20
+                    },
+                    {
+                        "setNumber": 5,
+                        "reps": 5,
+                        "weight": 20
+                    }
+                ]
             },
             {
                 "exerciseName": "Dumbbell Shoulder Press",
-                "sets": 3,
-                "reps": 10,
-                "weight": 15
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 10,
+                        "weight": 15
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 10,
+                        "weight": 15
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 10,
+                        "weight": 15
+                    }
+                ]
             },
             {
                 "exerciseName": "Dips - Triceps Version",
-                "sets": 3,
-                "reps": 10,
-                "weight": 15
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 10,
+                        "weight": 15
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 10,
+                        "weight": 15
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 10,
+                        "weight": 15
+                    }
+                ]
             },
             {
                 "exerciseName": "Clock Push-Up",
-                "sets": 3,
-                "reps": 15,
-                "weight": 0
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 15,
+                        "weight": 0
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 15,
+                        "weight": 0
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 15,
+                        "weight": 0
+                    }
+                ]
             }
         ]
     },
@@ -56,27 +194,93 @@
         "exercises": [
             {
                 "exerciseName": "Barbell Deadlift",
-                "sets": 5,
-                "reps": 5,
-                "weight": 30
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 5,
+                        "weight": 30
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 5,
+                        "weight": 30
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 5,
+                        "weight": 30
+                    },
+                    {
+                        "setNumber": 4,
+                        "reps": 5,
+                        "weight": 30
+                    },
+                    {
+                        "setNumber": 5,
+                        "reps": 5,
+                        "weight": 30
+                    }
+                ]
             },
             {
                 "exerciseName": "Full Range-Of-Motion Lat Pulldown",
-                "sets": 3,
-                "reps": 10,
-                "weight": 15
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 10,
+                        "weight": 15
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 10,
+                        "weight": 15
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 10,
+                        "weight": 15
+                    }
+                ]
             },
             {
                 "exerciseName": "Seated Cable Rows",
-                "sets": 3,
-                "reps": 10,
-                "weight": 15
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 10,
+                        "weight": 15
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 10,
+                        "weight": 15
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 10,
+                        "weight": 15
+                    }
+                ]
             },
             {
                 "exerciseName": "Weighted Pull Ups",
-                "sets": 3,
-                "reps": 10,
-                "weight": 0
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 10,
+                        "weight": 0
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 10,
+                        "weight": 0
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 10,
+                        "weight": 0
+                    }
+                ]
             }
         ]
     },
@@ -85,27 +289,93 @@
         "exercises": [
             {
                 "exerciseName": "Barbell Squat",
-                "sets": 5,
-                "reps": 5,
-                "weight": 30
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 5,
+                        "weight": 30
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 5,
+                        "weight": 30
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 5,
+                        "weight": 30
+                    },
+                    {
+                        "setNumber": 4,
+                        "reps": 5,
+                        "weight": 30
+                    },
+                    {
+                        "setNumber": 5,
+                        "reps": 5,
+                        "weight": 30
+                    }
+                ]
             },
             {
                 "exerciseName": "Leg Press",
-                "sets": 3,
-                "reps": 10,
-                "weight": 20
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 10,
+                        "weight": 20
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 10,
+                        "weight": 20
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 10,
+                        "weight": 20
+                    }
+                ]
             },
             {
                 "exerciseName": "Leg Curls",
-                "sets": 3,
-                "reps": 10,
-                "weight": 15
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 10,
+                        "weight": 15
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 10,
+                        "weight": 15
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 10,
+                        "weight": 15
+                    }
+                ]
             },
             {
                 "exerciseName": "Barbell Seated Calf Raise",
-                "sets": 3,
-                "reps": 15,
-                "weight": 10
+                "sets": [
+                    {
+                        "setNumber": 1,
+                        "reps": 15,
+                        "weight": 10
+                    },
+                    {
+                        "setNumber": 2,
+                        "reps": 15,
+                        "weight": 10
+                    },
+                    {
+                        "setNumber": 3,
+                        "reps": 15,
+                        "weight": 10
+                    }
+                ]
             }
         ]
     }

@@ -60,4 +60,32 @@ footer {
     margin-right: 10px
 }
 
+.exercise-container {
+    flex-direction: column;
+}
 
+.remove-exercise-button {
+    margin-left: auto;
+}
+
+.set-container {
+    flex-direction: row;
+    align-items: center;
+}
+
+.set-number-label {
+    margin-right: auto;
+}
+
+.reps-input,
+.weight-input {
+    width: 20%;
+}
+
+.remove-set-button {
+    margin-left: 10px;
+}
+
+.add-set-button {
+    align-self: center;
+}
