@@ -27,12 +27,10 @@ const createWorkout = async (userId, workoutName) =>{
         throw new Error('Event not found');
       }
 
-      const userExercises = [];
-
       const newWorkout = {
         _id : new ObjectId(),
         workoutName,
-        exercises : userExercises,
+        exercises : [],
         
       };
 
@@ -50,6 +48,60 @@ const createWorkout = async (userId, workoutName) =>{
     
       return user;
     };
+
+    //adding function to edit excersize array within customworkouts
+
+    export const addSetsToExercise = async (userId, workoutId, exerciseName, totalSets, setsDetails) =>{
+      const userCollection = await users();
+
+      const user = await userCollection.findOne({_id: new ObjectId(userId)});
+
+      const workout = user.customWorkouts.find(workout => workout._id.toString() === workoutId);
+
+      if(!workout){
+        throw new Error('Workout not found');
+      }
+
+      const exercise = workout.exercises.find(ex=> ex.exerciseName === exerciseName);
+
+      if(!exercise){
+        throw new Error('exercise not found');
+      }
+
+      for(let i=1; i<=totalSets; i++){
+        const setsDetails = setsDetails[i-1];
+        exercise.sets.push({
+          setNumber: i,
+          reps: setsDetails.reps,
+          weight: setsDetails.weight,
+        });
+      }
+
+      await userCollection.updateOne(
+        {_id: new ObjectId(userId)},
+        {
+          $set:{
+            customWorkouts: user.customWorkout,
+          },
+        }
+      );
+
+      return user;
+
+    };
+
+    //the above is set to use a workout id so I figuered we may need a function to find id by workout name
+    export const findWorkoutIdByName = async(userId, workoutName)=>{
+      const userCollection = await users();
+
+      const user = await userCollection.findOne({_id: new ObjectId(userId)});
+
+      if(!user){
+        throw new Error('User not found');
+      }
+      const workout = user.customWorkout.find(workout => workout.name=== workoutName);
+      return workout ? workout.id_toString() : null;
+    }
 
     export const getAllWorkouts = async (userId) => {
         //Implement Code here
