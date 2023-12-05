@@ -32,13 +32,13 @@ export const registerUser = async (
   //if(!role || typeof role !=='string'|| (role !== 'admin' && role !== 'user')){
   //  throw new Error('Invalid role');
   //}
-  if(!age || typeof age !== 'number'){
+  if(!age){
     throw new Error('Invalid age');
   }
-  if(!dob || !validateDOB(dob)){
+  if(!dob){
     throw new Error('Invalid Date of Birth');
   }
-  if(!gender || typeof gender !=='string'|| (gender !== 'male' && role !== 'female')){
+  if(!gender || typeof gender !=='string'){
     throw new Error('Error with gender input');
   }
   
@@ -111,6 +111,9 @@ export const loginUser = async (emailAddress, password) => {
     firstName: userFound.firstName,
     lastName: userFound.lastName,
     emailAddress: userFound.emailAddress,
+    age: userFound.age,
+    dob: userFound.dob,
+    gender: userFound.gender,
     /*role: userFound.role*/
     customWorkouts : userFound.customWorkouts,
 
@@ -139,9 +142,9 @@ function validatePassword(password) {
   console.log('Password is valid:', password);
 }
 
-function validateDOB(input){
-  const dateOBRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
+// function validateDOB(input){
+//   const dateOBRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
 
-  return dateOBRegex.text(input);
+//   return dateOBRegex.text(input);
 
-}
+// }
