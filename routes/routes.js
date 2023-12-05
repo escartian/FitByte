@@ -15,6 +15,7 @@ const __dirname = dirname(__filename);
 
 router.get('/', (req, res) => {
     res.render('home');
+        
 });
 router.get('/exercises', async (req, res) => {
     // Get query parameters from the URL
@@ -402,7 +403,4 @@ const filterExercises = (exercises, filter) => {
         return true;
     });
 };
-
-
-
 export default router;

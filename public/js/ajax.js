@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+    //login navbar form
     $('#login-nav-btn').on('click', function (event) {
         event.preventDefault();
 
@@ -7,7 +8,9 @@ $(document).ready(function () {
         const passwordInput = $('#passwordInput').val();
 
         var $emailAddressErrorNav = $('#emailAddressErrorNav');
-        var $passwordErrorNav = $('#passwordErrorNav')
+        var $passwordErrorNav = $('#passwordErrorNav');
+        var $loginNavError = $('#loginNavError');
+
 
         const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$/;
@@ -36,9 +39,29 @@ $(document).ready(function () {
                 } else {
                     $emailAddressErrorNav.hide()
 
-                    $passwordErrorNav.text('Login failed');
+                    $loginNavError.text('Login failed');
                 }
             }
         });
     });
+
+    //age calculation for form registration
+    $('#dobInput').datepicker({
+        onSelect: function(value, ui) {
+            var today = new Date(),
+                dob = new Date(value),
+                age = new Date(today - dob).getFullYear() - 1970;
+            $('#ageInput').val(age);
+        },
+        maxDate: '+0d',
+        yearRange: '1920:2050',
+        changeMonth: true,
+        changeYear: true
+    });
+
 });
+
+
+
+
+
