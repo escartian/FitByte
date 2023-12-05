@@ -31,14 +31,26 @@ registration handelbars
     <input type="password" id="confirmPasswordInput" name="confirmPasswordInput">
     <div id="confirmPasswordError" class="error-message"></div>
     </div>
-    <!--
-    <label for="roleInput">Role</label>
-    <select id="roleInput" name="roleInput">
-        <option value="admin">admin</option>
-        <option value="user">user</option>
+    <div class="form-group">
+    <label for="dobInput">Date of Birth</label>
+    <input type="text" id="dobInput" name="dobInput">
+    <div id="dobError" class="error-message"></div>
+    </div>
+    <div class="form-group">
+    <label for="ageInput">Age</label>
+    <input type="text" id="ageInput" name="ageInput" readonly>
+    <div id="ageError" class="error-message"></div>
+    </div>
+
+    
+    <label for="genderInput">Gender</label>
+    <select id="genderInput" name="genderInput">
+        <option value="" disabled selected>Select Gender</option>
+        <option value="male">male</option>
+        <option value="female">female</option>
     </select>
-    <div id="roleError" class="error-message"></div>
-    -->
+    <div id="genderError" class="error-message"></div>
+    
 
     <input type="submit" value="Register" class="btn btn-primary">
 </form>

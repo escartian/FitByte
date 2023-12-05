@@ -12,6 +12,10 @@ login form handlebar template
     {{#if error}}
     <p class="error-message">{{error}}</p>
     {{/if}}
+    {{#if user}}
+    <h1>User already logged in</h1>
+    <p><a href="/">Click here</a> to return to the homepage.</p>
+    {{else}}
  <h1>Login</h1>
  <form id="login-form" class="login-form" method="post">
  <label for="emailAddressInput">Email Address</label>
@@ -23,6 +27,7 @@ login form handlebar template
  <input type="submit" value="Login">
  </form>
  <p><a href="/register">Click here to register!</a></p>
+ {{/if}}
 </body>
 </html>
 

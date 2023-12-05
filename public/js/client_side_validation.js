@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
             emailAddress: 'Email address must be a valid email',
             password: 'Password must be at least 8 characters long, contain at least one uppercase character, one number, and one special character',
             confirmPassword: 'Confirm password must match password',
-            role: 'Role must be either "admin" or "user"',
+            age: 'User must be 18 or older',
+            dob: 'Date of birth must be in mm/dd/yyyy format',
+            gender: 'Must select gender',
         },
         loginNav: {
             emailAddress: 'Email address must be a valid email',
@@ -34,7 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 emailAddress: form.elements.emailAddressInput.value,
                 password: form.elements.passwordInput.value,
                 confirmPassword: form.elements.confirmPasswordInput.value,
-                //role: form.elements.roleInput.value,
+                age: form.elements.ageInput.value,
+                dob: form.elements.dobInput.value,
+                gender: form.elements.genderInput.value,
             };
         } else if (formId === 'login-nav-form') {
             return {
@@ -60,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errors.password = errorMessages[formType].password;
         }
 
-        // Validate firstName, lastName, confirmPassword, and role for registration form
+        // Validate firstName, lastName, confirmPassword, and gender for registration form
         if (formType === 'registration') {
             if (typeof inputs.firstName !== 'string' || inputs.firstName.length < 2 || inputs.firstName.length > 25) {
                 errors.firstName = errorMessages.registration.firstName;
@@ -73,11 +77,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (inputs.confirmPassword !== inputs.password) {
                 errors.confirmPassword = errorMessages.registration.confirmPassword;
             }
-            /*
-            if (typeof inputs.role !== 'string' || (inputs.role !== 'admin' && inputs.role !== 'user')) {
-                errors.role = errorMessages.registration.role;
+
+            if (!inputs.dob) {
+                errors.dob = errorMessages[formType].dob;
             }
-            */
+
+            //Validate Age
+            const ageRegex = /^(1[8-9]|[2-9][0-9]|100)$/;
+            
+            if (!ageRegex.test(inputs.age)) {
+                errors.age = errorMessages[formType].age;
+            }
+
+            if (typeof inputs.gender !== 'string' || (inputs.gender !== 'male' && inputs.gender !== 'female')) {
+                errors.gender = errorMessages.registration.gender;
+            }
+            
         }
         if (formType === 'loginNav') {
         // Validate emailAddress
