@@ -136,12 +136,12 @@ router.post('/login', async (req, res) => {
 });
 router.post('/register', async (req, res) => {
     console.log(req.body);
-    const { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, /* roleInput */ } = req.body;
+    const { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput } = req.body;
 
-    console.log('Registering user with data:', { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput /*, roleInput*/ });
+    console.log('Registering user with data:', { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput  });
 
     // Validate the input fields
-    if (!firstNameInput || !lastNameInput || !emailAddressInput || !passwordInput || !confirmPasswordInput /*|| !roleInput*/) {
+    if (!firstNameInput || !lastNameInput || !emailAddressInput || !passwordInput || !confirmPasswordInput || !ageInput || !dobInput || !genderInput) {
         return res.status(400).send('Missing required fields');
     }
 
@@ -154,7 +154,7 @@ router.post('/register', async (req, res) => {
     }
 
     // Call the registerUser db function
-    const result = await registerUser(firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, /* roleInput */);
+    const result = await registerUser(firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput);
 
     console.log('registerUser result:', result);
 
