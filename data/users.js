@@ -7,6 +7,9 @@ export const registerUser = async (
   lastName,
   emailAddress,
   password,
+  age,
+  dob,
+  gender,
   // role -dont need role. 
 ) => {
 
@@ -29,6 +32,17 @@ export const registerUser = async (
   //if(!role || typeof role !=='string'|| (role !== 'admin' && role !== 'user')){
   //  throw new Error('Invalid role');
   //}
+  if(!age || typeof age !== 'number'){
+    throw new Error('Invalid age');
+  }
+  if(!dob || !validateDOB(dob)){
+    throw new Error('Invalid Date of Birth');
+  }
+  if(!gender || typeof gender !=='string'|| (gender !== 'male' && role !== 'female')){
+    throw new Error('Error with gender input');
+  }
+  
+  
 
   firstName = firstName.trim();
   lastName = lastName.trim();
@@ -37,12 +51,20 @@ export const registerUser = async (
 
   const newPass = await bcrypt.hash(password, 10);
 
+  const creationDate = Date();
+
+  const customWorkouts =[];
+
   const newUser = {
     firstName: firstName,
     lastName: lastName,
     emailAddress: emailAddress,
     password: newPass,
-    // role: role
+    age: age,
+    DateOfBirth: dob,
+    gender: gender,
+    registerDate : creationDate,
+    customWorkouts : customWorkouts,
   };
   const userCollection = await users();
   const insertInfo = await userCollection.insertOne(newUser);
@@ -90,6 +112,8 @@ export const loginUser = async (emailAddress, password) => {
     lastName: userFound.lastName,
     emailAddress: userFound.emailAddress,
     /*role: userFound.role*/
+    customWorkouts : userFound.customWorkouts,
+
   };
   return userInfo;
 
@@ -113,4 +137,11 @@ function validatePassword(password) {
     throw new Error('Password must contain at least one special character');
   }
   console.log('Password is valid:', password);
+}
+
+function validateDOB(input){
+  const dateOBRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
+
+  return dateOBRegex.text(input);
+
 }
