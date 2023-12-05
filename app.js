@@ -24,6 +24,9 @@ let collection;
 
 const hbs = create({
   helpers: {    
+    log: function (pretext, context) {
+      console.log(pretext, JSON.stringify(context));
+    },
   /**
   * Encodes a given string using the encodeURI function.
   *

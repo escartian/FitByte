@@ -1,4 +1,5 @@
 <div class="container mt-4">
+
   <h1 class="text-center">Workout Templates</h1>
 
   {{#each workouts}}
@@ -16,6 +17,9 @@
         </div>
       </div>
       {{/each}}
+
+        <a href="/workout?template={{encodeURI this.name}}" class="btn btn-primary">Start Workout</a>
+
     </div>
   </div>
   {{/each}}

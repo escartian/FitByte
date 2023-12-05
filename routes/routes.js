@@ -273,19 +273,43 @@ router.get('/create_workout', async (req, res) => {
     res.render('create_workout', { allExercizes, ...enumsCopy, message });
   });
 
-router.get('/view_workout_templates', async (req, res) => {
+  router.get('/workout_templates', async (req, res) => {
     const workouts = await workoutsCollection();
     const allWorkouts = await workouts.find({}).toArray();
-    res.render('view_workout_templates', { workouts: allWorkouts });
+    //console.log(req.session.user);
+    res.render('workout_templates', { workouts: allWorkouts, user: req.session.user });
 });
 
 router.get('/workout', async (req, res) => {
+    const templateName = req.query.template;
+    console.log(templateName);
+    const workouts = await workoutsCollection();
+    let workout;
+    if (templateName) {
+        workout = await workouts.findOne({ name: templateName });
+        console.log(workout);
+        console.log(workout.exercises[0].sets); // Log the sets array of the first exercise
+    }
     const exercizes = await exercizesCollection();
     const allExercizes = await exercizes.find({}).toArray();
     const enumsCopy = JSON.parse(JSON.stringify(enums));
-    res.render('workout', { allExercizes, ...enumsCopy });
+    res.render('workout', { allExercizes, ...enumsCopy, currentWorkout: workout, user: req.session.user });
 });
+router.get('/workout/:workoutName', async (req, res) => {
+    const workoutName = req.params.workoutName;
+    const workouts = await workoutsCollection();
+    const workout = await workouts.findOne({ name: workoutName });
 
+    if (!workout) {
+        res.status(404).send('Workout not found');
+        return;
+    }
+
+    const exercizes = await exercizesCollection();
+    const allExercizes = await exercizes.find({}).toArray();
+    const enumsCopy = JSON.parse(JSON.stringify(enums));
+    res.render('workout', { allExercizes, ...enumsCopy, currentWorkout: workout });
+});
 //helper functions
 
 /**

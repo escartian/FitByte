@@ -4,7 +4,26 @@
 
 <!-- Display the current workout -->
 <h2>Current Workout:</h2>
-<ul id="currentWorkout"></ul>
-
+<div id="currentWorkout">
+  {{#each currentWorkout.exercises}}
+  <div class="card my-3 exercise-container">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <div>{{this.exerciseName}}</div>
+      <button class="btn btn-danger remove-exercise-button">Remove Exercise</button>
+    </div>
+    {{#each this.sets}}
+    <div class="card-body d-flex justify-content-between align-items-center set-container">
+      <span class="set-number-label">Set {{this.setNumber}}:</span>
+      <label>Reps:</label>
+      <input class="form-control mx-1 reps-input" type="number" value="{{this.reps}}">
+      <label>Weight:</label>
+      <input class="form-control mx-1 weight-input" type="number" value="{{this.weight}}">
+      <button class="btn btn-danger remove-set-button">Remove Set</button>
+    </div>
+    {{/each}}
+    <button class="btn btn-primary m-3 add-set-button">Add Set</button>
+  </div>
+  {{/each}}
+</div>
 
 <script src="/js/workout_handler.js"></script>
