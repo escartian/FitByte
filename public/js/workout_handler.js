@@ -8,8 +8,26 @@ const currentWorkoutList = document.getElementById('currentWorkout');
 const exercisesField = document.getElementById('exercises');
 const workoutForm = document.getElementById('workout-form');
 
-// Initialize an array to store the exercises in the current workout
-let currentWorkout = [];
+// Get the workout data from the hidden field
+const workoutDataElement = document.getElementById('workoutData');
+const workoutData = JSON.parse(workoutDataElement.value);
+
+
+// Update the current workout with the workout data from the server
+currentWorkout = workoutData.exercises.map(exercise => {
+    //console.log(exercise);
+    return {
+        exerciseName: exercise.exerciseName,
+        sets: exercise.sets.map(set => ({
+            setNumber: set.setNumber,
+            reps: set.reps,
+            weight: set.weight
+        }))
+    };
+}).filter(Boolean); // filter out null values
+
+// Update the display of the current workout
+updateCurrentWorkoutDisplay();
 
 /**
  * Updates the display of the current workout.
