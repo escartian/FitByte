@@ -7,8 +7,8 @@ export const registerUser = async (
   lastName,
   emailAddress,
   password,
-  age,
   dob,
+  age,
   gender,
   // role -dont need role. 
 ) => {
@@ -60,8 +60,8 @@ export const registerUser = async (
     lastName: lastName,
     emailAddress: emailAddress,
     password: newPass,
-    age: age,
     DateOfBirth: dob,
+    age: age,
     gender: gender,
     registerDate : creationDate,
     customWorkouts : customWorkouts,
@@ -111,8 +111,8 @@ export const loginUser = async (emailAddress, password) => {
     firstName: userFound.firstName,
     lastName: userFound.lastName,
     emailAddress: userFound.emailAddress,
-    age: userFound.age,
     dob: userFound.dob,
+    age: userFound.age,
     gender: userFound.gender,
     /*role: userFound.role*/
     customWorkouts : userFound.customWorkouts,

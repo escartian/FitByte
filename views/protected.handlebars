@@ -1,3 +1,56 @@
-<h1>Welcome {{firstName}} {{lastName}}, the time is now: {{currentTime}}.</h1>
+<div class="card mx-auto mb-4 mt-5" style="width: 28rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{firstName}} {{lastName}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Welcome {{firstName}} {{lastName}}, the time is now: {{currentTime}}.</h6>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
 
+<div class="card mx-auto mb-5" style="width: 28rem;">
+  <div class="card-header">
+    <h5>User Info</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    
+    <li class="list-group-item">
+    <h6 class = "list-group-item-heading">First Name</h6>
+    <p class="list-group-item">{{firstName}}</p>
+    </li>
+
+    <li class="list-group-item">
+    <h6 class = "list-group-item-heading">Last Name</h6>
+    <p class="list-group-item">{{lastName}}</p>
+    </li>
+
+    <li class="list-group-item">
+    <h6 class = "list-group-item-heading">Email Address</h6>
+    <p class="list-group-item">{{emailAddress}}</p>
+    </li>
+
+    <li class="list-group-item">
+    <h6 class = "list-group-item-heading">Age</h6>
+    <p class="list-group-item">{{age}}</p>
+    </li>
+
+    <li class="list-group-item">
+    <h6 class = "list-group-item-heading">Date Of Birth</h6>
+    <p class="list-group-item">{{DateOfBirth}}</p>
+    </li>
+
+    <li class="list-group-item">
+    <h6 class = "list-group-item-heading">Gender</h6>
+    <p class="list-group-item">{{gender}}</p>
+    </li>
+
+    <li class="list-group-item">
+    <h6 class = "list-group-item-heading">Regstration Date</h6>
+    <p class="list-group-item">{{registerDate}}</p>
+    </li>
+  </ul>
+</div>
+
+<div class="text-center">
 <a href="/logout" class="btn btn-danger">Logout</a>
+</div>
