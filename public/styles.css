@@ -100,4 +100,12 @@ footer {
 
 .add-set-button {
     align-self: center;
-}
+    
+}.dropdown-menu-right {
+    right: 0 !important;
+    left: auto !important;
+ }
+
+ .small-font {
+    font-size: 10px;
+ }
