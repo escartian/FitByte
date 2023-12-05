@@ -124,7 +124,13 @@ router.post('/login', async (req, res) => {
         /* role: user.role */
     };
 
-    return res.redirect('/protected');
+    // return res.redirect('/protected');
+
+    if (req.headers['x-requested-with'] === 'XMLHttpRequest') {
+        return res.json({ success: true });
+    } else {
+        return res.redirect('/protected')
+    }
 
 });
 router.post('/register', async (req, res) => {

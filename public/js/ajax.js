@@ -31,16 +31,13 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response.success) {
+                    console.log('login successful')
                     window.location.reload();
                 } else {
                     $emailAddressErrorNav.hide()
-                    $passwordErrorNav.hide()
 
-                    $('#error-message').text('Login failed');
+                    $passwordErrorNav.text('Login failed');
                 }
-            },
-            error: function (error) {
-                console.error('Error during login:', error);
             }
         });
     });
