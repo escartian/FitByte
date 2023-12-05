@@ -154,7 +154,7 @@ router.post('/register', async (req, res) => {
     }
 
     // Call the registerUser db function
-    const result = await registerUser(firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput);
+    const result = await registerUser(firstNameInput, lastNameInput, emailAddressInput, passwordInput, dobInput, ageInput, genderInput);
 
     console.log('registerUser result:', result);
 
@@ -191,6 +191,11 @@ router.get('/protected', async (req, res) => {
             res.render('protected', {
                 firstName: user.firstName,
                 lastName: user.lastName,
+                emailAddress: user.emailAddress,
+                age: user.age,
+                DateOfBirth: user.DateOfBirth,
+                gender: user.gender,
+                registerDate: user.registerDate,
                 currentTime: new Date().toLocaleTimeString()
             });
         } else {

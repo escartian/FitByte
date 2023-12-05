@@ -43,7 +43,7 @@ ol li {
     margin: 10px 0;
 }
 body {
-    padding-bottom: 10px; /* Adjust this value based on the height of footer */
+    padding-bottom: 50px; /* Adjust this value based on the height of footer */
 }
 
 footer {
@@ -113,3 +113,6 @@ footer {
  .bold-font {
     font-weight: bold;
  }
+
+
+
