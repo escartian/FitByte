@@ -13,16 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
             confirmPassword: 'Confirm password must match password',
             role: 'Role must be either "admin" or "user"',
         },
+        loginNav: {
+            emailAddress: 'Email address must be a valid email',
+            password: 'Password must be at least 8 characters long, contain at least one uppercase character, one number, and one special character',
+        },
     };
 
     // Function to get form inputs
     function getFormInputs(form) {
-        if (form.id === 'login-form') {
+        const formId = form.id
+        if (formId === 'login-form') {
             return {
                 emailAddress: form.elements.emailAddressInput.value,
                 password: form.elements.passwordInput.value,
             };
-        } else if (form.id === 'registration-form') {
+        } else if (formId === 'registration-form') {
             return {
                 firstName: form.elements.firstNameInput.value,
                 lastName: form.elements.lastNameInput.value,
@@ -31,13 +36,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 confirmPassword: form.elements.confirmPasswordInput.value,
                 //role: form.elements.roleInput.value,
             };
-        }
+        } else if (formId === 'login-nav-form') {
+            return {
+                emailAddress: form.elements.emailAddressInput.value,
+                password: form.elements.passwordInput.value,
+            };
     }
+}
 
     // Function to validate form inputs
     function validateFormInputs(inputs, formType) {
         const errors = {};
-
+    
         // Validate emailAddress
         const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
         if (typeof inputs.emailAddress !== 'string' || !emailRegex.test(inputs.emailAddress)) {
@@ -69,12 +79,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             */
         }
+        if (formType === 'loginNav') {
+        // Validate emailAddress
+        const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+        if (typeof inputs.emailAddress !== 'string' || !emailRegex.test(inputs.emailAddress)) {
+            errors.emailAddress = errorMessages[formType].emailAddress;
+        }
+
+        // Validate password
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$/;
+        if (typeof inputs.password !== 'string' || !passwordRegex.test(inputs.password)) {
+            errors.password = errorMessages[formType].password;
+        }
+        }
 
         return errors;
     }
 
     // Function to display errors
-    function displayErrors(errors) {
+    function displayErrors(errors, formId) {
+        const form = document.querySelector(`#${formId}`);
+    if (form) {
         // Clear previous error messages
         const errorElements = document.querySelectorAll('.error-message');
         errorElements.forEach((element) => {
@@ -83,12 +108,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Display new error messages
         for (const field in errors) {
-            const errorElement = document.getElementById(`${field}Error`);
+            
+            const formTypeSuffix = formId === 'login-nav-form' ? 'Nav' : '';
+            const errorElement = form.querySelector(`#${field}Error${formTypeSuffix}`);
+            
             if (errorElement) {
                 errorElement.textContent = errors[field];
             }
         }
     }
+}
 
     // Add event listener for form submit
     const loginForm = document.querySelector('#login-form');
@@ -99,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const inputs = getFormInputs(this);
             const errors = validateFormInputs(inputs, 'login');
 
-            displayErrors(errors);
+            displayErrors(errors, 'login-form');
 
             if (Object.keys(errors).length === 0) {
                 this.submit();
@@ -119,7 +148,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const errors = validateFormInputs(inputs, 'registration');
             console.log('errors:', errors);
 
-            displayErrors(errors);
+            displayErrors(errors, 'registration-form');
+
+            if (Object.keys(errors).length === 0) {
+                this.submit();
+            }
+        });
+    }
+
+    // Add event listener for nav form submit
+    const loginNavForm = document.querySelector('#login-nav-form');
+    if (loginNavForm) {
+        loginNavForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const inputs = getFormInputs(this);
+            const errors = validateFormInputs(inputs, 'loginNav');
+
+            displayErrors(errors, 'login-nav-form');
 
             if (Object.keys(errors).length === 0) {
                 this.submit();

@@ -104,7 +104,7 @@ router.post('/login', async (req, res) => {
 
     // If the user does not exist, render the login form again with an error message
     if (!user) {
-        return res.render('login', { error: 'Invalid email or password' });
+        return res.render('login', { error: 'User not exist Invalid email or password' });
     }
 
     // Compare the provided password with the stored password
@@ -112,7 +112,7 @@ router.post('/login', async (req, res) => {
 
     // If the password is incorrect, render the login form again with an error message
     if (!isPasswordCorrect) {
-        return res.render('login', { error: 'Invalid email or password' });
+        return res.render('login', { error: 'Password error Invalid email or password' });
     }
 
     // If the email and password are correct, create a session for the user
