@@ -177,15 +177,30 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/protected', async (req, res) => {
+    
     if (req.session.user) {
         // Get the user's email from the session
         console.log(req.session.user);
         const userEmail = req.session.user.emailAddress;
+        const userId = req.session.user._id
         // Query the database for the user
         const userCollection = await users();
         const user = await userCollection.findOne({ emailAddress: userEmail });
         console.log("User is ,", user);
 
+        res.redirect('/protected/'+userId)
+    
+} else {
+    // Handle the case where the user is not found
+    console.log(`No user found with email address: ${userEmail}`);
+    res.redirect('/login');
+}
+});
+
+router.get('/protected/:id', async (req, res) => {
+    const userEmail = req.session.user.emailAddress;
+    const userCollection = await users();
+        const user = await userCollection.findOne({ emailAddress: userEmail });
         // Render the view with the user's details
         if (user) {
             res.render('protected', {
@@ -198,12 +213,13 @@ router.get('/protected', async (req, res) => {
                 registerDate: user.registerDate,
                 currentTime: new Date().toLocaleTimeString()
             });
+            
         } else {
             // Handle the case where the user is not found
             console.log(`No user found with email address: ${userEmail}`);
             res.redirect('/login');
         }
-    }
+    
 });
 
 router.get('/register', (req, res) => {
