@@ -22,9 +22,7 @@
         <a class="nav-link" href="/">Home</a>
       </li>
         {{#if user}}
-        <li class="nav-item">
-          <a class="btn btn-danger" href="/logout">Logout</a>
-        </li>
+        
         <li class="nav-item">
           <a class="nav-link" href="/workout_templates" >View/Start Workout from Template</a>
         </li>
@@ -58,16 +56,20 @@
 
         <!--login dropdown-->
         <li class="nav-item">
+          <a class="btn btn-danger btn-sm" href="/logout">Logout</a>
+        </li>
+
+        <li class="nav-item">
           
         <div class="dropdown">
           {{#if user}}
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      User
-  </button>
+          <button class="btn btn-success dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{ user.firstName }} {{ user.lastName }}
+        </button>
 
   <div class="dropdown-menu dropdown-menu-right p-4 text-muted" style="max-width: 200px;">
   <p>
-    User logged in
+    Welcome {{ user.firstName }} {{ user.lastName }}!
   </p>
   <p class="mb-0">
     And this is more example text.
@@ -75,8 +77,9 @@
   <div class="dropdown-divider"></div>
   <a class="dropdown-item" href="/protected">User Profile</a>
 </div>
+
           {{else}}
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <button class="btn btn-primary dropdown-toggle  btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Login
   </button>
       
