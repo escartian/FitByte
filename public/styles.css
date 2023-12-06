@@ -69,7 +69,13 @@ footer {
 }
 
 .nav-item {
-    margin-right: 10px
+    margin-right: 10px;
+    font-size: 12px;
+
+}
+
+.navbar-brand {
+    padding-left: 20px;
 }
 
 .exercise-container {
