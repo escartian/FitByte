@@ -1,6 +1,9 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css">
+<script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
+
 <form id="add-exercise-form">
   <label for="exerciseName">Exercise Name:</label>
-  <select id="exerciseName" name="exerciseName">
+  <select id="exerciseName" name="exerciseName" class="choices-select">
     {{#each allExercizes}}
     <option value="{{this._id}}">{{this.name}}</option>
     {{/each}}
@@ -34,3 +37,11 @@
 
   <button type="submit" class="btn btn-primary">Save Workout</button>
 </form>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const elements = document.querySelectorAll('.choices-select');
+    elements.forEach(element => {
+      const choices = new Choices(element);
+    });
+  });
+</script>

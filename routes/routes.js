@@ -320,7 +320,8 @@ router.get('/workout', async (req, res) => {
     }
     const exercizes = await exercizesCollection();
     const allExercizes = await exercizes.find({}).toArray();
-    const enumsCopy = JSON.parse(JSON.stringify(enums));
+    //const enumsCopy = JSON.parse(JSON.stringify(enums));
+    const enumsCopy = { ...enums };
     res.render('workout', { allExercizes, ...enumsCopy, workoutData: JSON.stringify(workout), user: req.session.user });
 });
 router.get('/workout/:workoutName', async (req, res) => {

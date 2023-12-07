@@ -12,7 +12,7 @@ const workoutForm = document.getElementById('workout-form');
 let workoutData = { exercises: [] };
 const workoutDataElement = document.getElementById('workoutData');
 
-if (workoutDataElement) {
+if (workoutDataElement && workoutDataElement.value) {
     workoutData = JSON.parse(workoutDataElement.value);
 }
 
