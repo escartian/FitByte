@@ -13,35 +13,35 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">FitByte</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-        <a class="nav-link" href="/">Home</a>
-      </li>
+          <a class="nav-link" href="/">Home</a>
+        </li>
         {{#if user}}
-        
-        <li class="nav-item">
-          <a class="nav-link" href="/workout_templates" >View/Start Workout from Template</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/workout">Start Empty Workout</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/previous-workouts">Previous Workouts</a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/workout_templates">View/Start Workout from Template</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/workout">Start Empty Workout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/previous-workouts">Previous Workouts</a>
+          </li>
         {{else}}
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/register">Register</a>
-        </li>
-        <li class="nav-item">
-          <a href="/workout_templates" class="nav-link">View Workout Templates</a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a href="/workout_templates" class="nav-link">View Workout Templates</a>
+          </li>
         {{/if}}
         <li class="nav-item">
           <a href="/create_workout" class="nav-link">Create Workout Template</a>
@@ -56,86 +56,77 @@
 
         <!--login dropdown-->
         {{#if user}}
-        <li class="nav-item">
-          <a class="btn btn-danger btn-sm" href="/logout">Logout</a>
-        </li>
+          <li class="nav-item">
+            <a class="btn btn-danger btn-sm" href="/logout">Logout</a>
+          </li>
         {{/if}}
-
         <li class="nav-item">
-          
-        <div class="dropdown">
-          {{#if user}}
-          <button class="btn btn-success dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{ user.firstName }} {{ user.lastName }}
-        </button>
+          <div class="dropdown">
+              {{#if user}}
+              <button class="btn btn-success dropdown-toggle btn-sm" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ user.firstName }} {{ user.lastName }}
+              </button>
 
-  <div class="dropdown-menu dropdown-menu-right p-4 text-muted" style="max-width: 200px;">
-  <p>
-    Welcome {{ user.firstName }} {{ user.lastName }}!
-  </p>
-  <p class="mb-0">
-    And this is more example text.
-  </p>
-  <div class="dropdown-divider"></div>
-  <a class="dropdown-item" href="/protected">User Profile</a>
-</div>
+              <div class="dropdown-menu dropdown-menu-right p-4 text-muted" style="max-width: 200px;">
+                <p>
+                  Welcome {{ user.firstName }} {{ user.lastName }}!
+                </p>
+                <p class="mb-0">
+                  And this is more example text.
+                </p>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/protected">User Profile</a>
+              </div>
 
-          {{else}}
-  <button class="btn btn-primary dropdown-toggle  btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Login
-  </button>
-      
-          <div class="dropdown-menu dropdown-menu-right">
-  <form id="login-nav-form" class="login-nav-form px-4 py-3" method="post">
-    <div class="form-group">
-      <label for="emailAddressInput">Email address</label>
-      <input type="email" class="form-control" id="emailAddressInput" placeholder="email@example.com" name="emailAddressInput">
-      <div id="emailAddressErrorNav" class="error-message small-font"></div>
-    </div>
-    <div class="form-group">
-      <label for="passwordInput">Password</label>
-      <input type="password" class="form-control" id="passwordInput" placeholder="Password" name="passwordInput">
-      <div id="passwordErrorNav" class="error-message small-font"></div>
-    </div>
-  
-    <div id="loginNavError" class="error-message bold-font"></div>
-    <button type="submit" class="btn btn-primary" id="login-nav-btn">Sign in</button>
-  </form>
-  <div class="dropdown-divider"></div>
-  <a class="dropdown-item" href="/register">New around here? Sign up</a>
-</div>
-</li>
-{{/if}}
-        
+            {{else}}
+              <button class="btn btn-primary dropdown-toggle  btn-sm" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Login
+              </button>
 
+              <div class="dropdown-menu dropdown-menu-right">
+                <form id="login-nav-form" class="login-nav-form px-4 py-3" method="post">
+                  <div class="form-group">
+                    <label for="emailAddressInput">Email address</label>
+                    <input type="email" class="form-control" id="emailAddressInput" placeholder="email@example.com"
+                      name="emailAddressInput">
+                    <div id="emailAddressErrorNav" class="error-message small-font"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="passwordInput">Password</label>
+                    <input type="password" class="form-control" id="passwordInput" placeholder="Password"
+                      name="passwordInput">
+                    <div id="passwordErrorNav" class="error-message small-font"></div>
+                  </div>
+                  <div id="loginNavError" class="error-message bold-font"></div>
+                  <button type="submit" class="btn btn-primary" id="login-nav-btn">Sign in</button>
+                </form>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/register">New around here? Sign up</a>
+              </div>
+          </li>
+        {{/if}}
       </ul>
     </div>
-    </div> 
-
-    
+    </div>
   </nav>
   {{{body}}}
   <footer>
     FitByte © 2023
   </footer>
-  
-     <script
-  src="https://code.jquery.com/jquery-3.7.1.js"
-  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
-  
-  <script
-  src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"
-  integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY="
-  crossorigin="anonymous"></script>
-  
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"
+    integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
   <script src="/js/client_side_validation.js"></script>
-
   <script src="/js/ajax.js"></script>
- 
 </body>
-
 </html>

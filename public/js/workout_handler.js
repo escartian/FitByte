@@ -9,9 +9,12 @@ const exercisesField = document.getElementById('exercises');
 const workoutForm = document.getElementById('workout-form');
 
 // Get the workout data from the hidden field
+let workoutData = { exercises: [] };
 const workoutDataElement = document.getElementById('workoutData');
-const workoutData = JSON.parse(workoutDataElement.value);
 
+if (workoutDataElement) {
+    workoutData = JSON.parse(workoutDataElement.value);
+}
 
 // Update the current workout with the workout data from the server
 currentWorkout = workoutData.exercises.map(exercise => {
