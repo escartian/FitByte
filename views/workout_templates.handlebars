@@ -1,16 +1,18 @@
 <div class="container mt-4">
+<h1 class="text-center">Workout Templates</h1>
 
-  <h1 class="text-center">Workout Templates</h1>
 
+<div class="row">
   {{#each workouts}}
+    <div class="col-4">
   <div class="card my-3">
     <div class="card-body">
       <h2 class="card-title">{{this.name}}</h2>
-      <h3 class="card-subtitle mb-2 text-muted">Exercises:</h3>
+      <h5 class="card-subtitle mb-2 text-muted">Exercises:</h5>
       {{#each this.exercises}}
       <div class="card my-2">
         <div class="card-body">
-          <h4 class="card-title"><a href="/exercises/{{encodeURI this.exerciseName}}">{{this.exerciseName}}</a></h2>
+          <h6 class="card-title"><a href="/exercises/{{encodeURI this.exerciseName}}">{{this.exerciseName}}</a></h6>
           {{#each this.sets}}
           <p class="card-text">Set {{this.setNumber}}: {{this.reps}} reps, {{this.weight}} weight</p>
           {{/each}}
@@ -22,5 +24,8 @@
 
     </div>
   </div>
+  </div>
+  
   {{/each}}
+</div>
 </div>

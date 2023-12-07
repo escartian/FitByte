@@ -1,11 +1,12 @@
 
 form {
     background-color: rgb(176, 238, 231);
-    padding: 2px;
+    padding: 15px;
     margin-top: 20px;
     margin-right: 15px;
     margin-left: 15px;
     margin-bottom: 20px;
+    border-radius: 15px;
 }
 
 label {
@@ -119,6 +120,3 @@ footer {
  .bold-font {
     font-weight: bold;
  }
-
-
-

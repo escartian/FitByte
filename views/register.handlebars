@@ -3,56 +3,78 @@
 registration handelbars
 
 --}}
+<div class="container mt-4">
+<div class="text-center">
 <h1>Register</h1>
+</div>
+
+
 {{#if error}}
   <div style="color: red;">{{error}}</div>
 {{/if}}
-<form id="registration-form" class="registration-form" method="post">
+{{#if user}}
+    <h1>User already logged in</h1>
+    <a href="/logout" class="btn btn-primary">Home</a>
+    <a href="/logout" class="btn btn-danger">Logout</a>
+    {{else}}
+<form id="registration-form" class="registration-form w-50 mx-auto" method="post">
     <div class="form-group">
     <label for="firstNameInput">First Name</label>
-    <input type="text" id="firstNameInput" name="firstNameInput">
-    <div id="firstNameError" class="error-message"></div>
+    <input type="text" class="form-control" id="firstNameInput" name="firstNameInput">
+    <small id="firstNameError" class="error-message text-muted"></small>
     </div>
-        <div class="form-group">
+    <div class="form-group">
     <label for="lastNameInput">Last Name</label>
-    <input type="text" id="lastNameInput" name="lastNameInput">
-    <div id="lastNameError" class="error-message"></div>
+    <input type="text" class="form-control" id="lastNameInput" name="lastNameInput">
+    <small id="lastNameError" class="error-message text-muted"></small>
 </div>
     <div class="form-group">
     <label for="emailAddressInput">Email Address</label>
-    <input type="email" id="emailAddressInput" name="emailAddressInput">
-    <div id="emailAddressError" class="error-message"></div>
-</div>    <div class="form-group">
+    <input type="email" class="form-control" id="emailAddressInput" name="emailAddressInput">
+    <small id="emailAddressError" class="error-message text-muted"></small>
+</div>    
+    <div class="form-group">
     <label for="passwordInput">Password</label>
-    <input type="password" id="passwordInput" name="passwordInput">
-    <div id="passwordError" class="error-message"></div>
-</div>    <div class="form-group">
+    <input type="password" class="form-control" id="passwordInput" name="passwordInput">
+    <small id="passwordError" class="error-message text-muted"></small>
+</div>    
+    <div class="form-group">
     <label for="confirmPasswordInput">Confirm Password</label>
-    <input type="password" id="confirmPasswordInput" name="confirmPasswordInput">
-    <div id="confirmPasswordError" class="error-message"></div>
+    <input type="password" class="form-control" id="confirmPasswordInput" name="confirmPasswordInput">
+    <small id="confirmPasswordError" class="error-message text-muted"></small>
     </div>
+
+<div class="row">
+    <div class="col">
     <div class="form-group">
     <label for="dobInput">Date of Birth</label>
-    <input type="text" id="dobInput" name="dobInput">
-    <div id="dobError" class="error-message"></div>
+    <input type="text" class="form-control" id="dobInput" name="dobInput" placeholder="mm/dd/yyyy">
+    <small id="dobError" class="error-message text-muted"></small>
     </div>
+    </div>
+    <div class="col">
     <div class="form-group">
     <label for="ageInput">Age</label>
-    <input type="text" id="ageInput" name="ageInput" readonly>
-    <div id="ageError" class="error-message"></div>
+    <input type="text" class="form-control" id="ageInput" name="ageInput" readonly>
+    <small id="ageError" class="error-message text-muted"></small>
+    </div>
+    </div>
     </div>
 
     
-    <label for="genderInput">Gender</label>
-    <select id="genderInput" name="genderInput">
-        <option value="" disabled selected>Select Gender</option>
+    <label class="my-1 mr-2" for="genderInput">Gender</label>
+    <select id="genderInput" name="genderInput" class="custom-select my-1 mr-sm-2 form-control">
+        <option selected>Choose...</option>
         <option value="male">male</option>
         <option value="female">female</option>
     </select>
-    <div id="genderError" class="error-message"></div>
-    
-
+    <small id="genderError" class="error-message text-muted"></small>
+    <div></div>
     <input type="submit" value="Register" class="btn btn-primary">
 </form>
 
+<div class="text-center">
 <p><a href="/login">Already have an account? Click here to log-in</a></p>
+</div>
+{{/if}}
+</div>
