@@ -1,6 +1,6 @@
 <h1>Workout</h1>
 <input type="hidden" id="workoutData" value="{{workoutData}}">
-
+{{#if user}}
 {{> workoutForm formAction="/finish_workout"}}
 
 <!-- Display the current workout -->
@@ -25,7 +25,9 @@
     <button class="btn btn-primary m-3 add-set-button">Add Set</button>
   </div>
   {{/each}}
-
 </div>
+{{else}}
+<p>You must be signed in to record your workout.</p>
+{{/if}}
 
 <script src="/js/workout_handler.js"></script>

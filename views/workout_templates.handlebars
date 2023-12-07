@@ -19,9 +19,9 @@
         </div>
       </div>
       {{/each}}
-
+      {{#if user}}
         <a href="/workout?template={{encodeURI this.name}}" class="btn btn-primary">Start Workout</a>
-
+      {{/if}}
     </div>
   </div>
   </div>
