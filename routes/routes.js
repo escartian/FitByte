@@ -374,6 +374,10 @@ router.post('/finish_workout', async (req, res) => {
 router.get('/finish_workout', (req, res) => {
     res.render('finish_workout');
 });
+
+router.get('/favicon.ico', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'data', 'favicon.png'));
+});
 //helper functions
 
 /**
