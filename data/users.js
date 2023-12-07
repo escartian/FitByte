@@ -122,6 +122,42 @@ export const loginUser = async (emailAddress, password) => {
 
 };
 
+export const removeUser = async (userId) => {
+  //Implement Code here
+
+  if (!userId) {
+    throw new Error('You must provide an id to search for');
+  }
+
+  if (typeof userId !== 'string') {
+    throw new Error('Id must be a string');
+  }
+
+  if (usertId.trim().length === 0) {
+    throw new Error('Id cannot be an empty string or just spaces');
+  }
+
+  userId = userId.trim();
+
+
+  const userCollection = await users();
+  const objectId = new ObjectId(userId);
+  const user = await userCollection.findOne({_id: objectId});
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  const deleteInfo = await userCollection.deleteOne({_id: objectId});
+
+  if(deleteInfo.deletedCount === 1){
+    return { success: true, message: 'User successfully removed', user };
+  } else {
+    // If deletion was not successful
+    return { success: false, message: 'User could not be removed', user };
+  }
+};
+
 
 
 //helper
