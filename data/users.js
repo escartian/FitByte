@@ -54,7 +54,7 @@ export const registerUser = async (
   }
 
   if (/\d/.test(lastName)) {
-    throw new Error ('Last name should not contain numbers');
+    throw new Error('Last name should not contain numbers');
   }
 
   //Duplicate email in database
@@ -64,8 +64,8 @@ export const registerUser = async (
   }
 
   //gender validation
-  if (gender !== "male" && gender !== "female") {
-    throw 'Error: Invalid gender'
+  if (gender !== "male" && gender !== "female" && gender !== 'other') {
+    throw new Error('Invalid gender')
   }
 
   const newPass = await bcrypt.hash(password, 10);
@@ -99,12 +99,20 @@ export const registerUser = async (
 };
 
 export const loginUser = async (emailAddress, password) => {
+  //all fields must supplied
   if (!emailAddress || !password) {
     throw new Error('Email or password missing');
   }
-  if (!emailAddress || typeof emailAddress !== 'string' || emailAddress.trim().length === 0) {
+  if (password.trim() === '') {
+    throw new Error('Password is not supplied or is an empty string')
+  } 
+  if (!emailAddress || typeof emailAddress !== 'string' || emailAddress.trim() === '') {
     throw new Error('Invalid emailAddress');
   }
+
+  //email validation
+  emailAddress = emailAddress.trim().toLowerCase()
+
   if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(emailAddress)) {
     throw new Error('Invalid email address format for emailAddress');
   }
@@ -132,7 +140,6 @@ export const loginUser = async (emailAddress, password) => {
     dob: userFound.dob,
     age: userFound.age,
     gender: userFound.gender,
-    /*role: userFound.role*/
     customWorkouts : userFound.customWorkouts,
 
   };

@@ -104,7 +104,7 @@ router.post('/login', async (req, res) => {
 
     // Retrieve the user from the database
     const userCollection = await users();
-    const user = await userCollection.findOne({ emailAddress: emailAddressInput });
+    const user = await userCollection.findOne({ emailAddress: emailAddressInput.toLowerCase() });
 
     // If the user does not exist, render the login form again with an error message
     if (!user) {
