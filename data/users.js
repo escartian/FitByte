@@ -11,9 +11,11 @@ export const registerUser = async (
   dob,
   age,
   gender,
-  // role -dont need role. 
 ) => {
 
+  const userCollection = await users();
+  //dob and age are readonly on the registration form
+  //valid strings, fields supplied, character count
   if (!firstName || typeof firstName !== 'string' || firstName.trim().length === 0 || firstName.length < 2 || firstName.length > 25) {
     throw new Error('Invalid firstname');
   }
@@ -30,9 +32,7 @@ export const registerUser = async (
     throw new Error('Invalid password');
   }
   validatePassword(password);
-  //if(!role || typeof role !=='string'|| (role !== 'admin' && role !== 'user')){
-  //  throw new Error('Invalid role');
-  //}
+  
   if(!age){
     throw new Error('Invalid age');
   }
@@ -43,10 +43,30 @@ export const registerUser = async (
     throw new Error('Error with gender input');
   }
 
+  //trimming, email address case insenstive
   firstName = firstName.trim();
   lastName = lastName.trim();
-  emailAddress = emailAddress.trim();
-  emailAddress = emailAddress.toLowerCase();
+  emailAddress = emailAddress.trim().toLowerCase();
+  
+  //should not contain numbers
+  if (/\d/.test(firstName)) {
+    throw new Error('First name should not contain numbers');
+  }
+
+  if (/\d/.test(lastName)) {
+    throw new Error ('Last name should not contain numbers');
+  }
+
+  //Duplicate email in database
+  const email = await userCollection.findOne({ emailAddress: emailAddress })
+  if (email != null){
+    throw new Error('Email Address supplied is already in use');
+  }
+
+  //gender validation
+  if (gender !== "male" && gender !== "female") {
+    throw 'Error: Invalid gender'
+  }
 
   const newPass = await bcrypt.hash(password, 10);
 
@@ -65,7 +85,6 @@ export const registerUser = async (
     registerDate : creationDate,
     customWorkouts : customWorkouts,
   };
-  const userCollection = await users();
   const insertInfo = await userCollection.insertOne(newUser);
 
   if (!insertInfo.acknowledged || !insertInfo.insertedId) {
@@ -163,8 +182,14 @@ function validatePassword(password) {
   if (typeof password !== 'string' || password.length < 8) {
     throw new Error('Password must be a valid string with a minimum length of 8 characters');
   }
+  if (password.includes(' ')){
+    throw new Error('Password cannot contain spaces');
+  }
   if (!/[A-Z]/.test(password)) {
     throw new Error('Password must contain at least one uppercase character');
+  }
+  if (password.search(/[a-z]/)<0){
+    throw new Error('Password must contain at least one lower case character');
   }
   if (!/\d/.test(password)) {
     throw new Error('Password must contain at least one number');
