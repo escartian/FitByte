@@ -11,7 +11,7 @@ import { ObjectId } from 'mongodb';
  * @throws {Error} If the user is not found.
  * @return {Object} The updated user object including the workoutName.
  */
-const createWorkout = async (userId, workoutName) => {
+export const createWorkout = async (userId, workoutName) => {
   if (!userId) {
     throw new Error('Missing userID');
   }
@@ -229,23 +229,23 @@ export const getWorkout = async (userWorkoutId) => {
 export const removeWorkout = async (customWorkoutId) => {
   //Implement Code here
 
-  if (!userWorkoutId) {
+  if (customWorkoutId) {
     throw new Error('You must provide an id to search for');
   }
 
-  if (typeof userWorkoutId !== 'string') {
+  if (typeof customWorkoutId !== 'string') {
     throw new Error('Id must be a string');
   }
 
-  if (userWorkoutId.trim().length === 0) {
+  if (customWorkoutId.trim().length === 0) {
     throw new Error('Id cannot be an empty string or just spaces');
   }
 
-  userWorkoutId = userWorkoutId.trim();
+  customWorkoutId = customWorkoutId.trim();
 
 
   const userCollection = await users();
-  const objectId = new ObjectId(userWorkoutId);
+  const objectId = new ObjectId(customWorkoutId);
   const user = await userCollection.findOne({
     'customWorkouts._id': objectId,
   });
