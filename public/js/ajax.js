@@ -4,8 +4,8 @@ $(document).ready(function () {
     $('#login-nav-btn').on('click', function (event) {
         event.preventDefault();
 
-        const emailAddressInput = $('#emailAddressInput').val();
-        const passwordInput = $('#passwordInput').val();
+        const emailAddressInput = $('#emailAddressInput').val().trim();
+        const passwordInput = $('#passwordInput').val().trim();
 
         var $emailAddressErrorNav = $('#emailAddressErrorNav');
         var $passwordErrorNav = $('#passwordErrorNav');
@@ -78,6 +78,8 @@ $(document).ready(function () {
     });
 
 });
+
+
 
 
 

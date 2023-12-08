@@ -128,12 +128,12 @@ router.post('/login', async (req, res) => {
         /* role: user.role */
     };
 
-    // return res.redirect('/protected');
+    // return res.redirect('/profile');
 
     if (req.headers['x-requested-with'] === 'XMLHttpRequest') {
         return res.json({ success: true });
     } else {
-        return res.redirect('/protected')
+        return res.redirect('/profile')
     }
 
 });
@@ -179,7 +179,7 @@ router.get('/logout', (req, res) => {
     res.redirect('/login');
 });
 
-router.get('/protected', async (req, res) => {
+router.get('/profile', async (req, res) => {
     
     if (req.session.user) {
         // Get the user's email from the session
@@ -191,7 +191,7 @@ router.get('/protected', async (req, res) => {
         const user = await userCollection.findOne({ emailAddress: userEmail });
         console.log("User is ,", user);
 
-        res.redirect('/protected/'+userId)
+        res.redirect('/profile/'+userId)
     
 } else {
     // Handle the case where the user is not found
@@ -200,13 +200,13 @@ router.get('/protected', async (req, res) => {
 }
 });
 
-router.get('/protected/:id', async (req, res) => {
+router.get('/profile/:id', async (req, res) => {
     const userEmail = req.session.user.emailAddress;
     const userCollection = await users();
         const user = await userCollection.findOne({ emailAddress: userEmail });
         // Render the view with the user's details
         if (user) {
-            res.render('protected', {
+            res.render('profile', {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 emailAddress: user.emailAddress,

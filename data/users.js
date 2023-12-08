@@ -157,8 +157,6 @@ export const removeUser = async (userId) => {
   }
 };
 
-
-
 //helper
 
 function validatePassword(password) {
