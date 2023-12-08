@@ -1,5 +1,6 @@
 //import mongo collections, bcrypt and implement the following data functions
 import { users } from '../config/mongoCollections.js';
+import { ObjectId } from 'mongodb';
 import bcrypt from 'bcrypt';
 
 export const registerUser = async (
@@ -133,7 +134,7 @@ export const removeUser = async (userId) => {
     throw new Error('Id must be a string');
   }
 
-  if (usertId.trim().length === 0) {
+  if (userId.trim().length === 0) {
     throw new Error('Id cannot be an empty string or just spaces');
   }
 
@@ -157,8 +158,6 @@ export const removeUser = async (userId) => {
     return { success: false, message: 'User could not be removed', user };
   }
 };
-
-
 
 //helper
 
