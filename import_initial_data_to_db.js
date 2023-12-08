@@ -65,7 +65,8 @@ export const connectAndLoadData = async () => {
     const client = await MongoClient.connect(url);
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
-
+    
+    await collection.createIndex({ name: 'text' });
     // Create a unique index on the 'name' field
     await collection.createIndex({ name: 1 }, { unique: true });
 

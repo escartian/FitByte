@@ -34,10 +34,13 @@ router.get('/exercises', async (req, res) => {
 
     // Find exercises that match the search query
     const collection = await exercizesCollection();
-    let exercises = await collection.find({
-        name: { $regex: new RegExp(search, 'i') }
-    }).toArray();
-
+    let query = {};
+    if (search) {
+        query = { $text: { $search: search } };
+    }
+    
+    let exercises = await collection.find(query).toArray();
+    
     // Sort exercises
     exercises = sortExercises(exercises, sort, sortOrder);
 
