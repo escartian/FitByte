@@ -1,0 +1,13 @@
+[
+    {
+        "firstName": "Test",
+        "lastName": "User",
+        "emailAddress": "test@test.com",
+        "password": "$2b$10$FW.EIo719QV31VljRoHq7.UNKwr12LRcQ.Kbj2u4Fytq3Qq1mL7I2",
+        "DateOfBirth": "10/28/1995",
+        "age": "28",
+        "gender": "male",
+        "registerDate": "Tue Dec 05 2023 15:39:00 GMT-0500 (Eastern Standard Time)",
+        "customWorkouts": []
+    }
+]

@@ -3,6 +3,7 @@ import { MongoClient } from 'mongodb';
 
 const parentDirectory = 'data/exercises';
 const workoutTemplatesFile = 'data/workout_templates.json';
+const usersFile = 'data/users.json';
 /**
  * Retrieves the subfolders within a given directory.
  *
@@ -65,7 +66,7 @@ export const connectAndLoadData = async () => {
     const client = await MongoClient.connect(url);
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
-    
+
     await collection.createIndex({ name: 'text' });
     // Create a unique index on the 'name' field
     await collection.createIndex({ name: 1 }, { unique: true });
@@ -92,6 +93,17 @@ export const connectAndLoadData = async () => {
       await workoutsCollection.insertMany(workoutTemplates);
     } else {
       console.log('Workouts collection already exists. Skipping insertions.');
+    }
+
+    // Load initial users
+    const usersData = fs.readFileSync(usersFile);
+    const users = JSON.parse(usersData);
+    const usersCollection = db.collection('users');
+    // Create a unique index on the 'emailAddress' field
+    await usersCollection.createIndex({ emailAddress: 1 }, { unique: true });
+    for (let user of users) {
+      await usersCollection.insertOne(user);
+      console.log("inserting ", user);
     }
     client.close();
   } catch (err) {
