@@ -4,7 +4,7 @@
 
 <div class="row">
   {{#each workouts}}
-    <div class="col-4">
+    <div class="col-md-4">
   <div class="card my-3">
     <div class="card-body">
       <h2 class="card-title">{{this.name}}</h2>
@@ -19,9 +19,9 @@
         </div>
       </div>
       {{/each}}
-
+      {{#if user}}
         <a href="/workout?template={{encodeURI this.name}}" class="btn btn-primary">Start Workout</a>
-
+      {{/if}}
     </div>
   </div>
   </div>

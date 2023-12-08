@@ -1,4 +1,4 @@
-
+/* global $ */
 $(document).ready(function () {
     //login navbar form
     $('#login-nav-btn').on('click', function (event) {
@@ -19,6 +19,12 @@ $(document).ready(function () {
             url: '/login',
             type: 'POST',
             data: { emailAddressInput, passwordInput },
+            /**
+             * This function is called before sending the data.
+             * It validates the email address and password inputs.
+             *
+             * @return {boolean} Returns false if the email address or password input is invalid.
+             */
             beforeSend: function () {
                 if (typeof emailAddressInput !== 'string' || !emailRegex.test(emailAddressInput)) {
                     $emailAddressErrorNav.html('Email address must be a valid email');
@@ -32,6 +38,11 @@ $(document).ready(function () {
                 }
 
             },
+            /**
+             * Executes the success callback function with the response object.
+             *
+             * @param {object} response - The response object from the API call.
+             */
             success: function (response) {
                 if (response.success) {
                     console.log('login successful')
@@ -47,6 +58,13 @@ $(document).ready(function () {
 
     //age calculation for form registration
     $('#dobInput').datepicker({
+        /**
+         * Handles the event when a value is selected.
+         *
+         * @param {type} value - The selected value.
+         * @param {type} ui - The user interface object. - not used
+         * @return {type} The updated value of the age input field.
+         */
         onSelect: function(value, ui) {
             var today = new Date(),
                 dob = new Date(value),
@@ -54,7 +72,7 @@ $(document).ready(function () {
             $('#ageInput').val(age);
         },
         maxDate: '+0d',
-        yearRange: '1920:2050',
+        yearRange: '1900:2050',
         changeMonth: true,
         changeYear: true
     });

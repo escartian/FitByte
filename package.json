@@ -5,7 +5,8 @@
   "description": "FitByte Exersize Tracker",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "lint": "eslint ."
   },
   "author": "Igor Bich, Donald Ferick",
   "license": "ISC",
@@ -22,5 +23,8 @@
     "express-sessions": "^1.0.6",
     "express-validator": "^7.0.1",
     "mongodb": "^6.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.55.0"
   }
 }

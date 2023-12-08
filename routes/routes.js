@@ -34,10 +34,13 @@ router.get('/exercises', async (req, res) => {
 
     // Find exercises that match the search query
     const collection = await exercizesCollection();
-    let exercises = await collection.find({
-        name: { $regex: new RegExp(search, 'i') }
-    }).toArray();
-
+    let query = {};
+    if (search) {
+        query = { $text: { $search: search } };
+    }
+    
+    let exercises = await collection.find(query).toArray();
+    
     // Sort exercises
     exercises = sortExercises(exercises, sort, sortOrder);
 
@@ -192,7 +195,7 @@ router.get('/profile', async (req, res) => {
     
 } else {
     // Handle the case where the user is not found
-    console.log(`No user found with email address: ${userEmail}`);
+    console.log(`No user found with email address: ${req.session.user.emailAddress}`);
     res.redirect('/login');
 }
 });
@@ -315,13 +318,14 @@ router.get('/workout', async (req, res) => {
     let workout;
     if (templateName) {
         workout = await workouts.findOne({ name: templateName });
-        console.log(workout);
-        console.log(workout.exercises[0].sets); // Log the sets array of the first exercise
+        //console.log(workout);
+        //console.log(workout.exercises[0].sets); // Log the sets array of the first exercise
     }
     const exercizes = await exercizesCollection();
     const allExercizes = await exercizes.find({}).toArray();
-    const enumsCopy = JSON.parse(JSON.stringify(enums));
-    res.render('workout', { allExercizes, ...enumsCopy, currentWorkout: workout, user: req.session.user });
+    //const enumsCopy = JSON.parse(JSON.stringify(enums));
+    const enumsCopy = { ...enums };
+    res.render('workout', { allExercizes, ...enumsCopy, workoutData: JSON.stringify(workout), user: req.session.user });
 });
 router.get('/workout/:workoutName', async (req, res) => {
     const workoutName = req.params.workoutName;
@@ -337,6 +341,46 @@ router.get('/workout/:workoutName', async (req, res) => {
     const allExercizes = await exercizes.find({}).toArray();
     const enumsCopy = JSON.parse(JSON.stringify(enums));
     res.render('workout', { allExercizes, ...enumsCopy, currentWorkout: workout });
+});
+router.post('/finish_workout', async (req, res) => {
+    // Access the data from the form submission
+    const { workoutName, exercises } = req.body;
+
+    // Check if exercises is not empty or undefined
+    if (!exercises) {
+        throw new Error('No exercises provided');
+    }
+    // Parse the exercises field into an array
+    const exercisesArray = JSON.parse(exercises);
+
+    // Get the 'workouts' collection
+    const workouts = await workoutsCollection();
+
+    // Create a new workout document
+    const newWorkout = {
+        name: workoutName,
+        exercises: exercisesArray,
+        date: new Date() // Set the current date and time
+    };
+
+    // If a user is in the session, set the user ID from the session
+    if (req.session.user) {
+        newWorkout.userId = req.session.user._id;
+    }
+
+    // Insert the new workout into the 'workouts' collection
+    const insertInfo = await workouts.insertOne(newWorkout);
+    if (insertInfo.insertedCount === 0) throw 'Could not add workout';
+
+    // Redirect the user to a success page
+    res.redirect('/finish_workout');
+});
+router.get('/finish_workout', (req, res) => {
+    res.render('finish_workout');
+});
+
+router.get('/favicon.ico', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'data', 'favicon.png'));
 });
 //helper functions
 

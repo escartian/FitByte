@@ -20,19 +20,17 @@ app.use(requestLoggerMiddleware);
 app.use(sessionMiddleware);
 app.use(userSessionMiddleware);
 
-let collection;
-
 const hbs = create({
   helpers: {    
     log: function (pretext, context) {
       console.log(pretext, JSON.stringify(context));
     },
-  /**
-  * Encodes a given string using the encodeURI function.
-  *
-  * @param {string} str - The string to be encoded.
-  * @return {string} The encoded string with '/' replaced by '%2F'.
-  */
+    /**
+    * Encodes a given string using the encodeURI function.
+    *
+    * @param {string} str - The string to be encoded.
+    * @return {string} The encoded string with '/' replaced by '%2F'.
+    */
     encodeURI: function (str) {
       const encodedStr = encodeURI(str);
       const replacedStr = encodedStr.split('/').join('%2F');
@@ -46,7 +44,7 @@ const hbs = create({
      */
     json: function (context) {
       return JSON.stringify(context);
-    },    
+    },
     /**
     * Encodes a given string using the encodeURIComponent function.
     *
@@ -56,7 +54,6 @@ const hbs = create({
     encodeURIComponent: function (str) {
       return encodeURIComponent(str);
     },
-    
   },
   partialsDir: path.join(__dirname, 'views/partials'),
 });

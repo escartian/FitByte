@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
             emailAddress: 'Email address must be a valid email',
             password: 'Password must be at least 8 characters long, contain at least one uppercase character, one number, and one special character',
             confirmPassword: 'Confirm password must match password',
-            age: 'User must be 18 or older',
+            ageUnderLimit: 'User must be 13 or older',
+            ageOverLimit: 'User must be under 120 or younger',
             dob: 'Date of birth must be in mm/dd/yyyy format',
             gender: 'Must select gender',
         },
@@ -21,7 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
         },
     };
 
-    // Function to get form inputs
+
+    /**
+     * Returns an object containing the form inputs based on the form ID.
+     *
+     * @param {HTMLElement} form - The form element.
+     * @return {Object} An object containing the form inputs.
+     */
     function getFormInputs(form) {
         const formId = form.id
         if (formId === 'login-form') {
@@ -45,13 +52,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 emailAddress: form.elements.emailAddressInput.value,
                 password: form.elements.passwordInput.value,
             };
+        }
     }
-}
 
-    // Function to validate form inputs
+
+    /**
+     * Validates the form inputs based on the specified form type.
+     *
+     * @param {object} inputs - The input values for the form.
+     * @param {string} formType - The type of form being validated.
+     * @return {object} errors - An object containing any validation errors found.
+     */
     function validateFormInputs(inputs, formType) {
         const errors = {};
-    
+
         // Validate emailAddress
         const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
         if (typeof inputs.emailAddress !== 'string' || !emailRegex.test(inputs.emailAddress)) {
@@ -82,57 +96,68 @@ document.addEventListener('DOMContentLoaded', () => {
                 errors.dob = errorMessages[formType].dob;
             }
 
-            //Validate Age
-            const ageRegex = /^(1[8-9]|[2-9][0-9]|100)$/;
-            
-            if (!ageRegex.test(inputs.age)) {
-                errors.age = errorMessages[formType].age;
+            // Validate Age
+            const age = parseInt(inputs.age);
+
+            if (isNaN(age) || age < 13 || age > 100) {
+                if (age < 13) {
+                    errors.age = errorMessages.registration.ageUnderLimit;
+                } else if (age > 120) {
+                    errors.age = errorMessages.registration.ageOverLimit;
+                }
             }
 
-            if (typeof inputs.gender !== 'string' || (inputs.gender !== 'male' && inputs.gender !== 'female')) {
+
+            if (typeof inputs.gender !== 'string' || (inputs.gender !== 'male' && inputs.gender !== 'female' && inputs.gender !== 'other')) {
                 errors.gender = errorMessages.registration.gender;
             }
-            
+
         }
         if (formType === 'loginNav') {
-        // Validate emailAddress
-        const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-        if (typeof inputs.emailAddress !== 'string' || !emailRegex.test(inputs.emailAddress)) {
-            errors.emailAddress = errorMessages[formType].emailAddress;
-        }
+            // Validate emailAddress
+            const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+            if (typeof inputs.emailAddress !== 'string' || !emailRegex.test(inputs.emailAddress)) {
+                errors.emailAddress = errorMessages[formType].emailAddress;
+            }
 
-        // Validate password
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$/;
-        if (typeof inputs.password !== 'string' || !passwordRegex.test(inputs.password)) {
-            errors.password = errorMessages[formType].password;
-        }
+            // Validate password
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$/;
+            if (typeof inputs.password !== 'string' || !passwordRegex.test(inputs.password)) {
+                errors.password = errorMessages[formType].password;
+            }
         }
 
         return errors;
     }
 
-    // Function to display errors
+
+    /**
+     * Display error messages for a given form.
+     *
+     * @param {Object} errors - An object containing error messages for each field in the form.
+     * @param {string} formId - The ID of the form element.
+     */
     function displayErrors(errors, formId) {
         const form = document.querySelector(`#${formId}`);
-    if (form) {
-        // Clear previous error messages
-        const errorElements = document.querySelectorAll('.error-message');
-        errorElements.forEach((element) => {
-            element.textContent = '';
-        });
+        if (form) {
+            // Clear previous error messages
+            const errorElements = document.querySelectorAll('.error-message');
+            errorElements.forEach((element) => {
+                element.textContent = '';
+            });
 
-        // Display new error messages
-        for (const field in errors) {
-            
-            const formTypeSuffix = formId === 'login-nav-form' ? 'Nav' : '';
-            const errorElement = form.querySelector(`#${field}Error${formTypeSuffix}`);
-            
-            if (errorElement) {
-                errorElement.textContent = errors[field];
+            // Display new error messages
+            for (const field in errors) {
+
+                const formTypeSuffix = formId === 'login-nav-form' ? 'Nav' : '';
+                const errorElement = form.querySelector(`#${field}Error${formTypeSuffix}`);
+
+                if (errorElement) {
+                    errorElement.textContent = errors[field];
+                }
             }
         }
     }
-}
 
     // Add event listener for form submit
     const loginForm = document.querySelector('#login-form');
