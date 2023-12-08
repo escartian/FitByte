@@ -64,7 +64,7 @@ export const registerUser = async (
   }
 
   //gender validation
-  if (gender !== "male" && gender !== "female") {
+  if (gender !== "male" && gender !== "female" && gender !== 'other') {
     throw new Error('Invalid gender')
   }
 

@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessages = {
         login: {
             emailAddress: 'Email address must be a valid email',
-            password: 'Password must be at least 8 characters long, contain at least one uppercase character, one number, and one special character',
+            password: 'Password must be at least 8 characters long, contain at least one uppercase character, one number, and one special character, and must not include spaces',
         },
         registration: {
-            firstName: 'First name must be a string, at least 2 characters long, and no more than 25 characters long',
-            lastName: 'Last name must be a string, at least 2 characters long, and no more than 25 characters long',
+            firstName: 'First name must be a string, at least 2 characters long, no more than 25 characters long, and must not contain numbers',
+            lastName: 'Last name must be a string, at least 2 characters long, no more than 25 characters long, and must not contain numbers',
             emailAddress: 'Email address must be a valid email',
-            password: 'Password must be at least 8 characters long, contain at least one uppercase character, one number, and one special character',
+            password: 'Password must be at least 8 characters long, contain at least one uppercase character, one number, one special character, and must not include spaces',
             confirmPassword: 'Confirm password must match password',
             ageUnderLimit: 'User must be 13 or older',
             ageOverLimit: 'User must be under 120 or younger',
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         loginNav: {
             emailAddress: 'Email address must be a valid email',
-            password: 'Password must be at least 8 characters long, contain at least one uppercase character, one number, and one special character',
+            password: 'Password must be at least 8 characters long, contain at least one uppercase character, one number, and one special character, and must not include spaces',
         },
     };
 
@@ -68,23 +68,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Validate emailAddress
         const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-        if (typeof inputs.emailAddress !== 'string' || !emailRegex.test(inputs.emailAddress)) {
+        if (!inputs.emailAddress || inputs.emailAddress.trim() === '' || typeof inputs.emailAddress !== 'string' || !emailRegex.test(inputs.emailAddress)) {
             errors.emailAddress = errorMessages[formType].emailAddress;
         }
 
         // Validate password
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$/;
-        if (typeof inputs.password !== 'string' || !passwordRegex.test(inputs.password)) {
+        if (!inputs.password || 
+            inputs.password.trim() === '' || 
+            typeof inputs.password !== 'string' || 
+            inputs.password.includes(' ') ||
+            !passwordRegex.test(inputs.password)) {
             errors.password = errorMessages[formType].password;
         }
 
         // Validate firstName, lastName, confirmPassword, and gender for registration form
         if (formType === 'registration') {
-            if (typeof inputs.firstName !== 'string' || inputs.firstName.length < 2 || inputs.firstName.length > 25) {
+            if (!inputs.firstName || 
+                inputs.firstName.trim() === '' || 
+                typeof inputs.firstName !== 'string' ||
+                /\d/.test(inputs.firstName) ||
+                inputs.firstName.length < 2 || 
+                inputs.firstName.length > 25) {
                 errors.firstName = errorMessages.registration.firstName;
             }
 
-            if (typeof inputs.lastName !== 'string' || inputs.lastName.length < 2 || inputs.lastName.length > 25) {
+            if (!inputs.lastName || 
+                inputs.lastName.trim() === '' || 
+                typeof inputs.lastName !== 'string' || 
+                /\d/.test(inputs.lastName) ||
+                inputs.lastName.length < 2 || 
+                inputs.lastName.length > 25) {
                 errors.lastName = errorMessages.registration.lastName;
             }
 
@@ -114,17 +128,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         }
         if (formType === 'loginNav') {
-            // Validate emailAddress
-            const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-            if (typeof inputs.emailAddress !== 'string' || !emailRegex.test(inputs.emailAddress)) {
-                errors.emailAddress = errorMessages[formType].emailAddress;
-            }
+           // Validate emailAddress
+        const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+        if (!inputs.emailAddress || inputs.emailAddress.trim() === '' || typeof inputs.emailAddress !== 'string' || !emailRegex.test(inputs.emailAddress)) {
+            errors.emailAddress = errorMessages[formType].emailAddress;
+        }
 
-            // Validate password
-            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$/;
-            if (typeof inputs.password !== 'string' || !passwordRegex.test(inputs.password)) {
-                errors.password = errorMessages[formType].password;
-            }
+        // Validate password
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$/;
+        if (!inputs.password || 
+            inputs.password.trim() === '' || 
+            typeof inputs.password !== 'string' || 
+            inputs.password.includes(' ') ||
+            !passwordRegex.test(inputs.password)) {
+            errors.password = errorMessages[formType].password;
+        }
         }
 
         return errors;

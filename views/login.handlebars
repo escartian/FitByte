@@ -9,9 +9,6 @@ login form handlebar template
  <title>Login</title>
 </head>
 <body>
-    {{#if error}}
-    <p class="error-message">{{error}}</p>
-    {{/if}}
     {{#if user}}
     <h1>User already logged in</h1>
     <a href="/logout" class="btn btn-primary">Home</a>
@@ -37,6 +34,11 @@ login form handlebar template
     </div>
     <small id="passwordError" class="error-message mute-text"></small>
   </div>
+
+   {{#if error}}
+    <small class="error-message mute-text">{{error}}</small>
+    {{/if}}
+    
   <div class="form-group row">
     <div class="col-sm-10">
       <button type="submit" class="btn btn-primary">Login</button>
