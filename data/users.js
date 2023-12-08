@@ -1,5 +1,6 @@
 //import mongo collections, bcrypt and implement the following data functions
 import { users } from '../config/mongoCollections.js';
+import { ObjectId } from 'mongodb';
 import bcrypt from 'bcrypt';
 
 export const registerUser = async (
@@ -41,8 +42,6 @@ export const registerUser = async (
   if(!gender || typeof gender !=='string'){
     throw new Error('Error with gender input');
   }
-  
-  
 
   firstName = firstName.trim();
   lastName = lastName.trim();
@@ -77,7 +76,7 @@ export const registerUser = async (
     _id: insertInfo.insertedId,
   });
 
-  return { insertedUser: true };
+  return { insertedUser: insertedUser, inserted: true };
 };
 
 export const loginUser = async (emailAddress, password) => {
@@ -133,7 +132,7 @@ export const removeUser = async (userId) => {
     throw new Error('Id must be a string');
   }
 
-  if (usertId.trim().length === 0) {
+  if (userId.trim().length === 0) {
     throw new Error('Id cannot be an empty string or just spaces');
   }
 
@@ -172,12 +171,11 @@ function validatePassword(password) {
   if (!/\d/.test(password)) {
     throw new Error('Password must contain at least one number');
   }
-  if (!/[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/.test(password)) {
+  if (!/[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(password)) {
     throw new Error('Password must contain at least one special character');
   }
   console.log('Password is valid:', password);
 }
-
 // function validateDOB(input){
 //   const dateOBRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
 

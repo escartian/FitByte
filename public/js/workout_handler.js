@@ -17,7 +17,7 @@ if (workoutDataElement && workoutDataElement.value) {
 }
 
 // Update the current workout with the workout data from the server
-currentWorkout = workoutData.exercises.map(exercise => {
+let currentWorkout = workoutData.exercises.map(exercise => {
     //console.log(exercise);
     return {
         exerciseName: exercise.exerciseName,

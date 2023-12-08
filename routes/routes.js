@@ -195,7 +195,7 @@ router.get('/protected', async (req, res) => {
     
 } else {
     // Handle the case where the user is not found
-    console.log(`No user found with email address: ${userEmail}`);
+    console.log(`No user found with email address: ${req.session.user.emailAddress}`);
     res.redirect('/login');
 }
 });
