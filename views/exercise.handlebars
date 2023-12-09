@@ -1,19 +1,37 @@
-<!DOCTYPE html>
-<html>
+
+<div class="exercise-container mt-4">
 <head>
   <title>{{name}}</title>
 </head>
-<body>
+<div class="exercises">
   <h1>{{name}}</h1>
-  <img src="/exercises/{{encodeURIComponent name}}/images/0.jpg" alt="{{name}} image 1">
-  <img src="/exercises/{{encodeURIComponent name}}/images/1.jpg" alt="{{name}} image 2">
-  <p>Force: {{force}}</p>
-  <p>Level: {{level}}</p>
-  <p>Mechanic: {{mechanic}}</p>
-  <p>Equipment: {{equipment}}</p>
-  <p>Primary Muscles: {{primaryMuscles}}</p>
-  <p>Secondary Muscles: {{secondaryMuscles}}</p>
-  <p>Instructions: {{instructions}}</p>
-  <p>Category: {{category}}</p>
-</body>
-</html>
+  <div class="row">
+    <div class="column">
+      <img src="/exercises/{{encodeURIComponent name}}/images/0.jpg" alt="{{name}} image 1" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="/exercises/{{encodeURIComponent name}}/images/1.jpg" alt="{{name}} image 2" style="width:100%">
+    </div>
+  </div>
+</div>
+
+<div class="exercise-list mt-4">
+  <div class="row">
+  <div class="column left">
+  <p><span class="label">Force </span> <br> <span class="desc">{{force}}</span></p>
+  <p><span class="label">Level </span> <br> <span class="desc">{{level}}</span></p>
+  <p><span class="label">Mechanic </span> <br> <span class="desc">{{mechanic}}</span></p>
+  <p><span class="label">Equipment </span> <br> <span class="desc">{{equipment}}</span></p>
+  <p><span class="label">Primary Muscles </span> <br> <span class="desc">{{primaryMuscles}}</span></p>
+  <p><span class="label">Secondary Muscles </span> <br> <span class="desc">{{secondaryMuscles}}</span></p>
+  <p><span class="label">Category </span> <br> <span class="desc">{{category}}</span></p>
+  </div>
+  <div class="column right">
+  <p><span class="label">Instructions </span> <br> <span class="instructions">{{instructions}}</span></p>
+  </div>
+  </div>
+  </div>
+
+  </div>
+  
+

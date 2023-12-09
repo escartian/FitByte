@@ -79,7 +79,7 @@ footer {
     padding-left: 20px;
 }
 
-.exercise-container {
+.workout-container {
     flex-direction: column;
 }
 
@@ -120,3 +120,69 @@ footer {
  .bold-font {
     font-weight: bold;
  }
+
+ .exercise-container {
+    width: 60%;
+    margin: 0 auto;
+ }
+
+ .exercises .column {
+    float: left;
+    width: 50%;
+    padding: 5px;
+ }
+
+ .exercises .row::after {
+    content: "";
+    clear: both;
+    display: table;
+ }
+
+ @media screen and (max-width: 500px) {
+    .exercises .column {
+      width: 100%;
+    }
+    .exercise-list .column {
+        width: 100%;
+      }
+  }
+
+.exercise-list .column {
+    float: left;
+}
+
+.exercise-list .left {
+    width: 40%;
+    overflow-wrap: break-word;
+}
+
+.exercise-list .right {
+    width: 60%;
+}
+
+.exercise-list .row:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.exercise-list .label {
+    color: gray;
+    font-size: 14px;
+}
+
+.exercise-list .desc {
+    font-weight: bold;
+}
+
+.exercises h1,
+.login-container h1 {
+    text-align: center;
+}
+
+.container .card.my-3{
+    background-color: rgb(176, 238, 231);
+}
+
+
+

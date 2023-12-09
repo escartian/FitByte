@@ -195,7 +195,7 @@ router.get('/profile', async (req, res) => {
     
 } else {
     // Handle the case where the user is not found
-    console.log(`No user found with email address: ${req.session.user.emailAddress}`);
+    console.log(`No user session`);
     res.redirect('/login');
 }
 });
@@ -203,8 +203,10 @@ router.get('/profile', async (req, res) => {
 router.get('/profile/:id', async (req, res) => {
     const userEmail = req.session.user.emailAddress;
     const userCollection = await users();
-        const user = await userCollection.findOne({ emailAddress: userEmail });
+    const user = await userCollection.findOne({ emailAddress: userEmail });
+    const userId = req.session.user._id
         // Render the view with the user's details
+    if (req.session.user._id === req.params.id) {
         if (user) {
             res.render('profile', {
                 firstName: user.firstName,
@@ -216,11 +218,12 @@ router.get('/profile/:id', async (req, res) => {
                 registerDate: user.registerDate,
                 currentTime: new Date().toLocaleTimeString()
             });
-            
+        }
         } else {
-            // Handle the case where the user is not found
-            console.log(`No user found with email address: ${userEmail}`);
-            res.redirect('/login');
+            // Handle the case where the :id does not match session user id
+            console.log(`Cannot view other user profiles`);
+            return res.status(403).render('error', { error: 'Not authorized to view other user profiles' })
+            //res.redirect('/profile/'+userId);
         }
     
 });
