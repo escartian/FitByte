@@ -3,33 +3,30 @@
 login form handlebar template
 
 --}}
-<!DOCTYPE html>
-<html>
+<div class="login-container col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mx-auto">
 <head>
  <title>Login</title>
 </head>
-<body>
+
     {{#if user}}
     <h1>User already logged in</h1>
     <a href="/logout" class="btn btn-primary">Home</a>
     <a href="/logout" class="btn btn-danger">Logout</a>
     {{else}}
-    <div class="container mt-4">
-<div class="text-center">
+    
  <h1>Login</h1>
- </div>
  
- <form id="login-form" class="login-form w-50 mx-auto" method="post">
+ <form id="login-form" class="login-form mx-auto" method="post">
   <div class="form-group row py-3">
-    <label for="emailAddressInput" class="col-sm-2 col-form-label">Email</label>
-    <div class="col-sm-10">
+    <label for="emailAddressInput" class="col-sm-12 col-md-2 col-form-label">Email</label>
+    <div class="col-sm-12 col-md-10">
       <input type="email" class="form-control" id="emailAddressInput" name="emailAddressInput" placeholder="Email">
     </div>
     <small id="emailAddressError" class="error-message mute-text"></small>
   </div>
   <div class="form-group row pb-3">
-    <label for="passwordInput" class="col-sm-2 col-form-label">Password</label>
-    <div class="col-sm-10">
+    <label for="passwordInput" class="col-sm-12 col-md-2 col-form-label">Password</label>
+    <div class="col-sm-12 col-md-10">
       <input type="password" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password">
     </div>
     <small id="passwordError" class="error-message mute-text"></small>
@@ -49,8 +46,9 @@ login form handlebar template
 <div class="text-center">
  <p><a href="/register">Click here to register!</a></p>
  </div>
- </div>
+ 
  {{/if}}
-</body>
-</html>
+
+
+</div>
 
