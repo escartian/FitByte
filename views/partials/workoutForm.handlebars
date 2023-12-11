@@ -34,7 +34,14 @@
   <input type="text" id="workoutName" name="workoutName" required>
 
   <input type="hidden" id="exercises" name="exercises">
-
+<!--Ask user if they want to save as template-->
+<label for="save-as-template">Save as template:</label>
+<!-- Workout isTemplate values stored as follows
+0 = not template, just workout
+1 = template, 
+2 = template and workout
+-->
+<input type="checkbox" id="save-as-template" name="saveAsTemplate">
   <button type="submit" class="btn btn-primary">Save Workout</button>
 </form>
 <script>

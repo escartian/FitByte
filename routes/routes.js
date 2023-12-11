@@ -270,7 +270,9 @@ router.post('/create_workout', async (req, res) => {
 
     // Check if exercises is not empty or undefined
     if (!exercises) {
-        throw new Error('No exercises provided');
+        req.session.error = 'No exercises provided for workout template';
+        res.redirect('/error');
+        //throw new Error('No exercises provided');
     }
     // Parse the exercises field into an array
     const exercisesArray = JSON.parse(exercises);
@@ -314,7 +316,7 @@ router.get('/create_workout', async (req, res) => {
 
   router.get('/workout_templates', async (req, res) => {
     const workouts = await workoutsCollection();
-    const allWorkouts = await workouts.find({}).toArray();
+    const allWorkouts = await workouts.find({ isTemplate: "1" }).toArray();
     //console.log(req.session.user);
     res.render('workout_templates', { workouts: allWorkouts, user: req.session.user });
 });
@@ -352,11 +354,15 @@ router.get('/workout/:workoutName', async (req, res) => {
 });
 router.post('/finish_workout', async (req, res) => {
     // Access the data from the form submission
-    const { workoutName, exercises } = req.body;
+    let { workoutName, exercises, saveAsTemplate } = req.body;
+
+    // Convert 'on' to 1 and undefined to 0
+    saveAsTemplate = saveAsTemplate === 'on' ? "1" : "0";
 
     // Check if exercises is not empty or undefined
     if (!exercises) {
-        throw new Error('No exercises provided');
+        req.session.error = 'No exersizes provided in workout session';
+        res.redirect('/error');
     }
     // Parse the exercises field into an array
     const exercisesArray = JSON.parse(exercises);
@@ -367,9 +373,10 @@ router.post('/finish_workout', async (req, res) => {
     // Create a new workout document
     const newWorkout = {
         name: workoutName,
-        exercises: exercisesArray,
-        date: new Date() // Set the current date and time
-    };
+        exercises: JSON.parse(exercises),
+        date: new Date(),
+        isTemplate: saveAsTemplate
+      };
 
     // If a user is in the session, set the user ID from the session
     if (req.session.user) {
