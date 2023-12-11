@@ -19,13 +19,12 @@
         </div>
       </div>
       {{/each}}
-      {{#if user}}
+      {{#if ../user}}
         <a href="/workout?template={{encodeURI this.name}}" class="btn btn-primary">Start Workout</a>
       {{/if}}
     </div>
   </div>
   </div>
-  
   {{/each}}
 </div>
 </div>
