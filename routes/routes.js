@@ -171,7 +171,9 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/error', (req, res) => {
-    res.render('error');
+    const errorMessage = req.session.error;
+    req.session.error = null; // Clear the error message so it's not displayed again
+    res.render('error', { error: errorMessage });
 });
 
 router.get('/logout', (req, res) => {
@@ -288,7 +290,8 @@ router.post('/create_workout', async (req, res) => {
     if (req.session.user) {
         newWorkout.userId = req.session.user._id;
     }else{
-        throw new Error('No user in session');
+        req.session.error = 'No user in session';
+        return res.redirect('/error');
     }
     // Insert the new workout into the 'workouts' collection
     const insertInfo = await workouts.insertOne(newWorkout);
@@ -372,7 +375,8 @@ router.post('/finish_workout', async (req, res) => {
     if (req.session.user) {
         newWorkout.userId = req.session.user._id;
     }else{
-        throw new Error('No user in session');
+        req.session.error = 'No user in session';
+        res.redirect('/error');
     }
 
     // Insert the new workout into the 'workouts' collection
