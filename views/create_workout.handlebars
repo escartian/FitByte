@@ -1,6 +1,11 @@
+<style>
+.template-checkbox,
+.template-label {
+  display: none;
+}
+</style>
 <h1>Create Workout</h1>
-{{> workoutForm formAction="/create_workout"}}
-
+{{> workoutForm formAction="/create_workout" isWorkoutTemplatesPage=isWorkoutTemplatesPage}}
 {{#if message}}
  <div class="alert alert-success">
   {{message}}

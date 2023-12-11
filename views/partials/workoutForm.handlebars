@@ -34,17 +34,17 @@
   <input type="text" id="workoutName" name="workoutName" required>
 
   <input type="hidden" id="exercises" name="exercises">
-<!--Ask user if they want to save as template-->
-{{#if isWorkoutTemplatesPage}}
-  <input type="hidden" id="save-as-template" name="saveAsTemplate" checked>
-{{else}}
-  <label for="save-as-template">Save as template:</label>
-  <input type="checkbox" id="save-as-template" name="saveAsTemplate">
-{{/if}}
+  <!--Ask user if they want to save as template-->
+  {{#if isWorkoutTemplatesPage}}
+  <input type="hidden" id="save-as-template" name="saveAsTemplate" class="template-checkbox" checked>
+  {{else}}
+  <label for="save-as-template" class="template-label">Save as template:</label>
+  <input type="checkbox" id="save-as-template" name="saveAsTemplate" class="template-checkbox" checked>
+  {{/if}}
   <button type="submit" class="btn btn-primary">Save Workout</button>
 </form>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const elements = document.querySelectorAll('.choices-select');
     elements.forEach(element => {
       const choices = new Choices(element);

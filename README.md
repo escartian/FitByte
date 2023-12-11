@@ -11,7 +11,7 @@ The initial list of exersize data was obtained from https://github.com/wrkout/ex
 CORE FEATURES
 1. Application has a list of default exercises, with the photos included. - DONE
 2. Users have the ability to custom create workouts for an individual day, and then update the workout as they are completed (i.e. enter the sets and reps done for each exercise) - IN PROGRESS
-3. Users can also create workout templates, which they should be able to re-use and apply to multiple days - IN PROGRESS
+3. Users can also create workout templates, which they should be able to re-use and apply to multiple days - DONE
 4. Default exercises can be filtered by muscle group, category, etc. - DONE
 5. User profiles, and a user profile page where users can view their workout history and track their progress - IN PROGRESS
 ## EXTRA FEATURES
@@ -29,7 +29,8 @@ git clone [https://github.com/escartian/fitbyte.git](https://github.com/escartia
 cd fitbyte 
 
 3. Install the dependencies:
-Note: you need to have node.js installed to use npm. Node.js version used for this app is currently at : Node.js v20.8.0. Once you have this version installed proceed.
+Note: you need to have node.js installed to use npm.
+Node.js version used for this app is currently at : Node.js v20.10.0. Once you have this version installed proceed.
 
 npm install
 

@@ -282,7 +282,7 @@ router.post('/create_workout', async (req, res) => {
 
     // Create a new workout document
     const newWorkout = {
-        isTemplate: 1,
+        isTemplate: "1",
         name: workoutName,
         exercises: exercisesArray,
         date: new Date()
