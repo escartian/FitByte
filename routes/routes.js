@@ -316,8 +316,16 @@ router.get('/create_workout', async (req, res) => {
 
   router.get('/workout_templates', async (req, res) => {
     const workouts = await workoutsCollection();
-    const allWorkouts = await workouts.find({ isTemplate: "1" }).toArray();
-    //console.log(req.session.user);
+
+    const userId = req.session.user ? req.session.user._id : null;
+    const allWorkouts = await workouts.find({ 
+      isTemplate: "1",
+      $or: [
+        { userId: userId },
+        { userId: { $exists: false } }
+      ]
+    }).toArray();
+
     res.render('workout_templates', { workouts: allWorkouts, user: req.session.user });
 });
 
