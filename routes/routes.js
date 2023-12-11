@@ -326,7 +326,7 @@ router.get('/create_workout', async (req, res) => {
       ]
     }).toArray();
 
-    res.render('workout_templates', { workouts: allWorkouts, user: req.session.user });
+    res.render('workout_templates', { workouts: allWorkouts, user: req.session.user , isWorkoutTemplatesPage: true});
 });
 
 router.get('/workout', async (req, res) => {
