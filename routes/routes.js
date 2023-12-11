@@ -278,16 +278,18 @@ router.post('/create_workout', async (req, res) => {
 
     // Create a new workout document
     const newWorkout = {
+        isTemplate: 1,
         name: workoutName,
         exercises: exercisesArray,
-        date: new Date() // Set the current date and time
+        date: new Date()
     };
 
     // If a user is in the session, set the user ID from the session
     if (req.session.user) {
         newWorkout.userId = req.session.user._id;
+    }else{
+        throw new Error('No user in session');
     }
-
     // Insert the new workout into the 'workouts' collection
     const insertInfo = await workouts.insertOne(newWorkout);
     if (insertInfo.insertedCount === 0) throw 'Could not add workout';
@@ -304,7 +306,7 @@ router.get('/create_workout', async (req, res) => {
     const exercizes = await exercizesCollection();
     const allExercizes = await exercizes.find({}).toArray();
     const enumsCopy = JSON.parse(JSON.stringify(enums));
-    res.render('create_workout', { allExercizes, ...enumsCopy, message });
+    res.render('create_workout', { allExercizes, ...enumsCopy, message , user: req.session.user});
   });
 
   router.get('/workout_templates', async (req, res) => {
@@ -369,6 +371,8 @@ router.post('/finish_workout', async (req, res) => {
     // If a user is in the session, set the user ID from the session
     if (req.session.user) {
         newWorkout.userId = req.session.user._id;
+    }else{
+        throw new Error('No user in session');
     }
 
     // Insert the new workout into the 'workouts' collection

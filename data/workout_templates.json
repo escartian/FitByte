@@ -1,5 +1,6 @@
 [
     {
+        "isTemplate":"1",
         "name": "Strongman Workout",
         "exercises": [
             {
@@ -95,6 +96,7 @@
         ]
     },
     {
+        "isTemplate":"1",
         "name": "PPL Push",
         "exercises": [
             {
@@ -190,6 +192,7 @@
         ]
     },
     {
+        "isTemplate":"1",
         "name": "PPL Pull",
         "exercises": [
             {
@@ -285,6 +288,7 @@
         ]
     },
     {
+        "isTemplate":"1",
         "name": "PPL Legs",
         "exercises": [
             {
