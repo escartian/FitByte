@@ -479,7 +479,14 @@ const sortExercises = (exercises, sort, sortOrder) => {
 const filterExercises = (exercises, filter) => {
     return exercises.filter(exercise => {
         for (let key in filter) {
-            if (Array.isArray(exercise[key])) {
+            if (key === 'muscle') {
+                // If the filter key is 'muscle', check both primary and secondary muscles
+                const muscles = exercise.primaryMuscles.concat(exercise.secondaryMuscles);
+                if (!muscles.includes(filter[key])) {
+                    return false;
+                }
+            }
+            else if (Array.isArray(exercise[key])) {
                 // If the exercise property is an array, check if it contains the filter value
                 if (!exercise[key].includes(filter[key])) {
                     return false;
