@@ -337,7 +337,7 @@ router.get('/create_workout', async (req, res) => {
         }
     });
 
-    const allWorkouts = everyWorkout.filter(workout => workout.userId || workout.isTemplate === "1"); //could call this final
+    const allWorkouts = everyWorkout.filter(workout => workout.userId === userId || workout.isTemplate === "1");
 
     res.render('workout_templates', { workouts: allWorkouts, user: req.session.user , isWorkoutTemplatesPage: true});
 });
