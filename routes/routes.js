@@ -318,13 +318,26 @@ router.get('/create_workout', async (req, res) => {
     const workouts = await workoutsCollection();
 
     const userId = req.session.user ? req.session.user._id : null;
-    const allWorkouts = await workouts.find({ 
-      isTemplate: "1",
-      $or: [
-        { userId: userId },
-        { userId: { $exists: false } }
-      ]
-    }).toArray();
+    // const allWorkouts = await workouts.find({ 
+    //   isTemplate: "1",
+    //   $or: [
+    //     { userId: userId },
+    //     { userId: { $exists: false } }
+    //   ]
+    // }).toArray();
+
+    // console.log(allWorkouts);
+    // console.log("Break");
+    const everyWorkout = await workouts.find({}).toArray();
+    // console.log(everyWorkout);
+
+    everyWorkout.forEach(workout => {
+        if (!workout.userId) {
+            workout.isTemplate = "1";
+        }
+    });
+
+    const allWorkouts = everyWorkout.filter(workout => workout.userId || workout.isTemplate === "1"); //could call this final
 
     res.render('workout_templates', { workouts: allWorkouts, user: req.session.user , isWorkoutTemplatesPage: true});
 });
