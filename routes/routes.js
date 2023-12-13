@@ -7,6 +7,8 @@ import bcrypt from 'bcrypt';
 import * as enums from '../data/enums.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { ObjectId } from 'mongodb';
+
 
 const router = express.Router();
 
@@ -358,10 +360,14 @@ router.get('/workout', async (req, res) => {
     const enumsCopy = { ...enums };
     res.render('workout', { allExercizes, ...enumsCopy, workoutData: JSON.stringify(workout), user: req.session.user });
 });
-router.get('/workout/:workoutName', async (req, res) => {
-    const workoutName = req.params.workoutName;
+// router.get('/workout/:workoutName', async (req, res) => {
+    router.get('/workout/:workoutId', async (req, res) => {
+
+    const workoutName = req.params.workoutId;
+    const objectId = new ObjectId(workoutName);
+
     const workouts = await workoutsCollection();
-    const workout = await workouts.findOne({ name: workoutName });
+    const workout = await workouts.findOne({ _id: objectId });
 
     if (!workout) {
         res.status(404).send('Workout not found');
