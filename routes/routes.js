@@ -371,7 +371,8 @@ router.get('/workout/:workoutName', async (req, res) => {
     const exercizes = await exercizesCollection();
     const allExercizes = await exercizes.find({}).toArray();
     const enumsCopy = JSON.parse(JSON.stringify(enums));
-    res.render('workout', { allExercizes, ...enumsCopy, currentWorkout: workout });
+    // res.render('workout', { allExercizes, ...enumsCopy, currentWorkout: workout });
+    res.render('current_workout', { allExercizes, ...enumsCopy, currentWorkout: workout });
 });
 router.post('/finish_workout', async (req, res) => {
     // Access the data from the form submission
