@@ -1,37 +1,21 @@
 <h1>Working Workout 1</h1>
 <input type="hidden" id="workoutData" value="{{workoutData}}">
     
-<!-- Display the current workout 
-<h2>Current Workout: {{currentWorkout.name}}</h2>
-<div id="currentWorkout">
-    <h3>Exercises:</h3>
-    <ul>
-        {{#each currentWorkout.exercises}}
-            <li>
-                <strong>{{this.exerciseName}}</strong><br>
-                {{#each this.sets}}
-                    Set {{this.setNumber}}:<br>
-                    Reps: {{this.reps}}<br>
-                    Weight: {{this.weight}}<br>
-                {{/each}}
-            </li>
-        {{/each}}
-    </ul>
-</div>
--->
-
 <h2>Current Workout: {{currentWorkout.name}}</h2>
 <div id="currentWorkout">
     {{#each currentWorkout.exercises}}
         <div class="card my-3">
             <div class="card-body">
-                <h2 class="card-title">{{this.exerciseName}}</h2>
+                <h2 class="card-title"><a href="/exercises/{{encodeURI this.exerciseName}}">{{this.exerciseName}}</a></h2>
                 <h5 class="card-subtitle mb-2 text-muted">Sets:</h5>
                 {{#each this.sets}}
                     <div class="card my-2">
                         <div class="card-body">
                             <p class="card-text">Set {{this.setNumber}}: {{this.reps}} reps, {{this.weight}} weight</p>
-                        </div>
+                            {{#if ../user}}
+                                <button class="btn btn-primary">Complete?</button>
+                            {{/if}}  
+                        </div>                     
                     </div>
                 {{/each}}
             </div>
