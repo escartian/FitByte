@@ -93,6 +93,7 @@ footer {
 }
 
 .set-number-label {
+    font-weight: bold;
     margin-right: auto;
 }
 
@@ -138,14 +139,6 @@ footer {
     display: table;
  }
 
- @media screen and (max-width: 500px) {
-    .exercises .column {
-      width: 100%;
-    }
-    .exercise-list .column {
-        width: 100%;
-      }
-  }
 
 .exercise-list .column {
     float: left;
@@ -184,5 +177,49 @@ footer {
     background-color: rgb(176, 238, 231);
 }
 
+.workouts-container {
+    display: flex;
+    width: 70%;
+    margin: auto;
+}
+
+.workout-form.left {
+    flex: 0 0 20%;
+}
+
+.current-workout.right .card {
+    flex: 1;
+    width: 100%;
+}
+
+.create-workout-header {
+    text-align: center;
+    padding-top: 15px;
+  }
+
+@media screen and (max-width: 500px) {
+    .exercises .column {
+      width: 100%;
+    }
+    .exercise-list .column {
+        width: 100%;
+      }
+    }
+ 
+@media screen and (max-width: 900px) {      
+    .workouts-container {
+        flex-direction: column;
+        width: 100;
+    }
+
+    .workout-form.left {
+        flex: 1;
+    }
+
+    .workout-form.right .card {
+        flex: 1;
+        width: 100%
+    }
+  }
 
 

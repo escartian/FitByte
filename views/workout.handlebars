@@ -1,13 +1,17 @@
-<h1>Workout</h1>
+<div class="workouts-container mt-4">
+  <div class="workout-form left">
+<p>Find Exercises:</p>
 <input type="hidden" id="workoutData" value="{{workoutData}}">
 {{#if user}}
 {{> workoutForm formAction="/finish_workout"}}
+</div>
 
 <!-- Display the current workout -->
-<h2>Current Workout:</h2>
+<div class="current-workout right">
+<p>Current Workout:</p>
 <div id="currentWorkout">
   {{#each currentWorkout.exercises}}
-  <div class="card my-3 workout-container">
+  <div class="card my-3">
     <div class="card-header d-flex justify-content-between align-items-center">
       <div>{{this.exerciseName}}</div>
       <button class="btn btn-danger remove-exercise-button">Remove Exercise</button>
@@ -25,6 +29,8 @@
     <button class="btn btn-primary m-3 add-set-button">Add Set</button>
   </div>
   {{/each}}
+</div>
+</div>
 </div>
 {{else}}
 <p>You must be signed in to record your workout.</p>

@@ -8,7 +8,7 @@
     "start": "node app.js",
     "lint": "eslint ."
   },
-  "author": "Igor Bich, Donald Ferick",
+  "author": "Igor Bich, Donald Ferick, Erin Brown",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.6.0",
