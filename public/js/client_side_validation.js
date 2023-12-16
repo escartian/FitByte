@@ -20,6 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
             emailAddress: 'Email address must be a valid email',
             password: 'Password must be at least 8 characters long, contain at least one uppercase character, one number, and one special character, and must not include spaces',
         },
+        addExerciseForm: {
+            sets: 'Set number must be greater than 0',
+            reps: 'Rep number must be greater than 0',
+            weight: 'Weight cannot be a negative number',
+            emptyInput: 'Field cannot be empty'
+        }
     };
 
 
@@ -52,7 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 emailAddress: form.elements.emailAddressInput.value,
                 password: form.elements.passwordInput.value,
             };
-        }
+        } else if (formId === 'add-exercise-form') {
+            return {
+                sets: form.elements.sets.value,
+                reps: form.elements.reps.value,
+                weight: form.elements.weight.value
+            };
+        } 
     }
 
 
@@ -145,6 +157,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         }
 
+        if (formType === 'addExerciseForm') {
+            //Validate sets
+         if (!inputs.sets || inputs.sets.trim() === '') {
+             errors.sets = errorMessages[formType].emptyInput;
+         } else if (inputs.sets <= 0) {
+            errors.sets = errorMessages[formType].sets;
+         }
+ 
+         //Validate reps
+         if (!inputs.reps || inputs.reps.trim() === '') {
+            errors.reps = errorMessages[formType].emptyInput;
+        } else if (inputs.reps <= 0) {
+            errors.reps = errorMessages[formType].reps;
+        }
+
+         //Validate weight
+         if (!inputs.weight || inputs.weight.trim() === '') {
+            errors.weight = errorMessages[formType].emptyInput;
+        } else if (inputs.weight < 0) {
+            errors.weight = errorMessages[formType].weight;
+        }
+         }
+
         return errors;
     }
 
@@ -177,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Add event listener for form submit
+    // Add event listener for login form submit
     const loginForm = document.querySelector('#login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', function (event) {
@@ -230,4 +265,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+     // Add event listener for add exercise form button
+     const addExerciseForm = document.querySelector('#add-exercise-form');
+     if (addExerciseForm) {
+        addExerciseForm.addEventListener('click', function (event) {
+             event.preventDefault();
+ 
+             const inputs = getFormInputs(this);
+             const errors = validateFormInputs(inputs, 'addExerciseForm');
+ 
+             displayErrors(errors, 'add-exercise-form');
+ 
+             if (Object.keys(errors).length === 0) {
+                 this.click();
+             }
+         });
+     }
 });

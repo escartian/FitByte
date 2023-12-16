@@ -1,19 +1,33 @@
+<div class="create-workout-header">
+<h1>Create Workout</h1>
+</div>
+<div class="workouts-container mt-4">
 <style>
 .template-checkbox,
 .template-label {
   display: none;
 }
 </style>
-<h1>Create Workout</h1>
+
+<div class="workout-form left">
+  <p>Find Exercises:</p>
 {{> workoutForm formAction="/create_workout" isWorkoutTemplatesPage=isWorkoutTemplatesPage}}
 {{#if message}}
  <div class="alert alert-success">
   {{message}}
  </div>
 {{/if}}
+</div>
 
 <!-- Display the current workout -->
-<h2>Current Workout:</h2>
+<div class="current-workout right">
+<p>Current Workout:</p>
+<div class="alert alert-info" role="alert">
+  Use the search form to find and add exercises to your workout.
+</div>
 <ul id="currentWorkout"></ul>
+</div>
+
 
 <script src="/js/workout_handler.js"></script>
+</div>

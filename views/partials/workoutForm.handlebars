@@ -9,21 +9,31 @@
     {{/each}}
   </select>
 
+  <div class="form-group">
   <label for="sets">Sets:</label>
   <input type="number" id="sets" name="sets" required>
+  <small id="setsError" class="error-message mute-text"></small>
+  </div>
 
+  <div class="form-group">
   <label for="reps">Reps per Set:</label>
   <input type="number" id="reps" name="reps" required>
+  <small id="repsError" class="error-message mute-text"></small>
+  </div>
 
-  <label>Weight per Set:</label>
+  <div class="form-group">
+  <label for="weight">Weight per Set:</label>
   <input type="number" id="weight" name="weight" required>
-
+  <small id="weightError" class="error-message mute-text"></small>
+  
+  <div class="weight-units">
   <label for="weightUnitLbs">LB</label>
   <input type="radio" id="weightUnitLbs" name="weightUnit" value="LB" checked>
 
   <label for="weightUnitKg">KG</label>
   <input type="radio" id="weightUnitKg" name="weightUnit" value="KG">
-
+  </div>
+  </div>
   <button type="button" class="btn btn-secondary" id="addExercise">Add Exercise</button>
 </form>
 
