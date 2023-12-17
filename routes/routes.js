@@ -551,8 +551,8 @@ router.post('/completed_workout', async (req, res) => {
         // Call the function to update user customWorkouts
         const updatedUser = await updateUserCustomWorkouts(userId, workoutName, workoutId);
 
-        // Render the 'completed_workout' page and pass the user's customWorkouts
-        res.redirect('completed_workout');
+        // res.redirect('completed_workout');
+        res.json({ success: true });
     } catch (error) {
         console.error('Error updating user customWorkouts:', error);
         res.status(500).json({ success: false, message: 'Failed to update user customWorkouts' });
@@ -565,16 +565,12 @@ router.get('/completed_workout', async (req,res)=>{
             const userId = req.session.user._id;
             const objectId = new ObjectId(userId);
 
-            console.log("Here");
-            console.log("userId:", userId);
-            console.log("if here we have an id");
 
             console.log(objectId);
     
             const user = await userCollection.findOne({ _id: objectId });
     
             if (user) {
-                console.log("User found:", user);
                 const customWorkouts1 = user.customWorkouts;
     
                 // Render the 'completed_workout' page and pass the customWorkouts
