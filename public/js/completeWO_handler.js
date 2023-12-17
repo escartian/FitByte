@@ -4,7 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Iterate over each button and add a click event listener
     completeButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
+        button.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent the default behavior of the button click
+            console.log("Button clicked!"); 
+
             // Retrieve data attributes from the button
             var userId = button.dataset.userId;
             var workoutName = button.dataset.workoutName;
