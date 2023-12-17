@@ -1,0 +1,18 @@
+<h1>Completed Workouts</h1>
+    
+{{#if customWorkouts.length}}
+  <ul>
+    {{#each customWorkouts}}
+      <li>
+        <strong>{{this.workoutName}}</strong>
+        <br>
+        Completed on: {{this.completedDate}}
+        <br>
+        <a href="/workout/{{this.workoutId}}">View Workout</a>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>No completed workouts yet.</p>
+{{/if}}        
+  <a class="nav-link" href="/">Home?</a>

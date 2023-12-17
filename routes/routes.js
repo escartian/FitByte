@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import { users, excersizes as exercizesCollection, workouts as workoutsCollection } from '../config/mongoCollections.js';
-import { registerUser } from '../data/users.js';
+import { registerUser, updateUserCustomWorkouts } from '../data/users.js';
 import bcrypt from 'bcrypt';
 import * as enums from '../data/enums.js';
 import { fileURLToPath } from 'url';
@@ -428,6 +428,26 @@ router.get('/finish_workout', (req, res) => {
 router.get('/favicon.ico', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'data', 'favicon.png'));
 });
+
+router.post('/completed_workout', async (req, res) => {
+    try {
+        const { userId, workoutName, workoutId } = req.body;
+
+        // Call the function to update user customWorkouts
+        const updatedUser = await updateUserCustomWorkouts(userId, workoutName, workoutId);
+
+        // Render the 'completed_workout' page and pass the user's customWorkouts
+        res.render('completed_workout', { customWorkouts: updatedUser.customWorkouts });
+    } catch (error) {
+        console.error('Error updating user customWorkouts:', error);
+        res.status(500).json({ success: false, message: 'Failed to update user customWorkouts' });
+    }
+});
+
+router.get('/completed_workout', (req,res)=>{
+    res.render('completed_workout');
+});
+
 //helper functions
 
 /**

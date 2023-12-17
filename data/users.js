@@ -183,6 +183,47 @@ export const removeUser = async (userId) => {
   }
 };
 
+
+export const updateUserCustomWorkouts = async (userId, workoutName, workoutId) => {
+  if (!userId || typeof userId !== 'string') {
+    throw new Error('Invalid user ID');
+  }
+const userCollection = await users();
+
+// Check if the user with the given ID exists
+const user = await userCollection.findOne({ _id: userId });
+if (!user) {
+  throw new Error('User not found');
+}
+
+const date = new Date();
+
+const newCustomWorkout = {
+  workoutName: workoutName,
+  workoutId: workoutId,
+  completedDate: date.toISOString(), // Convert date to string
+};
+
+// Update the customWorkouts array
+const updatedUser = await userCollection.findOneAndUpdate(
+  { _id: userId },
+  {
+    $push: {
+      customWorkouts: {
+        $each: [newCustomWorkout],
+        $slice: -10, // Keep only the last 10 elements
+      },
+    },
+  },
+  { returnDocument: 'after' }
+);
+
+if (!updatedUser.value) {
+  throw new Error('Could not update user');
+}
+
+return { success: true, message: 'User successfully updated' };
+};
 //helper
 
 function validatePassword(password) {
