@@ -57,7 +57,7 @@
         <li class="nav-item">
           <div class="dropdown">
               {{#if user}}
-              <button class="btn btn-success dropdown-toggle btn-sm" type="button" id="dropdownMenuButton"
+              <button class="btn btn-success dropdown-toggle btn-sm" type="button" id="userDropdownMenuButton"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ user.firstName }} {{ user.lastName }}
               </button>
@@ -97,10 +97,10 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/register">New around here? Sign up</a>
               </div>
-          </li>
+          </div>
+        </li>
         {{/if}}
       </ul>
-    </div>
     </div>
   </nav>
   {{{body}}}
