@@ -9,9 +9,13 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Button clicked!"); 
 
             // Retrieve data attributes from the button
-            var userId = button.dataset.userId;
+            // var userId = button.dataset.userId;
             var workoutName = button.dataset.workoutName;
             var workoutId = button.dataset.workoutId;
+
+            // console.log("userId:"+userId);
+            console.log("workoutName"+workoutName);
+            console.log("workoutId"+workoutId);
 
             // Make an asynchronous POST request to update user customWorkouts
             fetch('/completed_workout', {
@@ -20,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    userId: userId,
+                    // userId: userId,
                     workoutName: workoutName,
                     workoutId: workoutId,
                 }),

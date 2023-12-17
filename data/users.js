@@ -190,23 +190,28 @@ export const updateUserCustomWorkouts = async (userId, workoutName, workoutId) =
   }
 const userCollection = await users();
 
-// Check if the user with the given ID exists
-const user = await userCollection.findOne({ _id: userId });
+const objectId = new ObjectId(userId);
+
+const user = await userCollection.findOne({ _id: objectId });
 if (!user) {
   throw new Error('User not found');
 }
 
-const date = new Date();
+// Convert workoutId to ObjectId
+const workoutObjectId = new ObjectId(workoutId);
+
+const date = Date();
+
 
 const newCustomWorkout = {
   workoutName: workoutName,
-  workoutId: workoutId,
-  completedDate: date.toISOString(), // Convert date to string
+  workoutId: workoutObjectId,
+  completedDate: date, // Convert date to string
 };
 
 // Update the customWorkouts array
 const updatedUser = await userCollection.findOneAndUpdate(
-  { _id: userId },
+  { _id: objectId }, // Use the ObjectId for the query
   {
     $push: {
       customWorkouts: {
@@ -218,12 +223,10 @@ const updatedUser = await userCollection.findOneAndUpdate(
   { returnDocument: 'after' }
 );
 
-if (!updatedUser.value) {
-  throw new Error('Could not update user');
-}
 
 return { success: true, message: 'User successfully updated' };
 };
+
 //helper
 
 function validatePassword(password) {

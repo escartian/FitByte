@@ -431,7 +431,9 @@ router.get('/favicon.ico', (req, res) => {
 
 router.post('/completed_workout', async (req, res) => {
     try {
-        const { userId, workoutName, workoutId } = req.body;
+        const { workoutName, workoutId } = req.body;
+
+        const userId = req.session.user._id;
 
         // Call the function to update user customWorkouts
         const updatedUser = await updateUserCustomWorkouts(userId, workoutName, workoutId);
@@ -445,7 +447,7 @@ router.post('/completed_workout', async (req, res) => {
 });
 
 router.get('/completed_workout', (req,res)=>{
-    res.render('completed_workout');
+    res.render('completed_workout', {customWorkouts: req.session.user.customWorkouts});
 });
 
 //helper functions
