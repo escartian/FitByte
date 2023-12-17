@@ -12,6 +12,9 @@
 <!-- Display the current workout -->
 <div class="current-workout right">
 <p class="bold-font">Current Workout:</p>
+<div class="alert alert-info" role="alert" id="alertInfo">
+  Use the search form to find and add exercises to your workout.
+</div>
 <div id="currentWorkout">
   {{#each currentWorkout.exercises}}
   <div class="card my-3">

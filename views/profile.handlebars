@@ -2,8 +2,29 @@
   <div class="card-body">
     <h5 class="card-title">{{firstName}} {{lastName}}</h5>
     <h6 class="card-subtitle mb-2 text-muted">Welcome {{firstName}} {{lastName}}, the time is now: {{currentTime}}.</h6>
-    <a href="/completed_workout" class="card-link">View Completed Workouts</a>
   </div>
+</div>
+
+<div class="card mx-auto mb-4" style="width: 28rem;">
+  <div class="card-header">
+<h5>Completed Workouts</h5>
+<h6>Past Workout History: (MAX 10)</h6>
+</div>
+    
+{{#if customWorkouts.length}}
+  <ul class="list-group list-group-flush">
+    {{#each customWorkouts}}
+      <li class="list-group-item">
+        <h5 class = "list-group-item-heading">{{this.workoutName}}</h5>
+        Completed on: {{this.completedDate}}
+        <br>
+        <a href="/workout/{{this.workoutId}}">View Workout</a>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p class="text-center">No completed workouts yet.</p>
+{{/if}}   
 </div>
 
 <div class="card mx-auto mb-5" style="width: 28rem;">
@@ -47,8 +68,6 @@
     <p class="list-group-item">{{registerDate}}</p>
     </li>
   </ul>
-
-  
 </div>
 
 <div class="text-center">

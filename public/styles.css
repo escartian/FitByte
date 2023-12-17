@@ -194,10 +194,31 @@ footer {
 
 .create-workout-header,
 .empty-workout-header,
-.create-exercise-header {
+.create-exercise-header,
+.exercises-header {
     text-align: center;
     padding-top: 15px;
   }
+
+.exercises-container,
+.profile-container {
+    display: flex;
+}
+
+.exercises-form.left {
+    flex: 0 0 30%;
+}
+
+.exercises-list.right .card {
+    flex: 1;
+    width: 100%;
+}
+
+.exercises-list .label {
+    color: gray;
+    font-weight: bold;
+    font-size: 14px;
+}
 
 @media screen and (max-width: 500px) {
     .exercises .column {
@@ -209,16 +230,19 @@ footer {
     }
  
 @media screen and (max-width: 900px) {      
-    .workouts-container {
+    .workouts-container,
+    .exercises-container {
         flex-direction: column;
         width: 100;
     }
 
-    .workout-form.left {
+    .workout-form.left,
+    .exercises-form.left {
         flex: 1;
     }
 
-    .workout-form.right .card {
+    .workout-form.right .card
+    .exercises-list.right .card {
         flex: 1;
         width: 100%
     }

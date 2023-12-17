@@ -25,7 +25,7 @@ $(document).ready(function () {
              *
              * @return {boolean} Returns false if the email address or password input is invalid.
              */
-            beforeSend: function () {
+            beforeSend: function () {  
                 if (!emailAddressInput || emailAddressInput.trim() === '' || typeof emailAddressInput !== 'string' || !emailRegex.test(emailAddressInput)) {
                     $emailAddressErrorNav.html('Email address must be a valid email');
                     return false;
@@ -54,6 +54,11 @@ $(document).ready(function () {
             }
         });
     });
+
+    //remove Info Alert when add exercise is clicked
+    $("#addExercise").click(function(){
+        $("#alertInfo").remove();
+      });
 
     //age calculation for form registration
     $('#dobInput').datepicker({

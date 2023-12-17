@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Exercises</title>
-</head>
+<div class="exercises-header">
+<h1>Exercises</h1>
+</div>
 
 <body>
-    <h1>Exercises</h1>
+<div class="exercises-container mt-4">
+    <div class="exercises-form left">
     <ul>
         <form action="/exercises" method="get">
             <label for="search">Search:</label>
@@ -77,20 +75,28 @@
             <input type="submit" value="Submit">
         </form>
         </div>
+        
+        <div class="exercises-list right">
         {{#each exercises}}
-        <li>
-            <h2><a href="/exercises/{{encodeURI this.name}}">{{this.name}}</a></h2>
-            <p>Force: {{force}}</p>
-            <p>Level: {{level}}</p>
-            <p>Mechanic: {{mechanic}}</p>
-            <p>Equipment: {{equipment}}</p>
-            <p>Primary Muscles: {{primaryMuscles}}</p>
-            <p>Secondary Muscles: {{secondaryMuscles}}</p>
-            <p>Instructions: {{instructions}}</p>
-            <p>Category: {{category}}</p>
-        </li>
+        <div class="card mb-3" style="width: 30rem;">
+            <div class="card-header">
+            <h3><a href="/exercises/{{encodeURI this.name}}">{{this.name}}</a></h3>
+            </div>
+            <div class="card-body">
+            <p><span class="label">Force </span> <br> <span class="desc">{{force}}</span></p>
+            <p><span class="label">Level </span> <br> <span class="desc">{{level}}</span></p>
+            <p><span class="label">Mechanic </span> <br> <span class="desc">{{mechanic}}</span></p>
+            <p><span class="label">Equipment </span> <br> <span class="desc">{{equipment}}</span></p>
+            <p><span class="label">Primary Muscles </span> <br> <span class="desc">{{primaryMuscles}}</span></p>
+            <p><span class="label">Secondary Muscles </span> <br> <span class="desc">{{secondaryMuscles}}</span></p>
+            <p><span class="label">Category </span> <br> <span class="desc">{{category}}</span></p>
+            <p><span class="label">Instructions </span> <br> <span class="instructions">{{instructions}}</span></p>
+        </div>
+        </div>
         {{/each}}
+        </div>
     </ul>
+    </div>
 </body>
 
 </html>
