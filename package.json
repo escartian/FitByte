@@ -22,7 +22,8 @@
     "express-session": "^1.17.3",
     "express-sessions": "^1.0.6",
     "express-validator": "^7.0.1",
-    "mongodb": "^6.3.0"
+    "mongodb": "^6.3.0",
+    "xss": "^1.0.14"
   },
   "devDependencies": {
     "eslint": "^8.55.0"
