@@ -1,7 +1,7 @@
-<h1>Working Workout</h1>
+<h1>Current Workout</h1>
 <input type="hidden" id="workoutData" value="{{workoutData}}">
     
-<h2>Current Workout: {{currentWorkout.name}}</h2>
+<h2>Current Selected Workout: {{currentWorkout.name}}</h2>
 <div id="currentWorkout">
     {{#each currentWorkout.exercises}}
         <div class="card my-3">
@@ -12,7 +12,7 @@
                     <div class="card my-2">
                         <div class="card-body">
                             <p class="card-text">Set {{this.setNumber}}: {{this.reps}} reps, {{this.weight}} weight</p>
-                                                    </div>                     
+                         </div>                     
                     </div>
                 {{/each}}
             </div>

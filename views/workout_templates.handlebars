@@ -20,8 +20,8 @@
       </div>
       {{/each}}
       {{#if ../user}}
-        <a href="/workout?template={{encodeURI this.name}}" class="btn btn-primary">Start Workout</a>
-        <a href="/workout/{{encodeURIComponent this._id}}" class="btn btn-primary">Complete Workout</a>
+        {{!-- <a href="/workout?template={{encodeURI this.name}}" class="btn btn-primary">Start Workout</a> --}}
+        <a href="/workout/{{encodeURIComponent this._id}}" class="btn btn-primary">Start Workout</a>
       {{/if}}
     </div>
   </div>
