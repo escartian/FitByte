@@ -552,16 +552,30 @@ router.post('/completed_workout', async (req, res) => {
         const updatedUser = await updateUserCustomWorkouts(userId, workoutName, workoutId);
 
         // Render the 'completed_workout' page and pass the user's customWorkouts
-        res.render('completed_workout', { customWorkouts: updatedUser.customWorkouts });
+        //this is incorrect just a placeholder
+        res.redirect('completed_workout', { customWorkouts: updatedUser.customWorkouts });
     } catch (error) {
         console.error('Error updating user customWorkouts:', error);
         res.status(500).json({ success: false, message: 'Failed to update user customWorkouts' });
     }
 });
 
-router.get('/completed_workout', (req,res)=>{
-    res.render('completed_workout', {customWorkouts: req.session.user.customWorkouts});
-});
+router.get('/completed_workout', async (req,res)=>{
+        try {
+            const userCollection = await users();
+            const userId = req.session.user._id
+            const objectId = Object(userId)
+            const user = await userCollection.findOne({ _id: objectId });
+
+            const customWorkouts = user.customWorkouts;
+            
+            // Render the 'completed_workout' page and pass the customWorkouts
+            res.render('completed_workout', { customWorkouts });
+        } catch (error) {
+            console.error('Error rendering completed_workout page:', error);
+            res.status(500).json({ success: false, message: 'Failed to render completed_workout page' });
+        }
+    });
 
 //helper functions
 
