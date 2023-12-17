@@ -1,7 +1,7 @@
 /* global $ */
 $(document).ready(function () {
     //login navbar form
-    $('#login-nav-btn').on('click', function (event) {
+    $('#login-nav-btn').on('click', async function (event) {
         event.preventDefault();
 
         const emailAddressInput = $('#emailAddressInput').val().trim();
@@ -26,7 +26,7 @@ $(document).ready(function () {
              * @return {boolean} Returns false if the email address or password input is invalid.
              */
             beforeSend: function () {
-                if (typeof emailAddressInput !== 'string' || !emailRegex.test(emailAddressInput)) {
+                if (!emailAddressInput || emailAddressInput.trim() === '' || typeof emailAddressInput !== 'string' || !emailRegex.test(emailAddressInput)) {
                     $emailAddressErrorNav.html('Email address must be a valid email');
                     return false;
                 }
@@ -36,7 +36,6 @@ $(document).ready(function () {
                     $emailAddressErrorNav.hide()
                     return false;
                 }
-
             },
             /**
              * Executes the success callback function with the response object.

@@ -8,6 +8,7 @@ import * as enums from '../data/enums.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { ObjectId } from 'mongodb';
+import xss from 'xss'
 
 
 const router = express.Router();
@@ -97,12 +98,50 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 router.post('/login', async (req, res) => {
-    const { emailAddressInput, passwordInput } = req.body;
 
+    try {
+    const { emailAddressInput, passwordInput } = req.body;
+    
     // Validate the input fields
-    if (!emailAddressInput || !passwordInput) {
+    if (!emailAddressInput || emailAddressInput.trim() === '' || !passwordInput || passwordInput.trim() === '') {
         return res.status(400).send('Missing required fields');
     }
+
+    if (typeof passwordInput != 'string') {
+        return res.status(400).render('login', {error: 'Password is not of type string'})
+    }
+
+    //email address validation
+    var emailPattern = /^\w+@[a-zA-Z_]+\.[a-zA-Z]{2,3}$/;
+    if (!emailPattern.test(emailAddressInput.toLowerCase())) {
+        return res.status(400).render('login', {error: 'Invalid email address format'} )
+    }
+
+    //Password validation
+if (passwordInput.includes(' ')) {
+    return res.status(400).render('login', { error: 'Password cannot contain spaces' })
+  }
+  
+  if (passwordInput.length < 8) {
+    return res.status(400).render('login', { error: 'Password should be a minimum of 8 characters long' })
+    
+  }
+  
+  if (passwordInput.search(/[a-z]/) < 0) {
+    return res.status(400).render('login', { error: 'Password must contain at least one lower case character' })
+  }
+  
+  if (passwordInput.search(/[A-Z]/) < 0) {
+    return res.status(400).render('login', { error: 'Password must contain at least one upper case character' })
+  }
+  
+  if (passwordInput.search(/[0-9]/) < 0) {
+    return res.status(400).render('login', { error: 'Password must contain at least one number' })
+  }
+  
+  if (passwordInput.search(/[!@#$%^&*(),.?":{}|<>]/) < 0) {
+    return res.status(400).render('login', { error: 'Password must contain at least one special character' })
+  }
 
     // Retrieve the user from the database
     const userCollection = await users();
@@ -110,7 +149,7 @@ router.post('/login', async (req, res) => {
 
     // If the user does not exist, render the login form again with an error message
     if (!user) {
-        return res.render('login', { error: 'Invalid email or password' });
+        return res.status(400).render('login', { error: 'Invalid email or password' });
     }
 
     // Compare the provided password with the stored password
@@ -118,7 +157,7 @@ router.post('/login', async (req, res) => {
 
     // If the password is incorrect, render the login form again with an error message
     if (!isPasswordCorrect) {
-        return res.render('login', { error: 'Invalid email or password' });
+        return res.status(400).render('login', { error: 'Invalid email or password' });
     }
 
     // If the email and password are correct, create a session for the user
@@ -137,9 +176,14 @@ router.post('/login', async (req, res) => {
     } else {
         return res.redirect('/profile')
     }
+} catch (error) {
+    
+}
 
 });
 router.post('/register', async (req, res) => {
+
+    try {
     console.log(req.body);
     const { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput } = req.body;
 
@@ -150,12 +194,77 @@ router.post('/register', async (req, res) => {
         return res.status(400).send('Missing required fields');
     }
 
+    if (typeof firstNameInput != 'string') {
+        return res.status(400).render('register', {error: 'First name must be of type string'})
+    }
+
+    if (typeof lastNameInput != 'string') {
+        return res.status(400).render('register', {error: 'Last name must be of type string'})
+    }
+
+    if (typeof passwordInput != 'string') {
+        return res.status(400).render('register', {error: 'Password name must be of type string'})
+    }
+
+    if (/\d/.test(firstNameInput)) {
+        return res.status(400).render('register', { error: 'First name should not contain numbers' })
+      }
+      
+      if (/\d/.test(lastNameInput)) {
+        return res.status(400).render('register', { error: 'Last name should not contain numbers' })
+      }
+    
+    //firstName and lastName character count
+if (firstNameInput.length < 2 || firstNameInput.length > 25) {
+    return res.status(400).render('register', { error: 'First Name must be at least 2 characters long with a max of 25 characters' })
+  }
+  
+  if (lastNameInput.length < 2 || lastNameInput.length > 25) {
+    return res.status(400).render('register', { error: 'Last Name must be at least 2 characters long with a max of 25 characters' })
+  }
+
+  //email validation
+var emailPattern = /^\w+@[a-zA-Z_]+\.[a-zA-Z]{2,3}$/
+if (!emailPattern.test(emailAddressInput)) {
+  return res.status(400).render('register', { error: 'Invalid email address format' })
+}
+
+//Password validation
+if (passwordInput.includes(' ')) {
+  return res.status(400).render('register', { error: 'Password cannot contain spaces' })
+}
+
+if (passwordInput.length < 8) {
+  return res.status(400).render('register', { error: 'Password should be a minimum of 8 characters long' })
+}
+
+if (passwordInput.search(/[a-z]/) < 0) {
+  return res.status(400).render('register', { error: 'Password must contain at least one lower case character' })
+}
+
+if (passwordInput.search(/[A-Z]/) < 0) {
+  return res.status(400).render('register', { error: 'Error: Password must contain at least one upper case character' })
+}
+
+if (passwordInput.search(/[0-9]/) < 0) {
+  return res.status(400).render('register', { error: 'Error: Password must contain at least one number' })
+}
+
+if (passwordInput.search(/[!@#$%^&*(),.?":{}|<>]/) < 0) {
+  return res.status(400).render('register', { error: 'Error: Password must contain at least one special character' })
+}
+
+//gender validation
+if (genderInput !== "male" && genderInput !== "female" && genderInput !== "other") {
+  return res.status(400).render('register', { error: 'Invalid gender selection' })
+}
+
     // Check if a user with the given email address already exists
     const userCollection = await users();
     const existingUser = await userCollection.findOne({ emailAddress: emailAddressInput });
 
     if (existingUser) {
-        return res.render('register', { error: 'A user with this email address already exists' });
+        return res.status(400).render('register', { error: 'Email Address already registered' });
     }
 
     // Call the registerUser db function
@@ -167,9 +276,13 @@ router.post('/register', async (req, res) => {
     if (result.insertedUser) {
         console.log('Redirecting to /login');
         return res.redirect('/login');
+    
     } else {
-        return res.status(500).render('error', { error: 'Error registering user' });
+     return res.status(500).render('error', { error: 'Error registering user' });
     }
+} catch (error) {
+    console.error(error)
+}
 });
 
 router.get('/error', (req, res) => {
