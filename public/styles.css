@@ -192,7 +192,9 @@ footer {
     width: 100%;
 }
 
-.create-workout-header {
+.create-workout-header,
+.empty-workout-header,
+.create-exercise-header {
     text-align: center;
     padding-top: 15px;
   }

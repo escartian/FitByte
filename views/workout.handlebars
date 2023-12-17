@@ -1,6 +1,9 @@
+<div class="empty-workout-header">
+<h1>Start Empty Workout</h1>
+</div>
 <div class="workouts-container mt-4">
   <div class="workout-form left">
-<p>Find Exercises:</p>
+<p class="bold-font">Find Exercises:</p>
 <input type="hidden" id="workoutData" value="{{workoutData}}">
 {{#if user}}
 {{> workoutForm formAction="/finish_workout"}}
@@ -8,7 +11,7 @@
 
 <!-- Display the current workout -->
 <div class="current-workout right">
-<p>Current Workout:</p>
+<p class="bold-font">Current Workout:</p>
 <div id="currentWorkout">
   {{#each currentWorkout.exercises}}
   <div class="card my-3">

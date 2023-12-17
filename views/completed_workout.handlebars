@@ -1,13 +1,14 @@
+<div class="card mx-auto mb-5 mt-4" style="width: 28rem;">
+  <div class="card-header">
 <h1>Completed Workouts</h1>
-
-<h2>Past Workout History: (MAX 10)</h2>
+<h4>Past Workout History: (MAX 10)</h4>
+</div>
     
 {{#if customWorkouts.length}}
-  <ul>
+  <ul class="list-group list-group-flush">
     {{#each customWorkouts}}
-      <li>
-        <strong>{{this.workoutName}}</strong>
-        <br>
+      <li class="list-group-item">
+        <h5 class = "list-group-item-heading">{{this.workoutName}}</h5>
         Completed on: {{this.completedDate}}
         <br>
         <a href="/workout/{{this.workoutId}}">View Workout</a>
@@ -16,5 +17,8 @@
   </ul>
 {{else}}
   <p>No completed workouts yet.</p>
-{{/if}}        
-  <a class="nav-link" href="/"> Return Home?</a>
+{{/if}}   
+</div>
+<div class="text-center">
+    <a href="/" class="btn btn-dark">Return Home</a>
+</div>
