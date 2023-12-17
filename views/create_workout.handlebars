@@ -10,7 +10,7 @@
 </style>
 
 <div class="workout-form left">
-  <p>Find Exercises:</p>
+  <p class="bold-font">Find Exercises:</p>
 {{> workoutForm formAction="/create_workout" isWorkoutTemplatesPage=isWorkoutTemplatesPage}}
 {{#if message}}
  <div class="alert alert-success">
@@ -21,8 +21,8 @@
 
 <!-- Display the current workout -->
 <div class="current-workout right">
-<p>Current Workout:</p>
-<div class="alert alert-info" role="alert">
+<p class="bold-font">Current Workout:</p>
+<div class="alert alert-info" role="alert" id="alertInfo">
   Use the search form to find and add exercises to your workout.
 </div>
 <ul id="currentWorkout"></ul>

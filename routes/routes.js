@@ -333,7 +333,8 @@ router.get('/profile/:id', async (req, res) => {
                 DateOfBirth: user.DateOfBirth,
                 gender: user.gender,
                 registerDate: user.registerDate,
-                currentTime: new Date().toLocaleTimeString()
+                currentTime: new Date().toLocaleTimeString(),
+                customWorkouts: user.customWorkouts
             });
         }
         } else {
