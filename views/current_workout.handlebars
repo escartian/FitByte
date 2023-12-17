@@ -12,13 +12,14 @@
                     <div class="card my-2">
                         <div class="card-body">
                             <p class="card-text">Set {{this.setNumber}}: {{this.reps}} reps, {{this.weight}} weight</p>
-                            {{#if ../user}}
-                                <button class="btn btn-primary">Complete?</button>
-                            {{/if}}  
-                        </div>                     
+                                                    </div>                     
                     </div>
                 {{/each}}
             </div>
         </div>
     {{/each}}
+    {{#if user}}
+<button class="btn btn-primary complete-button" data-user-id="{{userId}}" data-workout-name="{{currentWorkout.name}}" data-workout-id="{{currentWorkout._id}}">Complete?</button>   
+   {{/if}}  
 </div>
+<script src="/js/completeWO_handler.js"></script>
