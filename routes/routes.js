@@ -562,8 +562,8 @@ router.post('/completed_workout', async (req, res) => {
 router.get('/completed_workout', async (req,res)=>{
         try {
             const userCollection = await users();
-            const userId = req.session.user._id
-            const objectId = new Object(userId)
+            const userId = req.session.user._id;
+            const objectId = new ObjectId(userId);
 
             console.log("Here");
             console.log("userId:", userId);
