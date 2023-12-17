@@ -29,9 +29,6 @@
           <li class="nav-item">
             <a class="nav-link" href="/workout">Start Empty Workout</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/completed_workout">Previous Workouts</a>
-          </li>
         {{else}}
           <li class="nav-item">
             <a class="nav-link" href="/login">Login</a>
@@ -72,11 +69,9 @@
                 <p>
                   Welcome {{ user.firstName }} {{ user.lastName }}!
                 </p>
-                <p class="mb-0">
-                  And this is more example text.
-                </p>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/profile">User Profile</a>
+                <a class="dropdown-item" href="/completed_workout">Previous Workouts</a>
               </div>
 
             {{else}}
