@@ -29,18 +29,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/workout">Start Empty Workout</a>
           </li>
-        {{else}}
           <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/register">Register</a>
-          </li>
-          <li class="nav-item">
-            <a href="/workout_templates" class="nav-link">View Workout Templates</a>
-          </li>
-        {{/if}}
-        <li class="nav-item">
           <a href="/create_workout" class="nav-link">Create Workout Template</a>
         </li>
         <li class="nav-item">
@@ -50,6 +39,14 @@
         <li class="nav-item">
           <a href="/exercises" class="nav-link">Go to Exercises</a>
         </li>
+        {{else}}
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
+          </li>
+        {{/if}}
 
         <!--login dropdown-->
         {{#if user}}
