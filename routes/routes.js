@@ -552,8 +552,7 @@ router.post('/completed_workout', async (req, res) => {
         const updatedUser = await updateUserCustomWorkouts(userId, workoutName, workoutId);
 
         // Render the 'completed_workout' page and pass the user's customWorkouts
-        //this is incorrect just a placeholder
-        res.redirect('completed_workout', { customWorkouts: updatedUser.customWorkouts });
+        res.redirect('completed_workout');
     } catch (error) {
         console.error('Error updating user customWorkouts:', error);
         res.status(500).json({ success: false, message: 'Failed to update user customWorkouts' });
@@ -564,14 +563,26 @@ router.get('/completed_workout', async (req,res)=>{
         try {
             const userCollection = await users();
             const userId = req.session.user._id
-            const objectId = Object(userId)
-            const user = await userCollection.findOne({ _id: objectId });
+            const objectId = new Object(userId)
 
-            const customWorkouts = user.customWorkouts;
-            
-            // Render the 'completed_workout' page and pass the customWorkouts
-            res.render('completed_workout', { customWorkouts });
-        } catch (error) {
+            console.log("Here");
+            console.log("userId:", userId);
+            console.log("if here we have an id");
+
+            console.log(objectId);
+    
+            const user = await userCollection.findOne({ _id: objectId });
+    
+            if (user) {
+                console.log("User found:", user);
+                const customWorkouts1 = user.customWorkouts;
+    
+                // Render the 'completed_workout' page and pass the customWorkouts
+                res.render('completed_workout', { customWorkouts: customWorkouts1 });
+            } else {
+                console.log("No user found");
+                res.status(404).json({ success: false, message: 'User not found' });
+            }        } catch (error) {
             console.error('Error rendering completed_workout page:', error);
             res.status(500).json({ success: false, message: 'Failed to render completed_workout page' });
         }
