@@ -184,10 +184,21 @@ if (passwordInput.includes(' ')) {
 router.post('/register', async (req, res) => {
 
     try {
-    console.log(req.body);
+    // console.log(req.body);
     const { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput } = req.body;
 
-    console.log('Registering user with data:', { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput  });
+    const sanitizedData = {
+        firstNameInput: xss(firstNameInput),
+        lastNameInput: xss(lastNameInput),
+        emailAddressInput: xss(emailAddressInput),
+        passwordInput: xss(passwordInput),
+        confirmPasswordInput: xss(confirmPasswordInput),
+        ageInput: xss(ageInput),
+        dobInput: xss(dobInput),
+        genderInput: xss(genderInput)
+    };
+
+    // console.log('Registering user with data:', { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput  });
 
     // Validate the input fields
     if (!firstNameInput || !lastNameInput || !emailAddressInput || !passwordInput || !confirmPasswordInput || !ageInput || !dobInput || !genderInput) {
@@ -268,7 +279,16 @@ if (genderInput !== "male" && genderInput !== "female" && genderInput !== "other
     }
 
     // Call the registerUser db function
-    const result = await registerUser(firstNameInput, lastNameInput, emailAddressInput, passwordInput, dobInput, ageInput, genderInput);
+    // const result = await registerUser(firstNameInput, lastNameInput, emailAddressInput, passwordInput, dobInput, ageInput, genderInput);
+    const result = await registerUser(
+        sanitizedData.firstNameInput,
+        sanitizedData.lastNameInput,
+        sanitizedData.emailAddressInput,
+        sanitizedData.passwordInput,
+        sanitizedData.dobInput,
+        sanitizedData.ageInput,
+        sanitizedData.genderInput
+    );
 
     console.log('registerUser result:', result);
 
