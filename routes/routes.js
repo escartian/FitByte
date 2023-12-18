@@ -779,17 +779,17 @@ const filterExercises = (exercises, filter) => {
 function sanitizeExercises(exercises) {
     let exercisesArray;
 
-    try {
+    // try {
         exercisesArray = JSON.parse(exercises);
-    } catch (error) {
-        req.session.error = 'Invalid exercises data';
-        res.redirect('/error');
-    }
+    // } catch (error) {
+    //     req.session.error = 'Invalid exercises data';
+    //     res.redirect('/error');
+    // }
 
-    if (!Array.isArray(exercisesArray) || exercisesArray.length === 0) {
-        req.session.error = 'At least one exercise is required';
-        res.redirect('/error');
-    }
+    // if (!Array.isArray(exercisesArray) || exercisesArray.length === 0) {
+    //     req.session.error = 'At least one exercise is required';
+    //     res.redirect('/error');
+    // }
 
     // Sanitize individual exercise objects
     const sanitizedExercises = exercisesArray.map(exercise => ({
