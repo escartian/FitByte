@@ -100,7 +100,17 @@ router.get('/login', (req, res) => {
 router.post('/login', async (req, res) => {
 
     try {
-    const { emailAddressInput, passwordInput } = req.body;
+    // const { emailAddressInput, passwordInput } = req.body;
+    let { emailAddressInput, passwordInput } = req.body;
+
+
+    const sanitizedData = {
+        emailAddressInput: xss(emailAddressInput),
+        passwordInput: xss(passwordInput),
+    };
+
+    emailAddressInput = sanitizedData.emailAddressInput;
+    passwordInput = sanitizedData.passwordInput;
     
     // Validate the input fields
     if (!emailAddressInput || emailAddressInput.trim() === '' || !passwordInput || passwordInput.trim() === '') {
