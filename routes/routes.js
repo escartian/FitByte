@@ -428,10 +428,12 @@ router.post('/create_workout', async (req, res) => {
     let { workoutName, exercises } = req.body;
 
     const sanitizedData = {
-        workoutName : xss(workoutName)
+        workoutName : xss(workoutName),
+        exercises: sanitizeExercises(exercises),
     };
 
     workoutName = sanitizedData.workoutName;
+    exercises = sanitizedData.exercises;
 
     // Check if exercises is not empty or undefined
     if (!exercises) {
@@ -765,4 +767,36 @@ const filterExercises = (exercises, filter) => {
         return true;
     });
 };
+function sanitizeExercises(exercises) {
+    let exercisesArray;
+
+    try {
+        exercisesArray = JSON.parse(exercises);
+    } catch (error) {
+        req.session.error = 'Invalid exercises data';
+        res.redirect('/error');
+    }
+
+    if (!Array.isArray(exercisesArray) || exercisesArray.length === 0) {
+        req.session.error = 'At least one exercise is required';
+        res.redirect('/error');
+    }
+
+    // Sanitize individual exercise objects
+    const sanitizedExercises = exercisesArray.map(exercise => ({
+        exerciseName: xss(exercise.exerciseName),
+        sets: sanitizeSets(exercise.sets),
+    }));
+
+    return sanitizedExercises;
+}
+
+// Function to sanitize sets within exercises
+function sanitizeSets(sets) {
+    return sets.map(set => ({
+        setNumber: set.setNumber,
+        reps: xss(set.reps),
+        weight: xss(set.weight),
+    }));
+}
 export default router;
