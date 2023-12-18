@@ -3,10 +3,11 @@
 <h1>Create Exercise</h1>
 </div>
 
-<form action="/create_exercise" method="POST">
+<form id="create-exercise-form" action="/create_exercise" method="POST">
   <label for="name">Exercise Name:</label>
   <input type="text" id="name" name="name" required>
-
+  <small id="nameError" class="error-message mute-text"></small>
+  <div></div>
   <label for="force">Force:</label>
   <select id="force" name="force" required>
     {{#each Force}}

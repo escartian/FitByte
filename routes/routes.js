@@ -395,12 +395,17 @@ router.get('/create_exercise', (req, res) => {
 });
 
 router.post('/create_exercise', async (req, res) => {
+    try {
     // Access the data from the form submission
     let { name, force, level, mechanic, equipment } = req.body;
 
     const sanitizedData = { name : xss(name)};
 
-    name = sanitizedData.name;
+    name = sanitizedData.name.trim();
+
+    if (!name || name.trim() === '') {
+        return res.status(400).send('Invalid name');
+    }
 
     // Get the 'exercizes' collection
     const exercizes = await exercizesCollection();
@@ -421,6 +426,10 @@ router.post('/create_exercise', async (req, res) => {
 
     // Send a response
     res.send('Exercise created successfully');
+} catch (error) {
+    req.session.error = 'Exercise not created';
+    res.redirect('/error');
+}
 });
 
 router.post('/create_workout', async (req, res) => {
