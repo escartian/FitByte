@@ -9,15 +9,12 @@ Web Programming. Fall 2023
 The initial list of exersize data was obtained from https://github.com/wrkout/exercises.json
 ## Features
 CORE FEATURES
-1. Application has a list of default exercises, with the photos included. - DONE
-2. Users have the ability to custom create workouts for an individual day, and then update the workout as they are completed (i.e. enter the sets and reps done for each exercise) - IN PROGRESS
-3. Users can also create workout templates, which they should be able to re-use and apply to multiple days - DONE
-4. Default exercises can be filtered by muscle group, category, etc. - DONE
-5. User profiles, and a user profile page where users can view their workout history and track their progress - IN PROGRESS
-## EXTRA FEATURES
-6. Workout programs - a collection of workout templates applied to specific days over the course of multiple weeks. users should be able to either create workout programs, or use workout programs created by other users - NOT STARTED
-7. Expand on the tracking  (from point 5) to also include graphs (line or bar charts) for tracking progress - NOT STARTED
-8. Implement a calories burned calculator - NOT STARTED
+1. Application has a list of default exercises, with the photos included.
+2. Users have the ability to custom create workouts for an individual day, and then update the workout as they are completed (i.e. enter the sets and reps done for each exercise)
+3. Users can also create workout templates, which they should be able to re-use and apply to multiple days.
+4. Default exercises can be filtered by muscle group, category, etc.
+5. User profiles, and a user profile page where users can view their workout history and track their progress
+
 ## Installation
 Via command line interface using git bash:
 1. Clone the repository:
@@ -43,8 +40,7 @@ The application will be running at `http://localhost:3000`.
 
 Go to your prefered browser and enter http://localhost:3000 into the url input field to access the website after successfully starting the server. This will take you to the home page.
 
-To use FitByte, register an account, log in, and start a workout. You can view exercises and previous workouts from the home page without registering.
-
+To use FitByte, register an account, log in, and start a workout. You can also look at the exersizes and start an empty workout (manually add each exersize) or repeat a workout from the workout templates.
 ## Contributing
 Please contact the owner of this repository if you wish to contribute
 
