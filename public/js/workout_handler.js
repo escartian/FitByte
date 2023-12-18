@@ -4,7 +4,7 @@ const exerciseNameDropdown = document.getElementById('exerciseName');
 const setsField = document.getElementById('sets');
 const repsField = document.getElementById('reps');
 const weightField = document.getElementById('weight');
-const currentWorkoutList = document.getElementById('currentWorkout');
+//const currentWorkoutList = document.getElementById('currentWorkout');
 const exercisesField = document.getElementById('exercises');
 const workoutForm = document.getElementById('workout-form');
 
@@ -44,9 +44,16 @@ updateCurrentWorkoutDisplay();
  * @return {undefined} This function does not return a value.
  */
 function updateCurrentWorkoutDisplay() {
-    // Clear the current workout list
+    let currentWorkoutList = document.getElementById('currentWorkout');
+    if (!currentWorkoutList) {
+        // Create the element if it doesn't exist
+        currentWorkoutList = document.createElement('div');
+        currentWorkoutList.id = 'currentWorkout';
+        // Append the new element to the body or another container element
+        document.body.appendChild(currentWorkoutList);
+    }
+    // Set the innerHTML whether the element existed or was just created
     currentWorkoutList.innerHTML = '';
-
     // Loop through the exercises in the current workout
     currentWorkout.forEach((exercise, index) => {
         // Create a container for the exercise
@@ -158,9 +165,34 @@ function updateCurrentWorkoutDisplay() {
 addExerciseButton.addEventListener('click', function () {
     // Get the number of sets
     const numSets = parseInt(setsField.value);
+    
+    if (isNaN(numSets)){
+        alert('Sets must be a number');
+        return;
+    }
+    // Check if numSets is at least 1
+    if (numSets < 1) {
+        alert('Number of sets must be at least 1');
+        return;
+    }
     // Get the reps and weight
     const reps = parseInt(repsField.value);
+    if (isNaN(reps)){
+        alert('Reps must be a number');
+        return;
+    }
+    // Check if reps is at least 1
+    if (reps < 1) {
+        alert('Reps must be at least 1');
+        return;
+    }
     const weight = parseInt(weightField.value);
+    // Check if weight is a number, some exersizes allow assistance (negative weight)
+    //only checking if input is parsed successfully as number
+    if (isNaN(weight)) {
+        alert('Weight must be a number');
+        return;
+    }
     // Create an array of sets with the specified number of sets
     const sets = Array.from({ length: numSets }, (_, i) => ({
         setNumber: i + 1,
