@@ -195,7 +195,7 @@ router.post('/register', async (req, res) => {
 
     try {
     // console.log(req.body);
-    const { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput } = req.body;
+    let { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput } = req.body;
 
     const sanitizedData = {
         firstNameInput: xss(firstNameInput),
@@ -207,6 +207,15 @@ router.post('/register', async (req, res) => {
         dobInput: xss(dobInput),
         genderInput: xss(genderInput)
     };
+
+    firstNameInput = sanitizedData.firstNameInput;
+    lastNameInput = sanitizedData.lastNameInput;
+    emailAddressInput = sanitizedData.emailAddressInput;
+    passwordInput = sanitizedData.passwordInput;
+    confirmPasswordInput = sanitizedData.confirmPasswordInput;
+    ageInput = sanitizedData.ageInput;
+    dobInput = sanitizedData.dobInput;
+    genderInput = sanitizedData.genderInput;
 
     // console.log('Registering user with data:', { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput  });
 
@@ -289,16 +298,16 @@ if (genderInput !== "male" && genderInput !== "female" && genderInput !== "other
     }
 
     // Call the registerUser db function
-    // const result = await registerUser(firstNameInput, lastNameInput, emailAddressInput, passwordInput, dobInput, ageInput, genderInput);
-    const result = await registerUser(
-        sanitizedData.firstNameInput,
-        sanitizedData.lastNameInput,
-        sanitizedData.emailAddressInput,
-        sanitizedData.passwordInput,
-        sanitizedData.dobInput,
-        sanitizedData.ageInput,
-        sanitizedData.genderInput
-    );
+    const result = await registerUser(firstNameInput, lastNameInput, emailAddressInput, passwordInput, dobInput, ageInput, genderInput);
+    // const result = await registerUser(
+    //     sanitizedData.firstNameInput,
+    //     sanitizedData.lastNameInput,
+    //     sanitizedData.emailAddressInput,
+    //     sanitizedData.passwordInput,
+    //     sanitizedData.dobInput,
+    //     sanitizedData.ageInput,
+    //     sanitizedData.genderInput
+    // );
 
     console.log('registerUser result:', result);
 
