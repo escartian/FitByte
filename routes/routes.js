@@ -396,7 +396,11 @@ router.get('/create_exercise', (req, res) => {
 
 router.post('/create_exercise', async (req, res) => {
     // Access the data from the form submission
-    const { name, force, level, mechanic, equipment } = req.body;
+    let { name, force, level, mechanic, equipment } = req.body;
+
+    const sanitizedData = { name : xss(name)};
+
+    name = sanitizedData.name;
 
     // Get the 'exercizes' collection
     const exercizes = await exercizesCollection();
@@ -421,7 +425,13 @@ router.post('/create_exercise', async (req, res) => {
 
 router.post('/create_workout', async (req, res) => {
     // Access the data from the form submission
-    const { workoutName, exercises } = req.body;
+    let { workoutName, exercises } = req.body;
+
+    const sanitizedData = {
+        workoutName : xss(workoutName)
+    };
+
+    workoutName = sanitizedData.workoutName;
 
     // Check if exercises is not empty or undefined
     if (!exercises) {
