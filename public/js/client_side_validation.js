@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
         addExerciseForm: {
             sets: 'Set number must be greater than 0',
             reps: 'Rep number must be greater than 0',
-            weight: 'Weight cannot be a negative number',
             emptyInput: 'Field cannot be empty'
         }
     };
@@ -175,8 +174,6 @@ document.addEventListener('DOMContentLoaded', () => {
          //Validate weight
          if (!inputs.weight || inputs.weight.trim() === '') {
             errors.weight = errorMessages[formType].emptyInput;
-        } else if (inputs.weight < 0) {
-            errors.weight = errorMessages[formType].weight;
         }
          }
 
