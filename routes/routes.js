@@ -390,8 +390,23 @@ router.post('/create_workout', async (req, res) => {
         res.redirect('/error');
         //throw new Error('No exercises provided');
     }
-    // Parse the exercises field into an array
-    const exercisesArray = JSON.parse(exercises);
+    if (!workoutName || workoutName.trim() === '') {
+        req.session.error = 'Workout name is required';
+        return res.redirect('/error');
+    }
+    
+    let exercisesArray;
+    try {
+        exercisesArray = JSON.parse(exercises);
+    } catch (error) {
+        req.session.error = 'Invalid exercises data';
+        return res.redirect('/error');
+    }
+    
+    if (!Array.isArray(exercisesArray) || exercisesArray.length === 0) {
+        req.session.error = 'At least one exercise is required';
+        return res.redirect('/error');
+    }
 
     // Get the 'workouts' collection
     const workouts = await workoutsCollection();
@@ -506,10 +521,25 @@ router.post('/finish_workout', async (req, res) => {
         req.session.error = 'No exersizes provided in workout session';
         res.redirect('/error');
     }
+    if (!workoutName || workoutName.trim() === '') {
+        req.session.error = 'Workout name is required';
+        return res.redirect('/error');
+    }
     // Parse the exercises field into an array
-    const exercisesArray = JSON.parse(exercises);
+    let exercisesArray;
+    try {
+        exercisesArray = JSON.parse(exercises);
+    } catch (error) {
+        req.session.error = 'Invalid exercises data';
+        return res.redirect('/error');
+    }
 
-    // Get the 'workouts' collection
+    if (!Array.isArray(exercisesArray) || exercisesArray.length === 0) {
+        req.session.error = 'At least one exercise is required';
+        return res.redirect('/error');
+    }
+
+        // Get the 'workouts' collection
     const workouts = await workoutsCollection();
 
     // Create a new workout document
@@ -548,10 +578,18 @@ router.post('/completed_workout', async (req, res) => {
         const { workoutName, workoutId } = req.body;
 
         const userId = req.session.user._id;
-
+        if (!userId || !workoutName || !workoutId) {
+            req.session.error = 'Missing required fields for updating user custom workouts';
+            return res.redirect('/error');
+        }
         // Call the function to update user customWorkouts
-        const updatedUser = await updateUserCustomWorkouts(userId, workoutName, workoutId);
-
+        let updatedUser;
+        try {
+            updatedUser = await updateUserCustomWorkouts(userId, workoutName, workoutId);
+        } catch (error) {
+            req.session.error = 'Failed to update user custom workouts';
+            return res.redirect('/error');
+        }
         // res.redirect('completed_workout');
         res.json({ success: true });
     } catch (error) {
