@@ -456,17 +456,7 @@ router.post('/create_workout', async (req, res) => {
     }
     
     let exercisesArray;
-    try {
-        exercisesArray = JSON.parse(exercises);
-    } catch (error) {
-        req.session.error = 'Invalid exercises data';
-        return res.redirect('/error');
-    }
-    
-    if (!Array.isArray(exercisesArray) || exercisesArray.length === 0) {
-        req.session.error = 'At least one exercise is required';
-        return res.redirect('/error');
-    }
+   
 
     // Get the 'workouts' collection
     const workouts = await workoutsCollection();
