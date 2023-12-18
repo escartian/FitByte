@@ -100,7 +100,17 @@ router.get('/login', (req, res) => {
 router.post('/login', async (req, res) => {
 
     try {
-    const { emailAddressInput, passwordInput } = req.body;
+    // const { emailAddressInput, passwordInput } = req.body;
+    let { emailAddressInput, passwordInput } = req.body;
+
+
+    const sanitizedData = {
+        emailAddressInput: xss(emailAddressInput),
+        passwordInput: xss(passwordInput),
+    };
+
+    emailAddressInput = sanitizedData.emailAddressInput;
+    passwordInput = sanitizedData.passwordInput;
     
     // Validate the input fields
     if (!emailAddressInput || emailAddressInput.trim() === '' || !passwordInput || passwordInput.trim() === '') {
@@ -184,10 +194,30 @@ if (passwordInput.includes(' ')) {
 router.post('/register', async (req, res) => {
 
     try {
-    console.log(req.body);
-    const { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput } = req.body;
+    // console.log(req.body);
+    let { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput } = req.body;
 
-    console.log('Registering user with data:', { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput  });
+    const sanitizedData = {
+        firstNameInput: xss(firstNameInput),
+        lastNameInput: xss(lastNameInput),
+        emailAddressInput: xss(emailAddressInput),
+        passwordInput: xss(passwordInput),
+        confirmPasswordInput: xss(confirmPasswordInput),
+        ageInput: xss(ageInput),
+        dobInput: xss(dobInput),
+        genderInput: xss(genderInput)
+    };
+
+    firstNameInput = sanitizedData.firstNameInput;
+    lastNameInput = sanitizedData.lastNameInput;
+    emailAddressInput = sanitizedData.emailAddressInput;
+    passwordInput = sanitizedData.passwordInput;
+    confirmPasswordInput = sanitizedData.confirmPasswordInput;
+    ageInput = sanitizedData.ageInput;
+    dobInput = sanitizedData.dobInput;
+    genderInput = sanitizedData.genderInput;
+
+    // console.log('Registering user with data:', { firstNameInput, lastNameInput, emailAddressInput, passwordInput, confirmPasswordInput, ageInput, dobInput, genderInput  });
 
     // Validate the input fields
     if (!firstNameInput || !lastNameInput || !emailAddressInput || !passwordInput || !confirmPasswordInput || !ageInput || !dobInput || !genderInput) {
@@ -269,6 +299,15 @@ if (genderInput !== "male" && genderInput !== "female" && genderInput !== "other
 
     // Call the registerUser db function
     const result = await registerUser(firstNameInput, lastNameInput, emailAddressInput, passwordInput, dobInput, ageInput, genderInput);
+    // const result = await registerUser(
+    //     sanitizedData.firstNameInput,
+    //     sanitizedData.lastNameInput,
+    //     sanitizedData.emailAddressInput,
+    //     sanitizedData.passwordInput,
+    //     sanitizedData.dobInput,
+    //     sanitizedData.ageInput,
+    //     sanitizedData.genderInput
+    // );
 
     console.log('registerUser result:', result);
 
@@ -356,8 +395,17 @@ router.get('/create_exercise', (req, res) => {
 });
 
 router.post('/create_exercise', async (req, res) => {
+    try {
     // Access the data from the form submission
-    const { name, force, level, mechanic, equipment } = req.body;
+    let { name, force, level, mechanic, equipment } = req.body;
+
+    const sanitizedData = { name : xss(name)};
+
+    name = sanitizedData.name.trim();
+
+    if (!name || name.trim() === '') {
+        return res.status(400).send('Invalid name');
+    }
 
     // Get the 'exercizes' collection
     const exercizes = await exercizesCollection();
@@ -378,11 +426,23 @@ router.post('/create_exercise', async (req, res) => {
 
     // Send a response
     res.send('Exercise created successfully');
+} catch (error) {
+    req.session.error = 'Exercise not created';
+    res.redirect('/error');
+}
 });
 
 router.post('/create_workout', async (req, res) => {
     // Access the data from the form submission
-    const { workoutName, exercises } = req.body;
+    let { workoutName, exercises } = req.body;
+
+    const sanitizedData = {
+        workoutName : xss(workoutName),
+        exercises: sanitizeExercises(exercises),
+    };
+
+    workoutName = sanitizedData.workoutName;
+    exercises = sanitizedData.exercises;
 
     // Check if exercises is not empty or undefined
     if (!exercises) {
@@ -716,4 +776,36 @@ const filterExercises = (exercises, filter) => {
         return true;
     });
 };
+function sanitizeExercises(exercises) {
+    let exercisesArray;
+
+    try {
+        exercisesArray = JSON.parse(exercises);
+    } catch (error) {
+        req.session.error = 'Invalid exercises data';
+        res.redirect('/error');
+    }
+
+    if (!Array.isArray(exercisesArray) || exercisesArray.length === 0) {
+        req.session.error = 'At least one exercise is required';
+        res.redirect('/error');
+    }
+
+    // Sanitize individual exercise objects
+    const sanitizedExercises = exercisesArray.map(exercise => ({
+        exerciseName: xss(exercise.exerciseName),
+        sets: sanitizeSets(exercise.sets),
+    }));
+
+    return sanitizedExercises;
+}
+
+// Function to sanitize sets within exercises
+function sanitizeSets(sets) {
+    return sets.map(set => ({
+        setNumber: set.setNumber,
+        reps: xss(set.reps),
+        weight: xss(set.weight),
+    }));
+}
 export default router;
